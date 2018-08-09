@@ -26,8 +26,58 @@
 </head>
 
 <body>
-  <header id="header">
+  <header id="header" class="fixed">
+    <div class="grid-x">
+      <div id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+      <a href="{% url 'main:index' %}">
+        <div id="site-title">
+          <h1>enybank</h1>
+        </div>
+      </a>
+      <div id="icon-area" class="grid-x">
+        <a href="{% url 'accounts:login' %}">
+          <div>
+            <p id="icon-login"><i class="fas fa-sign-in-alt"></i></p>
+            <p class="icon-text text-center">ログイン</p>
+          </div>
+        </a>
+        <a href="{% url 'accounts:profile' %}">
+          <div>
+            <p id="icon-accounts"><i class="far fa-user"></i></p>
+            <p class="icon-text text-center">アカウント</p>
+          </div>
+        </a>
+        <a href="{% url 'main:cart' %}">
+          <div>
+            <p id="icon-cart"><i class="fas fa-shopping-cart"></i></p>
+            <p class="icon-text text-center">&nbsp;カート</p>
+          </div>
+        </a>
+      </div>
+    </div>
   </header>
+
+  <nav id="drawer" class="sticky">
+    <div class="drawer-div drawer-div-first">
+    </div>
+    <div class="drawer-div">
+      <p class="text-center"><a href="">トップページ</a></p>
+    </div>
+    <div class="drawer-div">
+      <p class="text-center"><a href="">ログイン</a></p>
+      <p class="text-center"><a href="">新規登録</a></p>
+    </div>
+    <div class="drawer-div">
+      <p class="text-center"><a href="">FAQ</a></p>
+      <p class="text-center"><a href="">サービス概要</a></p>
+      <p class="text-center"><a href="">お問い合わせ</a></p>
+    </div>
+  </nav>
+
+  <div id="dummy">
+  </div>
 
   <div id="content">
     {% block content %}

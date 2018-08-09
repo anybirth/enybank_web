@@ -1,1 +1,140 @@
+/* common */
+.fixed {
+  position: fixed;
+}
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  -moz-position: sticky;
+  top: 0px;
+}
+.display-none {
+  display: none !important;
+}
+.center-horizontally {
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+.center-vertically {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
 
+/* header */
+#header {
+  width: 100%;
+  height: 40px;
+  z-index: 400;
+  background-color: #FFF;
+}
+#header p {
+  margin-bottom: 0;
+  color: #000000;
+}
+#hamburger {
+    display: block;
+    width: 50px;
+    height: 40px;
+    text-align: center;
+}
+#hamburger span {
+    display: block;
+    position: absolute;
+    width: 22px;
+    border-bottom: solid 2px #F25757;
+    border-radius: 1px;
+    -webkit-transition: .35s ease-in-out;
+    -moz-transition: .35s ease-in-out;
+    transition: .35s ease-in-out;
+    left: 14px;
+}
+#hamburger span:nth-child(1) {
+    top: 14px;
+}
+#hamburger span:nth-child(2) {
+    top: 20px;
+}
+#hamburger span:nth-child(3) {
+    top: 26px;
+}
+#hamburger.active span:nth-child(1) {
+    top: 20px;
+    left: 14px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+#hamburger.active span:nth-child(2),
+#hamburger.active span:nth-child(3) {
+    top: 20px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+#site-title {
+  height: 32px;
+}
+#site-title h1 {
+  font-family: MyanmarSangamMN;
+  font-size: 24px;
+  margin: 4px 13px 4px 13px;
+  color: #000000;
+}
+#icon-area {
+  margin-left: auto;
+}
+#icon-login {
+  font-size: 15px;
+  margin: 4px 17px 0 13px;
+}
+#icon-accounts {
+  font-size: 15px;
+  margin: 4px 13px 0 13px;
+}
+#icon-cart {
+  font-size: 15px;
+  margin: 4px 13px 0 13px;
+}
+.icon-text {
+  font-family: HiraginoSans-W3;
+  font-size: 6px;
+  margin-bottom: 0;
+}
+
+/* drawer */
+#drawer {
+  display: none;
+  width: 100%;
+  height: 100%;
+  z-index: 300;
+  background-color: #fff;
+}
+.drawer-div {
+  margin: 0 2rem;
+  padding: 1.5rem 0 0.5rem;
+  border-bottom: 1px solid #F25757;
+}
+.drawer-div-first {
+  height: 2rem;
+}
+#dummy {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 200;
+  background-color: #fff;
+}
+
+/* content */
+#content {
+  width: 100%;
+  z-index: 100;
+}
