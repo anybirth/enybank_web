@@ -81,6 +81,8 @@ class Airline(UUIDModel):
 class Size(UUIDModel):
     name = models.CharField(_('サイズ名'), max_length=50)
     description = models.TextField(_('備考'), blank=True)
+    min_capacity = models.SmallIntegerField(_('最小容量'))
+    max_capacity = models.SmallIntegerField(_('最大容量'), blank=True, null=True)
     min_days = models.SmallIntegerField(_('最小日数'))
     max_days = models.SmallIntegerField(_('最大日数'), blank=True, null=True)
     min_weight = models.FloatField(_('最小重量'))
