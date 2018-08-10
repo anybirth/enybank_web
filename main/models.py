@@ -201,6 +201,7 @@ class Item(UUIDModel):
     length = models.FloatField(_('縦'))
     width = models.FloatField(_('横'))
     depth = models.FloatField(_('奥行'))
+    weight = models.FloatField(_('重量'))
     is_tsa = models.BooleanField(_('TSAロック対応'), default=True)
     fee_intercept = models.IntegerField(_('料金切片'))
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
