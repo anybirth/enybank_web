@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.conf import settings
 from django.core.mail import send_mail
 from django.views import generic
+from django.db.models import Q, Count
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from accounts.models import User
@@ -20,6 +21,11 @@ class IndexView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         context['color_categories'] = models.ColorCategory.objects.all()
         context['types'] = models.Type.objects.all()
+        context['item_same_day'] = models.Item.objects.get(uuid='9d3fa53a-29d0-4dae-a032-e690041aaad1')
+        context['item_free_shipping'] = models.Item.objects.get(uuid='9d3fa53a-29d0-4dae-a032-e690041aaad1')
+        context['item_all_new'] = models.Item.objects.get(uuid='9d3fa53a-29d0-4dae-a032-e690041aaad1')
+        context['items_popular'] = models.Item.objects.annotate(Count('reservation')).order_by('-reservation__count')[:3]
+        context['items_reasonable'] = models.Item.objects.order_by('fee_intercept')[:3]
         return context
 
 
