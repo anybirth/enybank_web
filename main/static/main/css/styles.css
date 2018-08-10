@@ -90,7 +90,7 @@
 .color_category {
   cursor: pointer;
 }
-.selected {
+.color_category.selected {
   border: 3px solid #FFF !important;
 }
 #types {
@@ -98,13 +98,17 @@
 }
 .type {
   cursor: pointer;
+  height: calc(100% - 8px);
   margin: 0 8px 8px 8px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 0 3px gray;
   border-radius: 6px;
+  background-size: cover;
+}
+.type.selected {
+  border: 3px solid #ff8c8c !important;
 }
 .type p {
-  margin: 5px 0 30px 5px;
+  margin: 0 0 30px 5px;
+  padding-top: 5px;
   font-family: HiraginoSans-W8;
   font-size: 14px;
   font-weight: 700;
@@ -137,6 +141,11 @@
   border-radius: 12px;
   background-color: #fff;
 }
+#appeal a {
+  display: block;
+  width: 100%;
+  color: #3c3b3b;
+}
 #appeal h1 {
   font-family: HiraginoSans-W5;
   font-size: 16px;
@@ -161,9 +170,6 @@
   height: 18px;
   margin-right: 5px;
 }
-#appeal a {
-  color: #3c3b3b;
-}
 #appeal .item-image {
   width: 70px;
   height: 80px;
@@ -183,6 +189,10 @@
 #ranking {
   padding-bottom: 25px;
   background-color: rgba(0, 0, 0, 0.04);
+}
+#appeal a {
+  display: block;
+  width: 100%;
 }
 #ranking h1 {
   font-family: HiraKakuPro-W6;
@@ -253,7 +263,7 @@
 #ranking .item-grid img {
   display: block;
   height: 53px;
-  margin-top: -26px;
+  margin-top: -20px;
 }
 #ranking .item-grid h3 {
   font-family: HiraMaruProN-W4;
@@ -285,4 +295,129 @@
 }
 #ranking .more a {
   color: #ff5066;
+}
+
+/* feature search */
+#feature-search a {
+  display: block;
+  width: 100%;
+  color: #4a4a4a;
+}
+#feature-search h1 {
+  font-family: HiraKakuPro-W6;
+  font-size: 17px;
+  font-weight: 700;
+  padding-top: 16px;
+  color: #514545;
+}
+#feature-search h1 img {
+  width: 16px;
+  height: auto;
+  margin: -4px 8px 0 0;
+}
+#feature-search h2 {
+  display: flex;
+  align-items: center;
+  font-family: HiraKakuPro-W5;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 9px;
+  padding-top: 16px;
+  color: #ff8c8c;
+}
+#feature-search h2:after {
+  margin-left: 15px;
+  border-top: 1px solid rgba(255, 140, 140, 0.35);
+  content: "";
+  flex-grow: 1;
+}
+#icon-luggage {
+  width: 20px;
+  height: auto;
+  margin: -2px 8px 0 19px;
+}
+#icon-airplane {
+  width: 28px;
+  height: auto;
+  margin: -5px 4px 0 19px;
+}
+#size-grid-wrapper {
+  margin: 0 8px 18px;
+}
+#size-grid-wrapper .size-grid {
+  margin: 10px 8px 0;
+  border: 1px solid #ff8c8c;
+  border-radius: 9px;
+}
+#size-grid-wrapper .size-img {
+  /* position: relative; */
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin: 12px 2px 10px 12px;
+  background-size: cover;
+}
+#size-grid-wrapper .size-img p {
+  /* position: absolute; */
+  margin-top: 9px;
+  font-family: LucidaGrande;
+  font-size: 18px;
+  color: #ff8c8c;
+  height: auto;
+}
+#size-grid-wrapper .size-title {
+  margin: 15px auto 11px auto;
+}
+#size-grid-wrapper h3 {
+  font-family: HiraginoSans-W6;
+  font-size: 10px;
+  font-weight: 700;
+  color: #4a4a4a;
+}
+#size-grid-wrapper h3 span {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ff8c8c;
+}
+#size-grid-wrapper .size-text {
+  font-family: HiraKakuPro-W3;
+  font-size: 9px;
+  line-height: 1.33;
+  margin: 0 9px 8px;
+  color: #000000;
+}
+#size-grid-wrapper .size-info {
+  font-family: HiraKakuPro-W3;
+  font-size: 9px;
+  line-height: 1.33;
+  margin: 0 9px 8px;
+  color: rgba(0, 0, 0, 0.52);
+}
+#airline-grid-wrapper {
+  margin: 12px 8px 22px;
+}
+#airline-grid-wrapper .airline-grid {
+  margin: 6px 4px 0;
+  border-radius: 6px;
+}
+#airline-grid-wrapper .airline-name {
+  width: 80%;
+  border-right: 1px solid #fff;
+}
+#airline-grid-wrapper .airline-pointer {
+  width: 20%;
+}
+#airline-grid-wrapper .airline-name p {
+  font-family: HiraginoSans-W5;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 0;
+  padding: 9px 0 9px 3px;
+  color: #ffffff;
+}
+#airline-grid-wrapper .airline-pointer p {
+  font-family: HiraginoSans-W5;
+  font-size: 24px;
+  margin: auto;
+  color: #ffffff;
 }

@@ -52,7 +52,7 @@
   <div id="types" class="grid-x">
     {% for type in types %}
       <div class="cell small-6">
-        <div id="{{ type.uuid }}" class="type" style="background-image:url({{ type.image.url }});background-size:cover;">
+        <div id="{{ type.uuid }}" class="type" title="{{ type.name }}" style="background-image:url({{ type.image.url }});">
           <p>{{ type.name }}</p>
         </div>
       </div>
@@ -68,25 +68,25 @@
     <h1 class="text-center">これらが1日<span>800</span>円から借りられます！</h1>
     <div class="grid-x">
       <div class="cell small-4">
-        <h2 class="text-center"><a href=""><img src="{% static 'main/img/time.png' %}">即日配送</a></h2>
         <a href="">
-          <img class="item-image center-horizontally" src="{{ item_same_day.item_image_set.all.0.image.url }}">
+          <h2 class="text-center"><img src="{% static 'main/img/time.png' %}">即日配送</h2>
+            <img class="item-image center-horizontally" src="{{ item_same_day.item_image_set.all.0.image.url }}">
+          <p class="text-center">800円/1日</p>
         </a>
-        <p class="text-center"><a href="">800円/1日</a></p>
       </div>
       <div class="cell small-4">
-        <h2 class="text-center"><a href=""><img src="{% static 'main/img/car.png' %}">送料無料</a></h2>
         <a href="">
-          <img class="item-image center-horizontally" src="{{ item_free_shipping.item_image_set.all.0.image.url }}">
+          <h2 class="text-center"><img src="{% static 'main/img/car.png' %}">送料無料</h2>
+            <img class="item-image center-horizontally" src="{{ item_free_shipping.item_image_set.all.0.image.url }}">
+          <p class="text-center">800円/1日</p>
         </a>
-        <p class="text-center"><a href="">800円/1日</a></p>
       </div>
       <div class="cell small-4">
-        <h2 class="text-center"><a href=""><img src="{% static 'main/img/new.png' %}">全品新品</a></h2>
         <a href="">
-          <img class="item-image center-horizontally" src="{{ item_all_new.item_image_set.all.0.image.url }}">
+          <h2 class="text-center"><img src="{% static 'main/img/new.png' %}">全品新品</h2>
+            <img class="item-image center-horizontally" src="{{ item_all_new.item_image_set.all.0.image.url }}">
+          <p class="text-center">800円/1日</p>
         </a>
-        <p class="text-center"><a href="">800円/1日</a></p>
       </div>
     </div>
   </div>
@@ -98,8 +98,8 @@
   <div class="grid-x">
     {% for item in items_popular %}
     <div class="cell small-4">
-      <a href="">
-        <div class="item-grid">
+      <div class="item-grid">
+        <a href="">
           <div class="triangle">
           </div>
           <p class="triangle-text">一番人気</p>
@@ -108,8 +108,8 @@
           <div class="price">
             <p class="text-center"><span>{{ item.item_fee_coef_set.all.0.fee_coef }}円</span>/1日</p>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
     {% endfor %}
   </div>
@@ -118,8 +118,8 @@
   <div class="grid-x">
     {% for item in items_popular %}
     <div class="cell small-4">
-      <a href="">
-        <div class="item-grid">
+      <div class="item-grid">
+        <a href="">
           <div class="triangle">
           </div>
           <p class="triangle-text">一番人気</p>
@@ -128,12 +128,65 @@
           <div class="price">
             <p class="text-center"><span>{{ item.item_fee_coef_set.all.0.fee_coef }}円</span>/1日</p>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
     {% endfor %}
   </div>
   <p class="more text-right"><a href="">低価格をもっと見る</a></p>
+</section>
+
+<section id="feature-search">
+  <h1 class="text-center"><img src="{% static 'main/img/weight.png' %}">大きさ・航空会社から探す</h1>
+  <h2><img id="icon-luggage" src="{% static 'main/img/luggage.png' %}">大きさで選ぶ</h2>
+  <div id="size-grid-wrapper" class=" grid-x">
+    {% for size in sizes %}
+    <div class="cell small-6">
+      <div class="size-grid">
+        <a href="">
+          <div class="grid-x">
+            <div class="size-img" style="background-image:url({% static 'main/img/bag.png' %});">
+              <p class="text-center">{{ size.name }}</p>
+            </div>
+            <div class="size-title">
+              <h3 class="text-center">
+                <span>{% if size.min_days %}{{ size.min_days }}{% endif %}{% if size.max_days  %}&nbsp;~&nbsp;{{ size.max_days }}{% endif %}</span>泊{% if not size.max_days %}以上{% endif %}<br>
+                にオススメ！
+              </h3>
+            </div>
+            <p class="size-text">{{ size.description|linebreaksbr }}</p>
+            <p class="size-info">
+              三辺合計：&nbsp;{% if size.min_total_dimensions %}{{ size.min_total_dimensions|floatformat }}{% endif %}{% if size.max_total_dimensions  %}~{{ size.max_total_dimensions|floatformat }}{% endif %}cm{% if not size.max_total_dimensions  %}~{% endif %}<br>
+              重量　　：&nbsp;{% if size.min_weight %}{{ size.min_weight|floatformat:1 }}{% endif %}{% if size.max_weight  %}~{{ size.max_weight|floatformat:1 }}{% endif %}cm{% if not size.max_weight  %}~{% endif %}<br>
+              <!-- 容量　　：&nbsp;{% if size.min_capacity %}{{ size.min_capacity|floatformat }}{% endif %}
+              {% if size.max_capacity %}~{{ size.max_capacity|floatformat }}{% endif %}cm
+              {% if not size.max_capacity %}~{% endif %}<br> -->
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <h2><img id="icon-airplane" src="{% static 'main/img/airplane.png' %}">航空会社で選ぶ</h2>
+  <div id="airline-grid-wrapper" class="grid-x">
+    {% for airline in airlines %}
+    <div class="cell small-6">
+      <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
+        <a href="">
+          <div class="grid-x">
+            <div class="airline-name">
+              <p>{{ airline.name }}</p>
+            </div>
+              <div class="airline-pointer">
+                <p class="text-center"><i class="fas fa-arrow-right"></i></p>
+              </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </section>
 
 {% endblock %}

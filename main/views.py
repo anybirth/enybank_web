@@ -21,6 +21,8 @@ class IndexView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         context['color_categories'] = models.ColorCategory.objects.all()
         context['types'] = models.Type.objects.all()
+        context['sizes'] = models.Size.objects.all()
+        context['airlines'] = models.Airline.objects.all()
         context['item_same_day'] = models.Item.objects.get(uuid=settings.ITEM_SAME_DAY)
         context['item_free_shipping'] = models.Item.objects.get(uuid=settings.ITEM_FREE_SHIPPING)
         context['item_all_new'] = models.Item.objects.get(uuid=settings.ITEM_ALL_NEW)
