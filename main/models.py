@@ -112,12 +112,13 @@ class Type(UUIDModel):
     name = models.CharField(_('タイプ名'), max_length=50)
     description = models.TextField(_('備考'), blank=True)
     image = models.ImageField(upload_to=_get_image_path, verbose_name=_('画像'))
+    order= models.SmallIntegerField(_('表示順'))
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
     updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
 
     class Meta:
         db_table = 'types'
-        ordering = ['name']
+        ordering = ['order']
         verbose_name = _('タイプ')
         verbose_name_plural = _('タイプ')
 
@@ -142,12 +143,13 @@ class ColorCategory(UUIDModel):
     name = models.CharField(_('カラー分類名'), max_length=50)
     description = models.TextField(_('備考'), blank=True)
     code = models.CharField(_('カラーコード'), max_length=50)
+    order= models.SmallIntegerField(_('表示順'))
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
     updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
 
     class Meta:
         db_table = 'color_categories'
-        ordering = ['name']
+        ordering = ['order']
         verbose_name = _('カラー分類')
         verbose_name_plural = _('カラー分類')
 
