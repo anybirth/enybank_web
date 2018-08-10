@@ -58,6 +58,26 @@ class Prefecture(UUIDModel):
         return '%s' % self.name
 
 
+class Airline(UUIDModel):
+    name = models.CharField(_('サイズ名'), max_length=50)
+    color = models.CharField(_('コーポレートカラー'), max_length=50)
+    max_total_dimensions = models.SmallIntegerField(_('最大三辺合計'))
+    max_weight = models.SmallIntegerField(_('最大重量'))
+    order = models.SmallIntegerField(_('表示順'))
+    is_supported = models.BooleanField(_('対応中'), default=True)
+    created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+
+    class Meta:
+        db_table = 'airlines'
+        ordering = ['order']
+        verbose_name = _('航空会社')
+        verbose_name_plural = _('航空会社')
+
+    def __str__(self):
+        return '%s' % self.name
+
+
 class Size(UUIDModel):
     name = models.CharField(_('サイズ名'), max_length=50)
     description = models.TextField(_('備考'), blank=True)
