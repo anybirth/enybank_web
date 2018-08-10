@@ -59,7 +59,7 @@ class Prefecture(UUIDModel):
 
 
 class Airline(UUIDModel):
-    name = models.CharField(_('サイズ名'), max_length=50)
+    name = models.CharField(_('航空会社名'), max_length=50)
     color = models.CharField(_('コーポレートカラー'), max_length=50)
     max_total_dimensions = models.FloatField(_('最大三辺合計'))
     max_weight = models.FloatField(_('最大重量'))
