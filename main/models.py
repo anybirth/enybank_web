@@ -63,6 +63,10 @@ class Size(UUIDModel):
     description = models.TextField(_('備考'), blank=True)
     min_days = models.SmallIntegerField(_('最小日数'))
     max_days = models.SmallIntegerField(_('最大日数'), blank=True, null=True)
+    min_weight = models.SmallIntegerField(_('最小重量'))
+    max_weight = models.SmallIntegerField(_('最大重量'), blank=True, null=True)
+    min_total_dimensions = models.SmallIntegerField(_('最小三辺合計'))
+    max_total_dimensions = models.SmallIntegerField(_('最大三辺合計'), blank=True, null=True)
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
     updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
 
