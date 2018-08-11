@@ -129,7 +129,8 @@ class Type(UUIDModel):
         try:
             type = Type.objects.get(pk=self.pk)
             if type.image:
-                type.image.delete(save=False)
+                if type.image.url != self.image.url:
+                    type.image.delete(save=False)
         except self.DoesNotExist:
             pass
         super().save(*args, **kwargs)
@@ -286,7 +287,8 @@ class ItemImage(UUIDModel):
         try:
             item_image = ItemImage.objects.get(pk=self.pk)
             if item_image.image:
-                item_image.image.delete(save=False)
+                if item_image.image.url != self.image.url:
+                    item_image.image.delete(save=False)
         except self.DoesNotExist:
             pass
         super().save(*args, **kwargs)
