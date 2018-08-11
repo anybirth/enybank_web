@@ -393,6 +393,17 @@
   margin: 0 9px 8px;
   color: rgba(0, 0, 0, 0.52);
 }
+#size-grid-wrapper .size-button {
+  width: 100%;
+  background-color: #ff8c8c;
+  border-radius: 0 0 9px 9px;
+}
+#size-grid-wrapper .size-button p {
+  margin: 8px 0;
+  font-family: HiraMaruProN-W4;
+  font-size: 12px;
+  color: #ffffff;
+}
 #airline-grid-wrapper {
   margin: 12px 8px 22px;
 }

@@ -160,6 +160,9 @@
               重量　　：&nbsp;{% if size.min_weight %}{{ size.min_weight|floatformat:1 }}{% endif %}{% if size.max_weight %}~{{ size.max_weight|floatformat:1 }}{% endif %}kg{% if not size.max_weight %}~{% endif %}<br>
               容量　　：&nbsp;{% if size.min_capacity %}{{ size.min_capacity|floatformat }}{% endif %}{% if size.max_capacity %}~{{ size.max_capacity|floatformat }}{% endif %}L{% if not size.max_capacity %}~{% endif %}<br>
             </p>
+            <div class="size-button">
+              <p class="text-center">{{ size.name }}サイズの一覧へ</p>
+            </div>
           </div>
         </a>
       </div>
