@@ -106,10 +106,14 @@ class PrefectureAdmin(admin.ModelAdmin):
     list_filter = ['region']
     search_fields = ['name', 'description']
 
+class AirlineAdmin(admin.ModelAdmin):
+    list_display = ('name', 'max_total_dimensions', 'max_weight', 'is_supported')
+    list_filter = ['is_supported']
+    search_fields = ['name', 'max_total_dimensions', 'max_weight', 'is_supported']
+
 class SizeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'min_days', 'max_days')
-    list_filter = ['min_days']
-    search_fields = ['name', 'description', 'min_days', 'max_days']
+    list_display = ('name', 'min_days', 'max_days', 'min_weight', 'max_weight', 'min_total_dimensions', 'max_total_dimensions')
+    search_fields = ['name', 'description', 'min_days', 'max_days', 'min_weight', 'max_weight', 'min_total_dimensions', 'max_total_dimensions']
     inlines = [ItemInline]
 
 class TypeAdmin(admin.ModelAdmin):
@@ -163,6 +167,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Region, RegionAdmin)
 admin.site.register(models.Prefecture, PrefectureAdmin)
+admin.site.register(models.Airline, AirlineAdmin)
 admin.site.register(models.Size, SizeAdmin)
 admin.site.register(models.Type, TypeAdmin)
 admin.site.register(models.ColorCategory, ColorCategoryAdmin)

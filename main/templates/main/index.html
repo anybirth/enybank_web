@@ -3,46 +3,191 @@
 {% load static %}
 {% block content %}
 
-<p>index</p>
+<section id="top-slide" style="background-color:#eee;">
+  <div class="top-slide-item">
+    <div class="top-wrapper">
+      <div class="top-title">
+        <h1 class="text-center">スライド 1</h1>
+      </div>
+    </div>
+  </div>
+  <div class="top-slide-item">
+    <div class="top-wrapper">
+      <div class="top-title">
+        <h1 class="text-center">スライド 2</h1>
+      </div>
+    </div>
+  </div>
+  <div class="top-slide-item">
+    <div class="top-wrapper">
+      <div class="top-title">
+        <h1 class="text-center">スライド 3</h1>
+      </div>
+    </div>
+  </div>
+</section>
 
-<input id='start_date' type="date" name="calendar">
-<input id='return_date' type="date" name="calendar">
-<select name="color_categories">
-  <option value="">--------</option>
-  {% for color in color_categories %}
-  <option value="{{ color.uuid }}">{{ color.name }}</option>
-  {% endfor %}
-</select>
+<section id="easy-search">
+  <h1><i class="fas fa-search fa-sm"></i>&nbsp;スーツケースをすぐに探す</h1>
+  <div class="grid-x">
+    <div id="start_date" class="cell small-6">
+      <label>お届け日</label>
+      <input readonly class='date_picker' type="text" name="start_date">
+    </div>
+    <div id="return_date" class="cell small-6">
+      <label>返却日</label>
+      <input readonly class='date_picker' type="text" name="return_date">
+    </div>
+  </div>
+  <h2>カラー</h2>
+  <div id="color_categories" class="scroll-wrapper scroll-wrapper-circle">
+    <div class="scroll-inner scroll-inner-circle">
+      {% for color in color_categories %}
+      <div id="{{ color.uuid }}" class="box box-circle color_category" title="{{ color.name }}" style="background-color:{{ color.code }};">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <h2>鍵のタイプ</h2>
+  <div id="types" class="grid-x">
+    {% for type in types %}
+      <div class="cell small-6">
+        <div id="{{ type.uuid }}" class="type" title="{{ type.name }}" style="background-image:url({{ type.image.url }});">
+          <p>{{ type.name }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div id="easy-submit">
+    <p class="text-center"><a id="search" href="{% url 'main:search' %}" class="button">スーツケースを探す</a></p>
+  </div>
+</section>
 
-<select name="types">
-  <option value="">--------</option>
-  {% for type in types %}
-  <option value="{{ type.uuid }}">{{ type.name }}</option>
-  {% endfor %}
-</select>
+<section id="appeal">
+  <div id="appeal-div">
+    <h1 class="text-center">これらが1日<span>800</span>円から借りられます！</h1>
+    <div class="grid-x">
+      <div class="cell small-4">
+        <a href="">
+          <h2 class="text-center"><img src="{% static 'main/img/time.png' %}">即日配送</h2>
+            <img class="item-image center-horizontally" src="{{ item_same_day.item_image_set.all.0.image.url }}">
+          <p class="text-center">800円/1日</p>
+        </a>
+      </div>
+      <div class="cell small-4">
+        <a href="">
+          <h2 class="text-center"><img src="{% static 'main/img/car.png' %}">送料無料</h2>
+            <img class="item-image center-horizontally" src="{{ item_free_shipping.item_image_set.all.0.image.url }}">
+          <p class="text-center">800円/1日</p>
+        </a>
+      </div>
+      <div class="cell small-4">
+        <a href="">
+          <h2 class="text-center"><img src="{% static 'main/img/new.png' %}">全品新品</h2>
+            <img class="item-image center-horizontally" src="{{ item_all_new.item_image_set.all.0.image.url }}">
+          <p class="text-center">800円/1日</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<p class="text-center"><a id="search" href="{% url 'main:search' %}" class="button">search</a></p>
+<section id="ranking">
+  <h1 class="text-center"><img src="{% static 'main/img/king.png' %}">ランキングで探す</h1>
+  <h2><img id="icon-holy-grail" src="{% static 'main/img/holy-grail.png' %}">総合人気</h2>
+  <div class="grid-x">
+    {% for item in items_popular %}
+    <div class="cell small-4">
+      <div class="item-grid">
+        <a href="">
+          <div class="triangle">
+          </div>
+          <p class="triangle-text">一番人気</p>
+          <img class="center-horizontally" src="{{ item.item_image_set.all.0.image.url }}">
+          <h3>{{ item.name|truncatechars:22 }}</h3>
+          <div class="price">
+            <p class="text-center"><span>{{ item.item_fee_coef_set.all.0.fee_coef }}円</span>/1日</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="more text-right"><a href="">総合人気をもっと見る</a></p>
+  <h2><img id="icon-dollar" src="{% static 'main/img/dollar.png' %}">低価格</h2>
+  <div class="grid-x">
+    {% for item in items_reasonable %}
+    <div class="cell small-4">
+      <div class="item-grid">
+        <a href="">
+          <div class="triangle">
+          </div>
+          <p class="triangle-text">一番人気</p>
+          <img class="center-horizontally" src="{{ item.item_image_set.all.0.image.url }}">
+          <h3>{{ item.name|truncatechars:25 }}</h3>
+          <div class="price">
+            <p class="text-center"><span>{{ item.item_fee_coef_set.all.0.fee_coef }}円</span>/1日</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="more text-right"><a href="">低価格をもっと見る</a></p>
+</section>
 
-<script>
-$(function() {
-
-  $('#search').on('click', function() {
-    var start_date = $('#start_date').val();
-    var return_date = $('#return_date').val();
-    var color_category = $('[name=color_categories]').val();
-    var type = $('[name=types]').val();
-
-    if (start_date && return_date && color_category && type) {
-      var _href = $(this).attr("href");
-      $(this).attr("href", _href + '?start_date=' + start_date + '&return_date=' + return_date + '&color_category=' + color_category + '&type=' + type);
-    } else {
-      alert('Please select all elements.');
-      return false;
-    }
-  });
-});
-</script>
-
-
+<section id="feature-search">
+  <h1 class="text-center"><img src="{% static 'main/img/weight.png' %}">大きさ・航空会社から探す</h1>
+  <h2><img id="icon-luggage" src="{% static 'main/img/luggage.png' %}">大きさで選ぶ</h2>
+  <div id="size-grid-wrapper" class=" grid-x">
+    {% for size in sizes %}
+    <div class="cell small-6">
+      <div class="size-grid">
+        <a href="">
+          <div class="grid-x">
+            <div class="size-img" style="background-image:url({% static 'main/img/bag.png' %});">
+              <p class="text-center">{{ size.name }}</p>
+            </div>
+            <div class="size-title">
+              <h3 class="text-center">
+                <span>{% if size.min_days %}{{ size.min_days }}{% endif %}{% if size.max_days  %}&nbsp;~&nbsp;{{ size.max_days }}{% endif %}</span>&nbsp;泊{% if not size.max_days %}以上{% endif %}<br>
+                にオススメ！
+              </h3>
+            </div>
+            <p class="size-text">{{ size.description }}</p>
+            <p class="size-info">
+              三辺合計：&nbsp;{% if size.min_total_dimensions %}{{ size.min_total_dimensions|floatformat }}{% endif %}{% if size.max_total_dimensions %}~{{ size.max_total_dimensions|floatformat }}{% endif %}cm{% if not size.max_total_dimensions %}~{% endif %}<br>
+              重量　　：&nbsp;{% if size.min_weight %}{{ size.min_weight|floatformat:1 }}{% endif %}{% if size.max_weight %}~{{ size.max_weight|floatformat:1 }}{% endif %}kg{% if not size.max_weight %}~{% endif %}<br>
+              容量　　：&nbsp;{% if size.min_capacity %}{{ size.min_capacity|floatformat }}{% endif %}{% if size.max_capacity %}~{{ size.max_capacity|floatformat }}{% endif %}L{% if not size.max_capacity %}~{% endif %}<br>
+            </p>
+            <div class="size-button">
+              <p class="text-center">{{ size.name }}サイズの一覧へ</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <h2><img id="icon-airplane" src="{% static 'main/img/airplane.png' %}">航空会社で選ぶ</h2>
+  <div id="airline-grid-wrapper" class="grid-x">
+    {% for airline in airlines %}
+    <div class="cell small-6">
+      <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
+        <a href="">
+          <div class="grid-x">
+            <div class="airline-name">
+              <p>{{ airline.name }}</p>
+            </div>
+              <div class="airline-pointer">
+                <p class="text-center"><i class="fas fa-arrow-right"></i></p>
+              </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
 
 {% endblock %}

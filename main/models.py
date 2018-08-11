@@ -58,11 +58,37 @@ class Prefecture(UUIDModel):
         return '%s' % self.name
 
 
+class Airline(UUIDModel):
+    name = models.CharField(_('航空会社名'), max_length=50)
+    color = models.CharField(_('コーポレートカラー'), max_length=50)
+    max_total_dimensions = models.FloatField(_('最大三辺合計'))
+    max_weight = models.FloatField(_('最大重量'))
+    order = models.SmallIntegerField(_('表示順'))
+    is_supported = models.BooleanField(_('対応中'), default=True)
+    created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+
+    class Meta:
+        db_table = 'airlines'
+        ordering = ['order']
+        verbose_name = _('航空会社')
+        verbose_name_plural = _('航空会社')
+
+    def __str__(self):
+        return '%s' % self.name
+
+
 class Size(UUIDModel):
     name = models.CharField(_('サイズ名'), max_length=50)
     description = models.TextField(_('備考'), blank=True)
+    min_capacity = models.SmallIntegerField(_('最小容量'))
+    max_capacity = models.SmallIntegerField(_('最大容量'), blank=True, null=True)
     min_days = models.SmallIntegerField(_('最小日数'))
     max_days = models.SmallIntegerField(_('最大日数'), blank=True, null=True)
+    min_weight = models.FloatField(_('最小重量'))
+    max_weight = models.FloatField(_('最大重量'), blank=True, null=True)
+    min_total_dimensions = models.FloatField(_('最小三辺合計'))
+    max_total_dimensions = models.FloatField(_('最大三辺合計'), blank=True, null=True)
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
     updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
 
@@ -86,12 +112,13 @@ class Type(UUIDModel):
     name = models.CharField(_('タイプ名'), max_length=50)
     description = models.TextField(_('備考'), blank=True)
     image = models.ImageField(upload_to=_get_image_path, verbose_name=_('画像'))
+    order= models.SmallIntegerField(_('表示順'))
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
     updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
 
     class Meta:
         db_table = 'types'
-        ordering = ['name']
+        ordering = ['order']
         verbose_name = _('タイプ')
         verbose_name_plural = _('タイプ')
 
@@ -102,7 +129,8 @@ class Type(UUIDModel):
         try:
             type = Type.objects.get(pk=self.pk)
             if type.image:
-                type.image.delete(save=False)
+                if type.image.url != self.image.url:
+                    type.image.delete(save=False)
         except self.DoesNotExist:
             pass
         super().save(*args, **kwargs)
@@ -116,12 +144,13 @@ class ColorCategory(UUIDModel):
     name = models.CharField(_('カラー分類名'), max_length=50)
     description = models.TextField(_('備考'), blank=True)
     code = models.CharField(_('カラーコード'), max_length=50)
+    order= models.SmallIntegerField(_('表示順'))
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
     updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
 
     class Meta:
         db_table = 'color_categories'
-        ordering = ['name']
+        ordering = ['order']
         verbose_name = _('カラー分類')
         verbose_name_plural = _('カラー分類')
 
@@ -172,6 +201,10 @@ class Item(UUIDModel):
     name = models.CharField(_('商品名'), max_length=50)
     description = models.TextField(_('備考'), blank=True)
     capacity = models.IntegerField(_('容量'))
+    length = models.FloatField(_('縦'))
+    width = models.FloatField(_('横'))
+    depth = models.FloatField(_('奥行'))
+    weight = models.FloatField(_('重量'))
     is_tsa = models.BooleanField(_('TSAロック対応'), default=True)
     fee_intercept = models.IntegerField(_('料金切片'))
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
@@ -254,7 +287,8 @@ class ItemImage(UUIDModel):
         try:
             item_image = ItemImage.objects.get(pk=self.pk)
             if item_image.image:
-                item_image.image.delete(save=False)
+                if item_image.image.url != self.image.url:
+                    item_image.image.delete(save=False)
         except self.DoesNotExist:
             pass
         super().save(*args, **kwargs)
