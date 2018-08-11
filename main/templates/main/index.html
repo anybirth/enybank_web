@@ -94,7 +94,7 @@
 
 <section id="ranking">
   <h1 class="text-center"><img src="{% static 'main/img/king.png' %}">ランキングで探す</h1>
-  <h2><img src="{% static 'main/img/holy-grail.png' %}">総合人気</h2>
+  <h2><img id="icon-holy-grail" src="{% static 'main/img/holy-grail.png' %}">総合人気</h2>
   <div class="grid-x">
     {% for item in items_popular %}
     <div class="cell small-4">
@@ -114,7 +114,7 @@
     {% endfor %}
   </div>
   <p class="more text-right"><a href="">総合人気をもっと見る</a></p>
-  <h2><img src="{% static 'main/img/holy-grail.png' %}">低価格</h2>
+  <h2><img id="icon-dollar" src="{% static 'main/img/dollar.png' %}">低価格</h2>
   <div class="grid-x">
     {% for item in items_reasonable %}
     <div class="cell small-4">
