@@ -31,6 +31,7 @@
   width: 100%;
   height: 40px;
   z-index: 400;
+  box-shadow: 0 0px 4px gray;
   background-color: #FFF;
 }
 #header p {
@@ -89,17 +90,25 @@
 #icon-area {
   margin-left: auto;
 }
+#icon-area a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 #icon-login {
-  font-size: 15px;
-  margin: 4px 17px 0 13px;
+  width: 15px;
+  height: auto;
+  margin: 5px 18px 1px 12px;
 }
 #icon-accounts {
-  font-size: 15px;
-  margin: 4px 13px 0 13px;
+  width: 15px;
+  height: auto;
+  margin: 5px 14px 1px 12px;
 }
 #icon-cart {
-  font-size: 15px;
-  margin: 4px 13px 0 13px;
+  width: 15px;
+  height: auto;
+  margin: 5px 14px 1px 12px;
 }
 .icon-text {
   font-family: HiraginoSans-W3;
