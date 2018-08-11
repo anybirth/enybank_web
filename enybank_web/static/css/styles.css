@@ -90,6 +90,11 @@
 #icon-area {
   margin-left: auto;
 }
+#icon-area a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 #icon-login {
   width: 15px;
   height: auto;
