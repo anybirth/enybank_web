@@ -91,16 +91,19 @@
   margin-left: auto;
 }
 #icon-login {
-  font-size: 15px;
-  margin: 4px 17px 0 13px;
+  width: 15px;
+  height: auto;
+  margin: 5px 18px 1px 12px;
 }
 #icon-accounts {
-  font-size: 15px;
-  margin: 4px 13px 0 13px;
+  width: 15px;
+  height: auto;
+  margin: 5px 14px 1px 12px;
 }
 #icon-cart {
-  font-size: 15px;
-  margin: 4px 13px 0 13px;
+  width: 15px;
+  height: auto;
+  margin: 5px 14px 1px 12px;
 }
 .icon-text {
   font-family: HiraginoSans-W3;

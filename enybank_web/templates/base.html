@@ -39,19 +39,19 @@
       <div id="icon-area" class="grid-x">
         <a href="{% url 'accounts:login' %}">
           <div>
-            <p id="icon-login"><i class="fas fa-sign-in-alt"></i></p>
+            <img id="icon-login" src="{% static 'img/login.png' %}">
             <p class="icon-text text-center">ログイン</p>
           </div>
         </a>
         <a href="{% url 'accounts:profile' %}">
           <div>
-            <p id="icon-accounts"><i class="far fa-user"></i></p>
+            <img id="icon-accounts" src="{% static 'img/accounts.png' %}">
             <p class="icon-text text-center">アカウント</p>
           </div>
         </a>
         <a href="{% url 'main:cart' %}">
           <div>
-            <p id="icon-cart"><i class="fas fa-shopping-cart"></i></p>
+            <img id="icon-cart" src="{% static 'img/cart.png' %}">
             <p class="icon-text text-center">&nbsp;カート</p>
           </div>
         </a>
