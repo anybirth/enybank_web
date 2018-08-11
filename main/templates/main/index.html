@@ -150,14 +150,14 @@
             </div>
             <div class="size-title">
               <h3 class="text-center">
-                <span>{% if size.min_days %}{{ size.min_days }}{% endif %}{% if size.max_days  %}&nbsp;~&nbsp;{{ size.max_days }}{% endif %}</span>泊{% if not size.max_days %}以上{% endif %}<br>
+                <span>{% if size.min_days %}{{ size.min_days }}{% endif %}{% if size.max_days  %}&nbsp;~&nbsp;{{ size.max_days }}{% endif %}</span>&nbsp;泊{% if not size.max_days %}以上{% endif %}<br>
                 にオススメ！
               </h3>
             </div>
             <p class="size-text">{{ size.description }}</p>
             <p class="size-info">
-              三辺合計：&nbsp;{% if size.min_total_dimensions %}{{ size.min_total_dimensions|floatformat }}{% endif %}{% if size.max_total_dimensions  %}~{{ size.max_total_dimensions|floatformat }}{% endif %}cm{% if not size.max_total_dimensions  %}~{% endif %}<br>
-              重量　　：&nbsp;{% if size.min_weight %}{{ size.min_weight|floatformat:1 }}{% endif %}{% if size.max_weight  %}~{{ size.max_weight|floatformat:1 }}{% endif %}kg{% if not size.max_weight  %}~{% endif %}<br>
+              三辺合計：&nbsp;{% if size.min_total_dimensions %}{{ size.min_total_dimensions|floatformat }}{% endif %}{% if size.max_total_dimensions %}~{{ size.max_total_dimensions|floatformat }}{% endif %}cm{% if not size.max_total_dimensions %}~{% endif %}<br>
+              重量　　：&nbsp;{% if size.min_weight %}{{ size.min_weight|floatformat:1 }}{% endif %}{% if size.max_weight %}~{{ size.max_weight|floatformat:1 }}{% endif %}kg{% if not size.max_weight %}~{% endif %}<br>
               容量　　：&nbsp;{% if size.min_capacity %}{{ size.min_capacity|floatformat }}{% endif %}{% if size.max_capacity %}~{{ size.max_capacity|floatformat }}{% endif %}L{% if not size.max_capacity %}~{% endif %}<br>
             </p>
           </div>
