@@ -31,6 +31,7 @@
   width: 100%;
   height: 40px;
   z-index: 400;
+  box-shadow: 0 0px 4px gray;
   background-color: #FFF;
 }
 #header p {
