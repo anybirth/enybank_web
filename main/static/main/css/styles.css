@@ -355,7 +355,6 @@
   border-radius: 9px;
 }
 #size-grid-wrapper .size-img {
-  /* position: relative; */
   display: inline-block;
   width: 36px;
   height: 36px;
@@ -363,7 +362,6 @@
   background-size: cover;
 }
 #size-grid-wrapper .size-img p {
-  /* position: absolute; */
   margin-top: 9px;
   font-family: LucidaGrande;
   font-size: 18px;
