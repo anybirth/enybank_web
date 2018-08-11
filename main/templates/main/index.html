@@ -104,7 +104,7 @@
           </div>
           <p class="triangle-text">一番人気</p>
           <img class="center-horizontally" src="{{ item.item_image_set.all.0.image.url }}">
-          <h3>{{ item.name|truncatechars:25 }}</h3>
+          <h3>{{ item.name|truncatechars:22 }}</h3>
           <div class="price">
             <p class="text-center"><span>{{ item.item_fee_coef_set.all.0.fee_coef }}円</span>/1日</p>
           </div>
