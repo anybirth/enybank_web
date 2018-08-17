@@ -398,6 +398,7 @@ class Reservation(UUIDModel):
     size = models.ForeignKey('Size', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('サイズ'))
     type = models.ForeignKey('Type', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('タイプ'))
     prefecture = models.ForeignKey('Prefecture', on_delete=models.PROTECT, verbose_name=_('都道府県'), blank=True, null=True)
+    attachments = models.ManyToManyField('Attachment', db_table='reservations_attachments', blank=True, verbose_name=_('付属品'))
     start_date = models.DateField(_('開始日'), blank=True, null=True)
     return_date = models.DateField(_('返却日'), blank=True, null=True)
     zip_code = models.CharField(_('郵便番号'), max_length=50, blank=True)
