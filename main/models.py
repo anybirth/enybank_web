@@ -355,6 +355,7 @@ class Reservation(UUIDModel):
     item_fee = models.IntegerField(_('小計価格'), blank=True, null=True)
     postage = models.IntegerField(_('送料'), blank=True, null=True)
     total_fee = models.IntegerField(_('合計価格'), blank=True, null=True)
+    is_warranted = models.BooleanField(_('保障パック加入'), default=False)
     status = models.SmallIntegerField(_('ステータス'), default=1)
     description = models.TextField(_('備考'), blank=True)
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
