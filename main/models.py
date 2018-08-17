@@ -315,6 +315,45 @@ class AttachmentCategory(UUIDModel):
         return '%s' % self.name
 
 
+class Attachment(UUIDModel):
+
+    def _get_image_path(self, filename):
+        prefix = 'img/attachment/'
+        path = get_image_path(self, filename)
+        return prefix + path
+
+    attachment_category = models.ForeignKey('AttachmentCategory', on_delete=models.PROTECT, verbose_name=_('付属品分類'))
+    name = models.CharField(_('付属品名'), max_length=50)
+    description = models.TextField(_('備考'), blank=True)
+    image = models.ImageField(upload_to=_get_image_path, verbose_name=_('画像'))
+    fee = models.IntegerField(_('料金'))
+    created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+
+    class Meta:
+        db_table = 'attachments'
+        ordering = ['attachment_category__order', 'name']
+        verbose_name = _('付属品')
+        verbose_name_plural = _('付属品')
+
+    def __str__(self):
+        return '%s' % self.name
+
+    def save(self, *args, **kwargs):
+        try:
+            attachment = Attachment.objects.get(pk=self.pk)
+            if attachment.image:
+                if attachment.image.url != self.image.url:
+                    attachment.image.delete(save=False)
+        except self.DoesNotExist:
+            pass
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super().delete(*args, **kwargs)
+
+
 class Cart(UUIDModel):
     user = models.OneToOneField('accounts.User', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('ユーザー'))
     description = models.TextField(_('備考'), blank=True)
