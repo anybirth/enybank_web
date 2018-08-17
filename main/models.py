@@ -298,6 +298,23 @@ class ItemImage(UUIDModel):
         super().delete(*args, **kwargs)
 
 
+class AttachmentCategory(UUIDModel):
+    name = models.CharField(_('付属品分類名'), max_length=50)
+    description = models.TextField(_('備考'), blank=True)
+    order= models.SmallIntegerField(_('表示順'))
+    created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+
+    class Meta:
+        db_table = 'attachment_categories'
+        ordering = ['order']
+        verbose_name = _('付属品分類')
+        verbose_name_plural = _('付属品分類')
+
+    def __str__(self):
+        return '%s' % self.name
+
+
 class Cart(UUIDModel):
     user = models.OneToOneField('accounts.User', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('ユーザー'))
     description = models.TextField(_('備考'), blank=True)
