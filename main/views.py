@@ -129,10 +129,6 @@ class CartView(generic.ListView):
         self.request.session['cart'] = str(cart.uuid)
         return models.Reservation.objects.filter(cart=cart, status=1).order_by('-created_at')
 
-    def post(self, request):
-        request.session['reservation'] = request.POST.get('reservation')
-        return redirect('main:rental')
-
 
 class RentalView(generic.UpdateView):
     model = models.Reservation
