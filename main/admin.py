@@ -69,12 +69,25 @@ class ItemImageInline(admin.TabularInline):
         max_num = 10
         return max_num
 
+class AttachmentInline(admin.TabularInline):
+    model = models.Attachment
+    extra = 0
+    can_delete = False
+    show_change_link = True
+    fields = ['name', 'fee', 'image']
+
+class ReservationAttachmentInline(admin.TabularInline):
+    model = models.Reservation.attachments.through
+    extra = 0
+    can_delete = True
+    show_change_link = True
+
 class ReservationInline(admin.TabularInline):
     model = models.Reservation
     extra = 0
     can_delete = False
     show_change_link = True
-    fields = ['item', 'prefecture', 'start_date', 'return_date', 'email', 'total_fee', 'status']
+    fields = ['item', 'prefecture', 'start_date', 'return_date', 'total_fee', 'status']
 
     def get_max_num(self, request, obj=None, **kwargs):
         max_num = 0
@@ -142,6 +155,16 @@ class ItemAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description', 'bland__name', 'series__name', 'size__name', 'type__name', 'color_category__name', 'color']
     inlines = [ItemFeeCoefInline, ItemImageInline, ReservationInline]
 
+class AttachmentCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'order')
+    search_fields = ['name', 'description', 'order']
+    inlines = [AttachmentInline]
+
+class AttachmentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'fee', 'attachment_category')
+    list_filter = ['attachment_category']
+    search_fields = ['name', 'description', 'fee', 'attachment_category__name']
+
 class CartAdmin(admin.ModelAdmin):
     list_display = ('uuid', 'user', 'created_at', 'updated_at')
     list_filter = ['created_at', 'updated_at']
@@ -149,10 +172,11 @@ class CartAdmin(admin.ModelAdmin):
     inlines = [ReservationInline]
 
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('address_name', 'item', 'total_fee', 'start_date', 'return_date', 'address', 'status')
+    list_display = ('item', 'total_fee', 'start_date', 'return_date', 'status')
     list_filter = ['start_date', 'return_date', 'item__bland', 'status']
     search_fields = ['name', 'zip_code' 'address', 'size', 'type', 'user__first_name', 'user__last_name', 'user__address_name', 'item__name', 'item__bland__name', 'item__series_name', 'item__color__name']
-    inlines = [AnswerInline]
+    exclude = ['attachments']
+    inlines = [ReservationAttachmentInline, AnswerInline]
 
 class CouponAdmin(admin.ModelAdmin):
     list_display = ('coupon_code', 'user', 'coupon_code', 'discount', 'status')
@@ -174,6 +198,8 @@ admin.site.register(models.ColorCategory, ColorCategoryAdmin)
 admin.site.register(models.Bland, BlandAdmin)
 admin.site.register(models.Series, SeriesAdmin)
 admin.site.register(models.Item, ItemAdmin)
+admin.site.register(models.AttachmentCategory, AttachmentCategoryAdmin)
+admin.site.register(models.Attachment, AttachmentAdmin)
 admin.site.register(models.Cart, CartAdmin)
 admin.site.register(models.Reservation, ReservationAdmin)
 admin.site.register(models.Coupon, CouponAdmin)
