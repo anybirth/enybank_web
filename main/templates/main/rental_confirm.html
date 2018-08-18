@@ -37,10 +37,10 @@
   </div>
   <div class="cell small-6 midiun-6 sub1">
     <ul>
-      <li><p>2018年9月10日</p></li>
-      <li><p>2018年9月14日</p></li>
-      <li><p>加入</p></li>
-      <li><p>含む</p></li>
+      <li><p>{{ reservation.start_date }}</p></li>
+      <li><p>{{ reservation.return_date }}</p></li>
+      <li><p>{% if not reservation.is_warranted %}未{% endif %}加入</p></li>
+      <li><p>{% if reservation.attachments.all.0 %}含む{% else %}含まない{% endif %}</p></li>
     </ul>
   </div>
 </div>
@@ -60,11 +60,11 @@
   </div>
   <div class="cell small-8 midiun-6 sub2">
     <ul>
-      <li><p>山田太郎</p></li>
-      <li><p>ヤマダタロウ</p></li>
-      <li><p>000-0000</p></li>
-      <li><p>じゅうそしょ</p></li>
-      <li><p>ooo@examole.com</p></li>
+      <li><p>{{ reservation.address_name }}</p></li>
+      <li><p>{{ reservation.address_name_kana }}</p></li>
+      <li><p>{{ reservation.zip_code }}</p></li>
+      <li><p>{{ reservation.city }}{{ reservation.address }}</p></li>
+      <li><p>{{ reservation.email }}</p></li>
     </ul>
   </div>
 </div>
@@ -75,7 +75,7 @@
 <div class="grid-x grid-padding-x">
   <div class="cell small-9 midiun-6 main3">
     <ul>
-      <li><p>スーツケース　レンタル料金（4日間) :</p></li>
+      <li><p>スーツケース　レンタル料金（{{ days }}日間) :</p></li>
       <li><p>安心保障パック :</p></li>
       <li><p>付属品【スーツケースベルト】 :</p></li>
       <li><p id="sen">小計金額 :</p></li>
@@ -85,12 +85,12 @@
   </div>
   <div class="cell small-3 midiun-6 sub3">
     <ul>
-      <li><p>3280円</p></li>
-      <li><p>300円</p></li>
-      <li><p>300円</p></li>
-      <li><p id="sen">3880円</p></li>
-      <li><p>310円)</p></li>
-      <li><p>4190円</p></li>
+      <li><p>{{ reservation.item_fee }}円</p></li>
+      <li><p>{% if reservation.is_warranted %}30{% endif %}0円</p></li>
+      <li><p>{{ attachment_fee }}円</p></li>
+      <li><p id="sen">{{ reservation.total_fee }}円</p></li>
+      <li><p>{{ tax }}円)</p></li>
+      <li><p>{{ reservation.total_fee|add:tax }}円</p></li>
     </ul>
   </div>
   <div class="cell small-10 small-offset-1 bousen">
@@ -132,25 +132,72 @@
 
 <div class="grid-x grid-padding-x">
   <div class="cell small-8 small-offset-2 botton1">
-    <input type="checkbox" name="#" value="appple" id="appple" />
+    <input type="checkbox" name="appple" value="appple" id="appple" />
     <label for="appple" class="sample_label"><div id="moji">上記サービス利用規約に同意します</div></label>
   </div>
 </div>
 
 <div class="line2">
   <div class="grid-x grid-padding-x">
+
     <div class="cell back2">
+      <a href="{% url 'main:rental' %}" class="button">←前のページに戻る</a>
+    </div>
+    <style>
+    .back2 a {
+      font-family: HiraginoSans-W2, HiraginoSans-W3;
+      font-size: 14px;
+      color: #000000;
+      border-radius: 6px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      margin: 0 auto 0 auto;
+    }
+    </style>
+    <!-- <div class="cell back2">
       <input type="checkbox" name="#" value="appple" id="" />
       <label for="appple" class="back">←前のページに戻る</label>
-    </div>
+    </div> -->
   </div>
 
   <div class="grid-x grid-padding-x">
     <div class="cell back4">
-      <input type="checkbox" name="#" value="appple" id="" />
-      <label for="appple" class="back3">お支払いへ→</label>
+      <form action="{% url 'main:rental_checkout' %}" method="POST">
+  {% csrf_token %}
+  <p class="text-center">
+    <form action="{% url 'main:rental_checkout' %}" method="POST">
+      {% csrf_token %}
+      <p class="text-center">
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="pk_test_Ht65fJK5QQKbqmVcD0XLK52t"
+          data-amount="{{ reservation.total_fee|add:tax }}"
+          data-name="支払い"
+          data-description="レンタル料の支払いです"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-locale="auto"
+          data-currency="jpy">
+        </script>
+      </p>
+    </form>
+
+      <!-- <input type="checkbox" name="#" value="appple" id="" />
+      <label for="appple" class="back3">お支払いへ→</label> -->
     </div>
   </div>
 </div>
+
+<script>
+$(function() {
+  $('.stripe-button-el').addClass('display-none');
+  $('.sample_label').on('click', function(event) {
+    if (!$('[name=appple]').prop('checked')) {
+      $('.stripe-button-el').removeClass('display-none');
+    } else {
+      $('.stripe-button-el').addClass('display-none');
+    }
+  });
+});
+</script>
 
 {% endblock %}

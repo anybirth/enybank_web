@@ -16,17 +16,17 @@
       <div class="callout">
 
         <div class="grid-x grid-padding-x">
-          <div class="cell pic1">
+          <div class="cell pic1" style="background:url({{ items.0.item_image_set.all.0.image.url }});background-size:cover;background-position: center center;z-index:0;margin:4px 25% 10vw 25%;">
           </div>
         </div>
 
         <div class="amount">
-          <p>容量&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;30L <br>三辺合計&nbsp;:&nbsp;&nbsp;110cm</p>
+          <p>容量&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;{{ items.0.capacity }}L <br>三辺合計&nbsp;:&nbsp;&nbsp;{{ items.0.length|add:items.0.width|add:items.0.depth }}cm</p>
         </div>
 
         <div class="grid-x grid-padding-x fluid sub">
           <div class="small-12 cell">
-            <h2>リモア</h2>
+            <h2>{{ items.0.name }}</h2>
           </div>
           <div class="cell box1">
             即日発送
@@ -39,19 +39,20 @@
           </div>
           <div class="grid-x grid-padding-x">
             <div class="cell small-12  explain">
-              Amazon売れ筋ランキング１位の人気商品！軽量ながらも壊れにくい特殊な素材を使用
+              {{ items.0.description }}
             </div>
           </div>
           <div class="cell price">
-            <div class="dayfor price2">４日間で</div>
-            <div class="money price2">¥3280</div>
+            <div class="dayfor price2">{{ days.0 }}日間で</div>
+            <div class="money price2">¥{{ fee.0 }}</div>
             <div class="dayfor price2">円</div>
           </div>
         </div>
         <div class="grid-x grid-padding-x fluid botton11">
           <div class="cell botton12">
-            <form>
-              <button name="submit" type="submit" value="submit-true">
+            <form action="" method="post">
+              {% csrf_token %}
+              <button name="item" type="submit" value="{{ items.0.uuid }}">
                 <p>カートに入れて詳細を見る</p>
               </botton>
             </form>
@@ -62,6 +63,7 @@
     </div>
   </div>
 
+  {% if items.length >= 2 %}
   <div class="grid-x grid-padding-x label2">
     <div class="cell small-9 medium-8 large-8">
         <h1>次にオススメ！</h1>
@@ -73,20 +75,20 @@
       <div class="callout">
 
         <div class="grid-x grid-padding-x">
-          <div class="cell pic2">
+          <div class="cell pic2" style="background:url({{ items.1.item_image_set.all.0.image.url }});background-size:cover;background-position: center center;z-index:0;">
           </div>
         </div>
 
         <div class="grid-x grid-padding-x fluid sub">
           <div class="small-12 cell">
-            <h3>リモア</h3>
+            <h3>{{ items.1.name }}</h3>
           </div>
           <div class="cell small-12  explain2">
-            <p>Amazon売れ筋ランキング１位の人気商品！……</p>
+            <p>{{ items.1.description }}</p>
           </div>
           <div class="cell price2nd">
-            <div class="dayfor price2nd2">４日間で</div>
-            <div class="money price2nd2">¥3280</div>
+            <div class="dayfor price2nd2">{{ days.1 }}日間で</div>
+            <div class="money price2nd2">¥{{ fee.1 }}</div>
             <div class="dayfor price2nd2">円</div>
           </div>
         </div>
@@ -102,24 +104,25 @@
 
       </div>
     </div>
+    {% if items.lenght >= 3 %}
     <div class="large-3 small-6 cell">
       <div class="callout">
 
         <div class="grid-x grid-padding-x">
-          <div class="cell pic2">
+          <div class="cell pic2" style="background:url({{ items.2.item_image_set.all.0.image.url }});background-size:cover;background-position: center center;z-index:0;">
           </div>
         </div>
 
         <div class="grid-x grid-padding-x fluid sub">
           <div class="small-12 cell">
-            <h3>リモア</h3>
+            <h3>{{ items.2.name }}</h3>
           </div>
           <div class="cell small-12  explain2">
-            <p>Amazon売れ筋ランキング１位の人気商品！……</p>
+            <p>{{ items.2.description }}</p>
           </div>
           <div class="cell price2nd">
-            <div class="dayfor price2nd2">４日間で</div>
-            <div class="money price2nd2">¥3280</div>
+            <div class="dayfor price2nd2">{{ days.2 }}日間で</div>
+            <div class="money price2nd2">¥{{ fee.2 }}</div>
             <div class="dayfor price2nd2">円</div>
           </div>
         </div>
@@ -135,7 +138,9 @@
 
       </div>
     </div>
+    {% endif %}
   </div>
+  {% endif %}
 
   <div class="more">
     <p>オススメをもっと見る</p>
@@ -205,6 +210,6 @@
   </div>
 </div>
 
-<a href="#" class="back">←前のページに戻る</a>
+<a href="{% url 'main:index' %}" class="back">←前のページに戻る</a>
 
 {% endblock %}

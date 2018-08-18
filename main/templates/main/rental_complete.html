@@ -29,7 +29,7 @@
 <div class="grid-x grid-padding-x">
   <div class="cell small-10 small-offset-1 midiun-10 main1">
     <p>ご注文いただいた商品は</p><br>
-    <p><div class="date">2018年9月10日</div>に到着予定です。</p>
+    <p><div class="date">{{ reservation.start_date|date:"n月j日" }}</div>に到着予定です。</p>
   </div>
 
   <div class="cell small-10 small-offset-1 midiun-10 main1">
@@ -46,8 +46,9 @@
     <p>会員登録をすると、次回のご予約の簡易化や、予約情報の確認、集荷の依頼代行など、便利な機能が使えます。</p>
   </div>
   <div class="cell fb2">
-    <input type="checkbox" name="#" value="appple" id="" />
-    <label for="appple" class="fb1"><img src="{% static 'main/img/preview7.png' %}" alt="bar" title="bar" class="fbimg">Facebook IDで会員登録</label>
+    <!-- <input type="checkbox" name="#" value="appple" id="" />
+    <label for="appple" class="fb1"><img src="{% static 'main/img/preview7.png' %}" alt="bar" title="bar" class="fbimg">Facebook IDで会員登録</label> -->
+    <label for="appple" class="fb1"><a href="{% url 'social:begin' 'facebook' %}?next={% url 'main:rental_complete_social' %}" style="display:block;width:100%;height:100%;color:#ffffff;"><img src="{% static 'main/img/preview7.png' %}" alt="bar" title="bar" class="fbimg">Facebook IDで会員登録</a></label>
   </div>
 
   <div class="large-5 small-10 small-offset-1 cell">
@@ -55,20 +56,44 @@
       <div class="grid-x grid-padding-x">
         <!-- <input type="text" value="ooo@example.com" placeholder="" > -->
         <div class=" cell small-10 small-offset-1 container">
-          <form>
+          <form id="complete-login" action="" method="post">
+            {% csrf_token %}
             <div class="group">
-              <input type="text" value="ooo@example.com" class="in1">
+              <input type="email" name="email" maxlength="254" required id="id_email" value="{{ reservation.email }}" class="in1">
               <span class="highlight"></span>
               <span class="bar"></span>
               <label class="label4">mail</label>
             </div>
             <div class="group">
-              <input type="text" class="in1">
+              <input type="password" name="password1" required id="is_password1" class="in1">
               <span class="highlight"></span>
               <span class="bar"></span>
               <label class="label5">password</label>
             </div>
-          </form>
+            <div class="group">
+              <input type="password" name="password2" required id="is_password2" class="in1">
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label class="label5">password</label>
+            </div>
+          <style>
+          input.in1[type="email"], input.in1[type="password"] {
+            font-size: 18px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 63vw;
+            border: none;
+            border-bottom: 1px solid #757575;
+            background-color: none;
+            -webkit-appearance: none;
+            box-shadow: none;
+          }
+          input.in1[type="email"]:focus ~ label.label5, input.in1[type="email"]:valid ~ label.label4, input.in1[type="password"]:focus ~ label.label5, input.in1[type="password"]:valid ~ label.label4 {
+            top: -20px;
+            font-size: 14px;
+            color: #ff7777;
+          }
+          </style>
         </div>
 
         <div class="cell small-10 small-offset-1 kiyaku">
@@ -99,8 +124,28 @@
         </div>
         <!-- <div class="grid-x grid-padding-x"> -->
         <div class="cell subs1">
-          <input type="checkbox" name="#" value="appple" id="" />
-          <label for="appple" class="subs2">利用規約に同意して会員登録</label>
+            <input type="submit" value="利用規約に同意して会員登録" id="complete-submit" class="button"/>
+            <style>
+            #complete-submit {
+              width: 56.56vw;
+              font-size: 3.75vw;
+              font-family: HiraginoSans-W6;
+              text-decoration: none;
+              display: block;
+              /* text-align: center; */
+              padding: 12px 0;
+              color: #fff;
+              background-color: #ff7777;
+              border-radius: 5px;
+              text-align: center;
+              margin-top: 0px;
+              margin-left: auto;
+              margin-bottom: 24px;
+              margin-right: auto;
+              box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+            }
+            </style>
+          </form>
         </div>
         <!-- </div> -->
       </div>

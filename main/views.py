@@ -31,9 +31,7 @@ class IndexView(generic.TemplateView):
         return context
 
 
-class SearchView(generic.ListView):
-    model = models.Item
-    context_object_name = 'items'
+class SearchView(generic.TemplateView):
     template_name = 'main/search.html'
 
     def fee_calculator(self):
@@ -67,15 +65,18 @@ class SearchView(generic.ListView):
 
         return round(fee, -1)
 
-    def get_queryset(self):
-        return models.Item.objects.filter(
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['items'] = models.Item.objects.filter(
             color_category=self.request.GET.get('color_category'),
             type=self.request.GET.get('type')
         )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['fee'] = self.fee_calculator()
+        context['days'], context['fee'] = [], []
+        for item in context['items'], :
+            start_date = datetime.strptime(self.request.GET.get('start_date'), '%Y-%m-%d')
+            return_date = datetime.strptime(self.request.GET.get('return_date'), '%Y-%m-%d')
+            context['days'].append((return_date - start_date).days + 1)
+            context['fee'].append(self.fee_calculator())
         return context
 
     def post(self, request):
@@ -94,7 +95,9 @@ class SearchView(generic.ListView):
             item=models.Item.objects.get(uuid=request.POST.get('item')),
             start_date=request.GET.get('start_date'),
             return_date=request.GET.get('return_date'),
+            item_fee=self.fee_calculator(),
             total_fee=self.fee_calculator(),
+            postage=0,
         )
         if request.user.is_authenticated:
             reservation.user = request.user
@@ -138,6 +141,35 @@ class CartView(generic.ListView):
 
 class RentalReadyView(generic.View):
 
+    def fee_calculator(self):
+        reservation = models.Reservation.objects.get(uuid=self.request.GET.get('reservation'))
+        item = reservation.item
+
+        intercept = item.fee_intercept
+        coefs = item.item_fee_coef_set.order_by('starting_point')
+        fee = intercept
+        start_date = datetime.strptime(self.request.GET.get('start_date'), '%Y-%m-%d')
+        return_date = datetime.strptime(self.request.GET.get('return_date'), '%Y-%m-%d')
+        delta = return_date - start_date
+        days = delta.days + 1
+
+        for coef in coefs:
+            fee_coef = coef.fee_coef
+            starting_point = coef.starting_point
+            end_point = coef.end_point
+
+            if end_point:
+                if days <= end_point:
+                    fee += fee_coef * (days - starting_point)
+                    return round(fee, -1)
+                elif end_point < days:
+                    fee += fee_coef * (end_point - starting_point)
+            else:
+                fee += fee_coef * (days - starting_point)
+                return round(fee, -1)
+
+        return round(fee, -1)
+
     def get(self, request):
         request.session['reservation'] = request.GET.get('reservation')
         reservation = models.Reservation.objects.get(uuid=request.GET.get('reservation'))
@@ -145,6 +177,7 @@ class RentalReadyView(generic.View):
         reservation.start_date = request.GET.get('start_date')
         reservation.return_date = request.GET.get('return_date')
         reservation.total_fee = int(request.GET.get('total_fee'))
+        reservation.item_fee = self.fee_calculator()
 
         if request.GET.get('warranty') == 'true':
             reservation.is_warranted = True
@@ -176,14 +209,22 @@ class RentalView(generic.UpdateView):
         return obj
 
 
-class RentalConfirmView(generic.DetailView):
-    model = models.Reservation
-    context_object_name = 'reservation'
+class RentalConfirmView(generic.TemplateView):
     template_name = 'main/rental_confirm.html'
 
     def get_object(self, queryset=None):
-        obj = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
         return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reservation = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
+        context['reservation'] = reservation
+        context['days'] = (reservation.return_date - reservation.start_date).days + 1
+        context['tax'] = int(round(reservation.total_fee * 0.08, -1))
+        context['attachment_fee'] = 0
+        for attachment in context['reservation'].attachments.all():
+            context['attachment_fee'] += attachment.fee
+        return context
 
 
 class RentalCheckoutView(generic.View):
@@ -212,7 +253,7 @@ class RentalCheckoutView(generic.View):
             request.user.gender = reservation.gender
             request.user.age_range = reservation.age_range
             request.user.save()
-            del request.session['reservation']
+            # del request.session['reservation']
         return redirect(reverse_lazy('main:rental_complete'), permanent=True)
 
 
@@ -221,6 +262,11 @@ class RentalCompleteView(generic.CreateView):
     form_class = UserForm
     template_name = 'main/rental_complete.html'
     success_url = reverse_lazy('accounts:complete')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reservation'] = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
+        return context
 
     def form_valid(self, form):
         form.instance.password = make_password(self.request.POST.get('password'))
@@ -234,15 +280,15 @@ class RentalCompleteView(generic.CreateView):
                 reservation = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
                 reservation.user = user
                 reservation.save()
-                request.user.zip_code = reservation.zip_code
-                request.user.prefecture = reservation.prefecture
-                request.user.city = reservation.city
-                request.user.address = reservation.address
-                request.user.address_name = reservation.address_name
-                request.user.address_name_kana = reservation.address_name_kana
-                request.user.gender = reservation.gender
-                request.user.age_range = reservation.age_range
-                request.user.save()
+                user.zip_code = reservation.zip_code
+                user.prefecture = reservation.prefecture
+                user.city = reservation.city
+                user.address = reservation.address
+                user.address_name = reservation.address_name
+                user.address_name_kana = reservation.address_name_kana
+                user.gender = reservation.gender
+                user.age_range = reservation.age_range
+                user.save()
             except models.Reservation.DoesNotExist:
                 pass
             del self.request.session['reservation']
@@ -266,6 +312,7 @@ class RentalCompleteView(generic.CreateView):
             fail_silently=False,
         )
         return super().form_valid(form)
+
 
 class RentalCompleteSocialView(generic.View):
 
