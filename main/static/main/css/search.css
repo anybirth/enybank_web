@@ -1,0 +1,411 @@
+/* second-page
+       =========================================================================
+*/
+
+.label1 .cell {
+  margin: 8px 10% 8px 12vw;
+}
+.label1 .cell h1 {
+  background-color: #ff8c8c;
+  color: white;
+  /*width: 227px;*/
+  height: 10.9375vw;
+  font-family: HiraginoSans-W7;
+  font-size: 5.9375vw;
+  position: relative;
+  text-align: center;
+  line-height: 11vw;
+}
+
+.label1 .cell h1::before{
+  content: "";
+  position:absolute;
+  top:0;
+  left:0;
+  width:0;
+  height:0;
+  border-style: solid;
+  border-color: transparent transparent transparent #FFF;
+  border-width: 5.33vw 0 5.33vw 4vw;
+}
+
+.label1 .cell h1::after{
+  content: "";
+  position:absolute;
+  top:0;
+  right:0;
+  width:0;
+  height:0;
+  border-style: solid;
+  border-color: transparent #FFF transparent transparent;
+  border-width: 5.33vw 4vw 5.33vw 0;
+}
+
+.grid-x .pic1 {
+  width: 43.4375vw;
+  height: 60.3125vw;
+  background-color: #d8d8d8;
+  margin: 4px 25% 14px 25%;
+  z-index: -1;
+}
+
+.grid-x .pic2 {
+  width: 20.4375vw;
+  height: 6em;
+  background-color: #d8d8d8;
+  margin: 0px 25% 4px 25%;
+}
+
+.grid-x .amount {
+  background-color: #ff8c8c;
+  width: 32.5vw;
+  height: 10vw;
+  margin-left: -8px;
+  margin-top: -10vw;
+  z-index: 2;
+}
+
+.grid-x .amount p {
+  text-align: left;
+  font-family: HiraginoSans-W8;
+  font-size: 3vw;
+  line-height: 1.4;
+  color: #fff;
+  padding-top: 1.07vw;
+  padding-left: 1.6vw;
+  z-index: 2;
+}
+
+.sub {
+  /*opacity: 0.36;*/
+  background-color: #ececec;
+  /*border: solid 0.7px #979797;
+  border-top: none;
+  border-bottom: none;*/
+}
+
+.sub .cell h2 {
+  opacity: 1;
+  padding-top: 11px;
+  text-align: center;
+  font-family: HiraginoSans-W5;
+  font-size: 5.3vw;
+  color: #000000;
+}
+
+.sub .box1 {
+  width: 25%;
+  height: 5.625vw;
+  background-color: #d8d8d8;
+  text-align: center;
+  font-family: HiraginoSans-W6;
+  font-size: 2.813vw;
+  line-height: 21px;
+  margin-left: 8%;
+}
+.sub .box2 {
+  width: 25%;
+  height: 5.625vw;
+  background-color: #d8d8d8;
+  text-align: center;
+  font-family: HiraginoSans-W6;
+  font-size: 2.813vw;
+  margin-left: 4%;
+  line-height: 21px;
+}
+.sub .box3 {
+  width: 25%;
+  height: 5.625vw;
+  background-color: #d8d8d8;
+  text-align: center;
+  font-family: HiraginoSans-W6;
+  font-size: 2.813vw;
+  margin-left: 4%;
+  line-height: 21px;
+}
+
+.sub .explain {
+  font-family: HiraginoSans-W3;
+  font-size: 13px;
+  margin-top: 8px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.sub .price {
+  width: 13em;
+  height: 2em;
+  /*margin-left: 35%;*/
+  margin-top: 5vw;
+  margin-bottom: 8px;
+  background-blend-mode: darken;
+  margin-left: 35.25vw;
+}
+.sub .price .dayfor {
+  color: #ff7777;
+  font-size: 4vw;
+  font-family: HiraginoSans-W6;
+  /*background-image: linear-gradient(transparent 50%, #f8e71c 50%);*/
+}
+.sub .price .money {
+  color: #ff7777;
+  font-size: 7vw;
+  font-family: HiraginoSans-W6;
+  /*background-image: linear-gradient(transparent 63%, #f8e71c 40%);*/
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+.price2 {
+  display: inline-block;
+}
+
+.cell .botton11 {
+  height: 12.8vw;
+  text-align: center;
+  background-color: #ff7e7e;
+  border-radius: 0 0 18px 18px / 0 0 18px 18px;
+  -webkit-border-radius: 0 0 18px 18px / 0 0 18px 18px;
+  -moz-border-radius: 0 0 18px 18px / 0 0 18px 18px;
+}
+
+.cell .botton12 p {
+  /*line-height: -18px;*/
+  margin-top: 1.5vw;
+  color: #fff;
+  font-family: HiraginoSans-W6;
+  font-size: 5.9375vw;
+  display: block;
+}
+
+.label2 .cell {
+  margin: 32px 0 10px 0 ;
+}
+.label2 .cell h1 {
+  background-color: #ff8c8c;
+  color: white;
+  /*width: 227px;*/
+  height: 10.9375vw;
+  font-family: HiraginoSans-W7;
+  font-size: 5.9375vw;
+  position: relative;
+  text-align: left;
+  padding-left: 1rem;
+  line-height: 40px;
+}
+
+.label2 .cell h1::after{
+  content: "";
+  position:absolute;
+  top:0;
+  right:0;
+  width:0;
+  height:0;
+  border-style: solid;
+  border-color: transparent #FFF transparent transparent;
+  border-width: 5.33vw 4vw 5.33vw 0;
+}
+
+.sub .cell h3 {
+  opacity: 1;
+  margin-top: 3px;
+  text-align: center;
+  font-family: HiraginoSans-W5;
+  font-size: 5.3vw;
+  color: #000000;
+}
+
+.sub .cell p {
+  opacity: 1;
+  padding-top: 4px;
+  text-align: center;
+  font-family: HiraginoSans-W3;
+  font-size: 18px;
+  color: #000000;
+}
+
+.sub .explain2 p {
+  font-family: HiraginoSans-W3;
+  font-size: 3vw;
+  margin-top: -10px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.sub .price2nd {
+  width: 10em;
+  height: 1em;
+  /*margin-left: 35%;*/
+  margin-top: -10px;
+  margin-bottom: 8px;
+  background-blend-mode: darken;
+}
+.sub .price2nd .dayfor {
+  color: #ff7777;
+  font-size: 3.2vw;
+  font-family: HiraginoSans-W6;
+  /*background-image: linear-gradient(transparent 50%, #f8e71c 50%);*/
+}
+.sub .price2nd .money {
+  color: #ff7777;
+  font-size: 4.8vw;
+  font-family: HiraginoSans-W6;
+  /*background-image: linear-gradient(transparent 63%, #f8e71c 40%);*/
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+.price2nd2 {
+  display: inline-block;
+}
+
+.cell .botton21 {
+  height: 10.8vw;
+  background-color: #ff7e7e;
+  border-radius: 0 0 18px 18px / 0 0 18px 18px;
+  -webkit-border-radius: 0 0 18px 18px / 0 0 18px 18px;
+  -moz-border-radius: 0 0 18px 18px / 0 0 18px 18px;
+}
+
+.cell .botton22 p {
+  /*line-height: -18px;*/
+  margin-left: 4vw;
+  margin-top: 1vw;
+  color: #fff;
+  font-family: HiraginoSans-W6;
+  font-size: 5.5vw;
+  display: block;
+}
+
+.more p{
+  margin: 5vw 0 10vw 43.875vw;
+  color: #ff6060;
+  font-family: HiraginoSans-W6;
+  font-size: 4.0625vw;
+  text-decoration: underline
+}
+
+.red {
+  background-color: #ff8c8c;
+  height: 123.4375vw;
+  width: 100vw;
+}
+
+.waku {
+  position: relative;
+  margin: 11.25vw 0 0 1.6vw;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  border-radius: 18px;
+  border: 1.5px solid #fff;
+  height: 107.2vw;
+  width: 90.93vw;
+  /*border-color: #fff;
+  border-width: 1.5px;*/
+  /*background-color: none;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);*/
+  }
+
+.waku .title p{
+  text-align: center;
+  color: #fff;
+  font-family: HiraginoSans-W7;
+  font-size: 6.25vw;
+  margin-top: -28px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ff8c8c;
+  width: 11rem;
+}
+
+.imgs {
+  width: 14.5vw;
+  height: 14.5vw;
+}
+
+.waku .grid-x {
+  margin-top: 12.5vw;
+}
+
+.waku .ul1 {
+  list-style: none;
+  margin-left: 5px;
+}
+
+.waku .li1 {
+  margin: 0 0 7.5vw 7vw;
+}
+
+.waku .ul2 {
+  list-style: none;
+  margin-top: -1vw;
+  margin-left: -15px;
+  width: 53.857vw;
+}
+
+.waku .li2 {
+  /*margin: 0 0 7.5vw 7vw;*/
+  margin-bottom: 23px;
+}
+
+.waku .li2 h3 {
+  margin-bottom: 5px;
+  color: #fff;
+  font-size: 4vw;
+  font-family: HiraginoSans-W6;
+}
+
+.waku .li2 p {
+  color: #fff;
+  font-size: 2.812vw;
+  font-family: HiraginoSans-w5;
+}
+
+ /*.li3 .tate {
+  height: 7.5vw;
+  width: 2px;
+  border-right: solid 1.5px #0000;
+  margin: -100px 0 0 72px;
+}
+
+.ul3 {
+  height: 7.5vw;
+  width: 2px;
+  list-style: none;
+}
+.tate .li3 {
+
+}*/
+
+
+.back {
+  width: 56.56vw;
+  font-size: 3.75vw;
+  font-family: HiraginoSans-W3;
+  text-decoration:none;
+  display:block;
+  text-align:center;
+  padding:8px 0 10px;
+  color: #000000;
+  background-color: #fff;
+  border-radius:6px;
+  text-align: center;
+  margin-top: 24px;
+  margin-left: auto;
+  margin-bottom: 24px;
+  margin-right: auto;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+
+/* second-page
+       =========================================================================
+*/
