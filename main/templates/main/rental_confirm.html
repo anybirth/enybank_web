@@ -1,168 +1,156 @@
-<!doctype html>
-<html class="no-js" lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundation for Sites</title>
-    <link rel="stylesheet" href="css/foundation.css">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/rental_confirm.css">
-  </head>
-  <body>
-    <div class="grid-container">
-      <div class="grid-x grid-padding-x">
-        <div class="large-12 cell">
-          <!-- <div class="callout"> -->
-            <div class="grid-x grid-padding-x">
-              <div class="large-12 small-12 cell">
-                <img src="img/preview5.png" alt="bar" title="bar" class="imgs">
-              </div>
-              <div class="cell small-8 small-offset-2 title">
-                <h1>ご注文情報の確認</h1>
-              </div>
-              <div class="exp1 small-9 small-offset-1 ">
-                <p>下記の内容をご確認後、利用規約にご同意の上で、最後のお支払いにお進みください。<p>
-              </div>
-            </div>
-          <!-- </div> -->
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="grid-container">
+  <div class="grid-x grid-padding-x">
+    <div class="large-12 cell">
+      <!-- <div class="callout"> -->
+        <div class="grid-x grid-padding-x">
+          <div class="large-12 small-12 cell">
+            <img src="{% static 'main/img/preview5.png' %}" alt="bar" title="bar" class="imgs">
+          </div>
+          <div class="cell small-8 small-offset-2 title">
+            <h1>ご注文情報の確認</h1>
+          </div>
+          <div class="exp1 small-9 small-offset-1 ">
+            <p>下記の内容をご確認後、利用規約にご同意の上で、最後のお支払いにお進みください。<p>
+          </div>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
+  </div>
+</div>
 
-    <div class="line">
-      <h2>スーツケース情報</h2>
-    </div>
-    <div class="grid-x grid-padding-x">
-      <div class="cell small-6 midiun-6 main1">
-        <ul>
-          <li><p>スーツケースの到着日時 :</p></li>
-          <li><p>スーツケースの返却日時 :</p></li>
-          <li><p>安心保障パック :</p></li>
-          <li><p>付属品 :</p></li>
-        </ul>
-      </div>
-      <div class="cell small-6 midiun-6 sub1">
-        <ul>
-          <li><p>2018年9月10日</p></li>
-          <li><p>2018年9月14日</p></li>
-          <li><p>加入</p></li>
-          <li><p>含む</p></li>
-        </ul>
-      </div>
-    </div>
+<div class="line">
+  <h2>スーツケース情報</h2>
+</div>
+<div class="grid-x grid-padding-x">
+  <div class="cell small-6 midiun-6 main1">
+    <ul>
+      <li><p>スーツケースの到着日時 :</p></li>
+      <li><p>スーツケースの返却日時 :</p></li>
+      <li><p>安心保障パック :</p></li>
+      <li><p>付属品 :</p></li>
+    </ul>
+  </div>
+  <div class="cell small-6 midiun-6 sub1">
+    <ul>
+      <li><p>2018年9月10日</p></li>
+      <li><p>2018年9月14日</p></li>
+      <li><p>加入</p></li>
+      <li><p>含む</p></li>
+    </ul>
+  </div>
+</div>
 
-    <div class="line">
-      <h2>お客様情報</h2>
-    </div>
-    <div class="grid-x grid-padding-x">
-      <div class="cell small-4 midiun-6 main2">
-        <ul>
-          <li><p>お名前 :</p></li>
-          <li><p>フリガナ :</p></li>
-          <li><p>郵便番号 :</p></li>
-          <li><p>住所 :</p></li>
-          <li><p>メール :</p></li>
-        </ul>
-      </div>
-      <div class="cell small-8 midiun-6 sub2">
-        <ul>
-          <li><p>山田太郎</p></li>
-          <li><p>ヤマダタロウ</p></li>
-          <li><p>000-0000</p></li>
-          <li><p>じゅうそしょ</p></li>
-          <li><p>ooo@examole.com</p></li>
-        </ul>
-      </div>
-    </div>
+<div class="line">
+  <h2>お客様情報</h2>
+</div>
+<div class="grid-x grid-padding-x">
+  <div class="cell small-4 midiun-6 main2">
+    <ul>
+      <li><p>お名前 :</p></li>
+      <li><p>フリガナ :</p></li>
+      <li><p>郵便番号 :</p></li>
+      <li><p>住所 :</p></li>
+      <li><p>メール :</p></li>
+    </ul>
+  </div>
+  <div class="cell small-8 midiun-6 sub2">
+    <ul>
+      <li><p>山田太郎</p></li>
+      <li><p>ヤマダタロウ</p></li>
+      <li><p>000-0000</p></li>
+      <li><p>じゅうそしょ</p></li>
+      <li><p>ooo@examole.com</p></li>
+    </ul>
+  </div>
+</div>
 
-    <div class="line">
-      <h2>お支払い情報</h2>
-    </div>
-    <div class="grid-x grid-padding-x">
-      <div class="cell small-9 midiun-6 main3">
-        <ul>
-          <li><p>スーツケース　レンタル料金（4日間) :</p></li>
-          <li><p>安心保障パック :</p></li>
-          <li><p>付属品【スーツケースベルト】 :</p></li>
-          <li><p id="sen">小計金額 :</p></li>
-          <li><p>(消費税8% :</p></li>
-          <li><p>税込後合計 :</p></li>
-        </ul>
-      </div>
-      <div class="cell small-3 midiun-6 sub3">
-        <ul>
-          <li><p>3280円</p></li>
-          <li><p>300円</p></li>
-          <li><p>300円</p></li>
-          <li><p id="sen">3880円</p></li>
-          <li><p>310円)</p></li>
-          <li><p>4190円</p></li>
-        </ul>
-      </div>
-      <div class="cell small-10 small-offset-1 bousen">
-      </div>
-    </div>
+<div class="line">
+  <h2>お支払い情報</h2>
+</div>
+<div class="grid-x grid-padding-x">
+  <div class="cell small-9 midiun-6 main3">
+    <ul>
+      <li><p>スーツケース　レンタル料金（4日間) :</p></li>
+      <li><p>安心保障パック :</p></li>
+      <li><p>付属品【スーツケースベルト】 :</p></li>
+      <li><p id="sen">小計金額 :</p></li>
+      <li><p>(消費税8% :</p></li>
+      <li><p>税込後合計 :</p></li>
+    </ul>
+  </div>
+  <div class="cell small-3 midiun-6 sub3">
+    <ul>
+      <li><p>3280円</p></li>
+      <li><p>300円</p></li>
+      <li><p>300円</p></li>
+      <li><p id="sen">3880円</p></li>
+      <li><p>310円)</p></li>
+      <li><p>4190円</p></li>
+    </ul>
+  </div>
+  <div class="cell small-10 small-offset-1 bousen">
+  </div>
+</div>
 
-    <div class="line">
-      <h2>サービス利用規約</h2>
+<div class="line">
+  <h2>サービス利用規約</h2>
+</div>
+
+<div class="grid-x grid-padding-x">
+  <div class="cell small-10 small-offset-1 kiyaku">
+    <p>利用規約</p>
+    <p>第１条 （利用規約の適用）
+    １． 当社は、この利用規約（以下単に「利用規約」といいます。）に基づき、本サービスを提供します。<br>
+    ２． 利用規約と個別の利用契約の規定が異なるときは、個別の利用契約の規定が利用規約に優先して適用されるものとします。<br>
+    ３． 利用規約は契約を締結する法人、個人事業主及びその従業員に適用されるものとします。</p>
+    <p>第２条 （定義）</p>
+    <p>利用規約においては、次の用語はそれぞれ次の意味で使用します。<br>
+    （１） 本サービス<br>
+    利用規約に基づき当社が契約者に提供する別表Ａ所定のサービス<br>
+    （２） 契約者<br>
+    利用規約に基づく利用契約を当社と締結し、本サービスの提供を受ける法人、個人事業主及びその従業員<br>
+    （３） 利用契約<br>
+    利用規約に基づき当社と契約者との間に締結される本サービスの提供に関する契約<br>
+    （４） 利用契約等<br>
+    利用契約及び利用規約<br>
+    （５） 本サービス用設備<br>
+    本サービスを提供するために当社が貸与する冷蔵庫並びにそれらに付随する商品・容器保管用ボックス・料金箱などの備品（以下、総称して「貸与品等」といいます。）<br>
+    （６） 契約者設備<br>
+    本サービスを利用するために必要な電子レンジ等の加熱機器<br>
+    （７） 従業員<br>
+    本サービスを利用する場所に勤務する、正社員、契約社員、派遣社員、アルバイト、インターンなど、業務に従事する全ての人員<br>
+    （８） 消費税等<br>
+    消費税法及び同法に関連する法令の規定に基づき課税される消費税の額並びに地方税法及び同法に関する法令の規定に基づき課税される地方消費税の額その他契約者が支払に際して負担すべき公租公課<br>
+    （９） 利用料金<br>
+  </div>
+</div>
+
+<div class="grid-x grid-padding-x">
+  <div class="cell small-8 small-offset-2 botton1">
+    <input type="checkbox" name="#" value="appple" id="appple" />
+    <label for="appple" class="sample_label"><div id="moji">上記サービス利用規約に同意します</div></label>
+  </div>
+</div>
+
+<div class="line2">
+  <div class="grid-x grid-padding-x">
+    <div class="cell back2">
+      <input type="checkbox" name="#" value="appple" id="" />
+      <label for="appple" class="back">←前のページに戻る</label>
     </div>
+  </div>
 
-    <div class="grid-x grid-padding-x">
-      <div class="cell small-10 small-offset-1 kiyaku">
-        <p>利用規約</p>
-        <p>第１条 （利用規約の適用）
-        １． 当社は、この利用規約（以下単に「利用規約」といいます。）に基づき、本サービスを提供します。<br>
-        ２． 利用規約と個別の利用契約の規定が異なるときは、個別の利用契約の規定が利用規約に優先して適用されるものとします。<br>
-        ３． 利用規約は契約を締結する法人、個人事業主及びその従業員に適用されるものとします。</p>
-        <p>第２条 （定義）</p>
-        <p>利用規約においては、次の用語はそれぞれ次の意味で使用します。<br>
-        （１） 本サービス<br>
-        利用規約に基づき当社が契約者に提供する別表Ａ所定のサービス<br>
-        （２） 契約者<br>
-        利用規約に基づく利用契約を当社と締結し、本サービスの提供を受ける法人、個人事業主及びその従業員<br>
-        （３） 利用契約<br>
-        利用規約に基づき当社と契約者との間に締結される本サービスの提供に関する契約<br>
-        （４） 利用契約等<br>
-        利用契約及び利用規約<br>
-        （５） 本サービス用設備<br>
-        本サービスを提供するために当社が貸与する冷蔵庫並びにそれらに付随する商品・容器保管用ボックス・料金箱などの備品（以下、総称して「貸与品等」といいます。）<br>
-        （６） 契約者設備<br>
-        本サービスを利用するために必要な電子レンジ等の加熱機器<br>
-        （７） 従業員<br>
-        本サービスを利用する場所に勤務する、正社員、契約社員、派遣社員、アルバイト、インターンなど、業務に従事する全ての人員<br>
-        （８） 消費税等<br>
-        消費税法及び同法に関連する法令の規定に基づき課税される消費税の額並びに地方税法及び同法に関する法令の規定に基づき課税される地方消費税の額その他契約者が支払に際して負担すべき公租公課<br>
-        （９） 利用料金<br>
-      </div>
+  <div class="grid-x grid-padding-x">
+    <div class="cell back4">
+      <input type="checkbox" name="#" value="appple" id="" />
+      <label for="appple" class="back3">お支払いへ→</label>
     </div>
+  </div>
+</div>
 
-    <div class="grid-x grid-padding-x">
-      <div class="cell small-8 small-offset-2 botton1">
-        <input type="checkbox" name="#" value="appple" id="appple" />
-        <label for="appple" class="sample_label"><div id="moji">上記サービス利用規約に同意します</div></label>
-      </div>
-    </div>
-
-    <div class="line2">
-      <div class="grid-x grid-padding-x">
-        <div class="cell back2">
-          <input type="checkbox" name="#" value="appple" id="" />
-          <label for="appple" class="back">←前のページに戻る</label>
-        </div>
-      </div>
-
-      <div class="grid-x grid-padding-x">
-        <div class="cell back4">
-          <input type="checkbox" name="#" value="appple" id="" />
-          <label for="appple" class="back3">お支払いへ→</label>
-        </div>
-      </div>
-    </div>
-
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/vendor/what-input.js"></script>
-    <script src="js/vendor/foundation.js"></script>
-    <script src="js/app.js"></script>
-  </body>
-</html>
+{% endblock %}

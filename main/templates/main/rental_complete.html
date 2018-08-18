@@ -1,209 +1,197 @@
-<!doctype html>
-<html class="no-js" lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundation for Sites</title>
-    <link rel="stylesheet" href="css/foundation.css">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/rental_complete.css">
-  </head>
-  <body>
-    <div class="grid-container">
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="grid-container">
+  <div class="grid-x grid-padding-x">
+    <div class="large-12 cell">
+      <!-- <div class="callout"> -->
+        <div class="grid-x grid-padding-x">
+          <div class="large-12 small-12 cell">
+            <img src="{% static 'main/img/preview6.png' %}" alt="bar" title="bar" class="barimg">
+          </div>
+          <div class="cell small-8 small-offset-2 title">
+            <h1>注文が完了しました</h1>
+          </div>
+          <div class="exp1 small-9 small-offset-1 ">
+            <p>今回のご注文に関する詳細は、ご登録いただいたメールアドレス宛に送信させていただきました。ご確認ください。<p>
+          </div>
+        </div>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
+
+<div class="line">
+  <h2>商品の発送について</h2>
+</div>
+<div class="grid-x grid-padding-x">
+  <div class="cell small-10 small-offset-1 midiun-10 main1">
+    <p>ご注文いただいた商品は</p><br>
+    <p><div class="date">2018年9月10日</div>に到着予定です。</p>
+  </div>
+
+  <div class="cell small-10 small-offset-1 midiun-10 main1">
+    <p>発送会社はヤマト運輸で、追跡番号は下記になります。</p><br>
+    <p><div class="date">0909-2426-145-1451</div></p>
+  </div>
+</div>
+
+<div class="line">
+  <h2>会員登録</h2>
+</div>
+<div class="grid-x grid-padding-x fluid">
+  <div class="cell small-10 small-offset-1 midiun-6 main1">
+    <p>会員登録をすると、次回のご予約の簡易化や、予約情報の確認、集荷の依頼代行など、便利な機能が使えます。</p>
+  </div>
+  <div class="cell fb2">
+    <input type="checkbox" name="#" value="appple" id="" />
+    <label for="appple" class="fb1"><img src="{% static 'main/img/preview7.png' %}" alt="bar" title="bar" class="fbimg">Facebook IDで会員登録</label>
+  </div>
+
+  <div class="large-5 small-10 small-offset-1 cell">
+    <div class="callout">
       <div class="grid-x grid-padding-x">
-        <div class="large-12 cell">
-          <!-- <div class="callout"> -->
-            <div class="grid-x grid-padding-x">
-              <div class="large-12 small-12 cell">
-                <img src="img/preview6.png" alt="bar" title="bar" class="barimg">
-              </div>
-              <div class="cell small-8 small-offset-2 title">
-                <h1>注文が完了しました</h1>
-              </div>
-              <div class="exp1 small-9 small-offset-1 ">
-                <p>今回のご注文に関する詳細は、ご登録いただいたメールアドレス宛に送信させていただきました。ご確認ください。<p>
-              </div>
+        <!-- <input type="text" value="ooo@example.com" placeholder="" > -->
+        <div class=" cell small-10 small-offset-1 container">
+          <form>
+            <div class="group">
+              <input type="text" value="ooo@example.com" class="in1">
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label class="label4">mail</label>
             </div>
-          <!-- </div> -->
+            <div class="group">
+              <input type="text" class="in1">
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label class="label5">password</label>
+            </div>
+          </form>
         </div>
-      </div>
-    </div>
 
-    <div class="line">
-      <h2>商品の発送について</h2>
-    </div>
-    <div class="grid-x grid-padding-x">
-      <div class="cell small-10 small-offset-1 midiun-10 main1">
-        <p>ご注文いただいた商品は</p><br>
-        <p><div class="date">2018年9月10日</div>に到着予定です。</p>
-      </div>
-
-      <div class="cell small-10 small-offset-1 midiun-10 main1">
-        <p>発送会社はヤマト運輸で、追跡番号は下記になります。</p><br>
-        <p><div class="date">0909-2426-145-1451</div></p>
-      </div>
-    </div>
-
-    <div class="line">
-      <h2>会員登録</h2>
-    </div>
-    <div class="grid-x grid-padding-x fluid">
-      <div class="cell small-10 small-offset-1 midiun-6 main1">
-        <p>会員登録をすると、次回のご予約の簡易化や、予約情報の確認、集荷の依頼代行など、便利な機能が使えます。</p>
-      </div>
-      <div class="cell fb2">
-        <input type="checkbox" name="#" value="appple" id="" />
-        <label for="appple" class="fb1"><img src="img/preview7.png" alt="bar" title="bar" class="fbimg">Facebook IDで会員登録</label>
-      </div>
-
-      <div class="large-5 small-10 small-offset-1 cell">
-        <div class="callout">
-          <div class="grid-x grid-padding-x">
-            <!-- <input type="text" value="ooo@example.com" placeholder="" > -->
-            <div class=" cell small-10 small-offset-1 container">
-              <form>
-                <div class="group">
-                  <input type="text" value="ooo@example.com" class="in1">
-                  <span class="highlight"></span>
-                  <span class="bar"></span>
-                  <label class="label4">mail</label>
-                </div>
-                <div class="group">
-                  <input type="text" class="in1">
-                  <span class="highlight"></span>
-                  <span class="bar"></span>
-                  <label class="label5">password</label>
-                </div>
-              </form>
-            </div>
-
-            <div class="cell small-10 small-offset-1 kiyaku">
-              <p>利用規約</p>
-              <p>第１条 （利用規約の適用）
-              １． 当社は、この利用規約（以下単に「利用規約」といいます。）に基づき、本サービスを提供します。<br>
-              ２． 利用規約と個別の利用契約の規定が異なるときは、個別の利用契約の規定が利用規約に優先して適用されるものとします。<br>
-              ３． 利用規約は契約を締結する法人、個人事業主及びその従業員に適用されるものとします。</p>
-              <p>第２条 （定義）</p>
-              <p>利用規約においては、次の用語はそれぞれ次の意味で使用します。<br>
-              （１） 本サービス<br>
-              利用規約に基づき当社が契約者に提供する別表Ａ所定のサービス<br>
-              （２） 契約者<br>
-              利用規約に基づく利用契約を当社と締結し、本サービスの提供を受ける法人、個人事業主及びその従業員<br>
-              （３） 利用契約<br>
-              利用規約に基づき当社と契約者との間に締結される本サービスの提供に関する契約<br>
-              （４） 利用契約等<br>
-              利用契約及び利用規約<br>
-              （５） 本サービス用設備<br>
-              本サービスを提供するために当社が貸与する冷蔵庫並びにそれらに付随する商品・容器保管用ボックス・料金箱などの備品（以下、総称して「貸与品等」といいます。）<br>
-              （６） 契約者設備<br>
-              本サービスを利用するために必要な電子レンジ等の加熱機器<br>
-              （７） 従業員<br>
-              本サービスを利用する場所に勤務する、正社員、契約社員、派遣社員、アルバイト、インターンなど、業務に従事する全ての人員<br>
-              （８） 消費税等<br>
-              消費税法及び同法に関連する法令の規定に基づき課税される消費税の額並びに地方税法及び同法に関する法令の規定に基づき課税される地方消費税の額その他契約者が支払に際して負担すべき公租公課<br>
-              （９） 利用料金<br>
-            </div>
-            <!-- <div class="grid-x grid-padding-x"> -->
-            <div class="cell subs1">
-              <input type="checkbox" name="#" value="appple" id="" />
-              <label for="appple" class="subs2">利用規約に同意して会員登録</label>
-            </div>
-            <!-- </div> -->
-          </div>
+        <div class="cell small-10 small-offset-1 kiyaku">
+          <p>利用規約</p>
+          <p>第１条 （利用規約の適用）
+          １． 当社は、この利用規約（以下単に「利用規約」といいます。）に基づき、本サービスを提供します。<br>
+          ２． 利用規約と個別の利用契約の規定が異なるときは、個別の利用契約の規定が利用規約に優先して適用されるものとします。<br>
+          ３． 利用規約は契約を締結する法人、個人事業主及びその従業員に適用されるものとします。</p>
+          <p>第２条 （定義）</p>
+          <p>利用規約においては、次の用語はそれぞれ次の意味で使用します。<br>
+          （１） 本サービス<br>
+          利用規約に基づき当社が契約者に提供する別表Ａ所定のサービス<br>
+          （２） 契約者<br>
+          利用規約に基づく利用契約を当社と締結し、本サービスの提供を受ける法人、個人事業主及びその従業員<br>
+          （３） 利用契約<br>
+          利用規約に基づき当社と契約者との間に締結される本サービスの提供に関する契約<br>
+          （４） 利用契約等<br>
+          利用契約及び利用規約<br>
+          （５） 本サービス用設備<br>
+          本サービスを提供するために当社が貸与する冷蔵庫並びにそれらに付随する商品・容器保管用ボックス・料金箱などの備品（以下、総称して「貸与品等」といいます。）<br>
+          （６） 契約者設備<br>
+          本サービスを利用するために必要な電子レンジ等の加熱機器<br>
+          （７） 従業員<br>
+          本サービスを利用する場所に勤務する、正社員、契約社員、派遣社員、アルバイト、インターンなど、業務に従事する全ての人員<br>
+          （８） 消費税等<br>
+          消費税法及び同法に関連する法令の規定に基づき課税される消費税の額並びに地方税法及び同法に関する法令の規定に基づき課税される地方消費税の額その他契約者が支払に際して負担すべき公租公課<br>
+          （９） 利用料金<br>
         </div>
-      </div>
-    </div>
-
-    <div class="grid-x grid-padding-x fluid red">
-      <div class="large-12 cell">
-        <div class="waku">
-          <div class="cell title">
-            <p>レンタルの流れ</p>
-          </div>
-
-          <div class="grid-x grid-padding-x">
-            <div class="cell small-4">
-              <ul class="ul1">
-                <li class="li1">
-                <img src="img/preview4.png" alt="検索" title="検索" class="imgs">
-                </li>
-                <li class="li1">
-                <img src="img/preview.png" alt="発送" title="発送" class="imgs">
-                </li>
-                <li class="li1">
-                <img src="img/preview2.png" alt="ご利用" title="ご利用" class="imgs">
-                </li>
-                <li class="li1">
-                <img src="img/preview3.png" alt="返却" title="返却" class="imgs">
-                </li>
-              </ul>
-            </div>
-            <div class="cell small-8">
-              <ul class="ul2">
-                <li class="li2">
-                  <h3>このサイトで注文</h3>
-                  <p>細かい作業などなく、3分で注文完了<br>17時までの注文で当日出荷も可能！</p>
-                </li>
-                <li class="li2">
-                  <h3>お受取り</h3>
-                  <p>最短翌日、指定の日ずけに届きます。<br>もちろん、送料は無料！</p>
-                </li>
-                <li class="li2">
-                  <h3>スーツケースを使う</h3>
-                  <p>その旅に最適なスーツケースをお使い頂けます！　安全保障パックで破損対策も</p>
-                </li>
-                <li class="li2">
-                  <h3>集荷を呼んで返送</h3>
-                  <p>ご指定の日時に集荷スタッフを呼んで返却。返却時も送料はかかりません</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- <ul class="ul3">
-            <li class="li3">
-              <div class="tate"></div>
-            </li>
-            <li class="li3">
-              <div class="tate"></div>
-            </li>
-            <li class="li3">
-              <div class="tate"></div>
-            </li>
-            <li class="li3">
-              <div class="tate"></div>
-            </li>
-          </ul> -->
-        </div>
-      </div>
-    </div>
-
-    <div class="line move">
-      <h2>今後の流れ</h2>
-    </div>
-    <div class="grid-x grid-padding-x">
-      <div class="cell small-10 small-offset-1 midiun-10 main1">
-        <p>商品の到着後、内容物をご確認ください。<br>利用後は集荷依頼を行い、返却を行なってください</p>
-      </div>
-      <div class="cell small-8 small-offset-2 midiun-10 hatena">
-        <div class="maru">?</div>
-        <a href="#">返却（集荷依頼）の方法はこちら</a>
-      </div>
-    </div>
-
-    <div class="line2">
-      <div class="grid-x grid-padding-x">
-        <div class="cell back2">
+        <!-- <div class="grid-x grid-padding-x"> -->
+        <div class="cell subs1">
           <input type="checkbox" name="#" value="appple" id="" />
-          <label for="appple" class="back">最初のページに行く</label>
+          <label for="appple" class="subs2">利用規約に同意して会員登録</label>
         </div>
+        <!-- </div> -->
       </div>
     </div>
+  </div>
+</div>
 
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/vendor/what-input.js"></script>
-    <script src="js/vendor/foundation.js"></script>
-    <script src="js/app.js"></script>
-  </body>
-</html>
+<div class="grid-x grid-padding-x fluid red">
+  <div class="large-12 cell">
+    <div class="waku">
+      <div class="cell title">
+        <p>レンタルの流れ</p>
+      </div>
+
+      <div class="grid-x grid-padding-x">
+        <div class="cell small-4">
+          <ul class="ul1">
+            <li class="li1">
+            <img src="{% static 'main/img/preview4.png' %}" alt="検索" title="検索" class="imgs">
+            </li>
+            <li class="li1">
+            <img src="{% static 'main/img/preview.png' %}" alt="発送" title="発送" class="imgs">
+            </li>
+            <li class="li1">
+            <img src="{% static 'main/img/preview2.png' %}" alt="ご利用" title="ご利用" class="imgs">
+            </li>
+            <li class="li1">
+            <img src="{% static 'main/img/preview3.png' %}" alt="返却" title="返却" class="imgs">
+            </li>
+          </ul>
+        </div>
+        <div class="cell small-8">
+          <ul class="ul2">
+            <li class="li2">
+              <h3>このサイトで注文</h3>
+              <p>細かい作業などなく、3分で注文完了<br>17時までの注文で当日出荷も可能！</p>
+            </li>
+            <li class="li2">
+              <h3>お受取り</h3>
+              <p>最短翌日、指定の日ずけに届きます。<br>もちろん、送料は無料！</p>
+            </li>
+            <li class="li2">
+              <h3>スーツケースを使う</h3>
+              <p>その旅に最適なスーツケースをお使い頂けます！　安全保障パックで破損対策も</p>
+            </li>
+            <li class="li2">
+              <h3>集荷を呼んで返送</h3>
+              <p>ご指定の日時に集荷スタッフを呼んで返却。返却時も送料はかかりません</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <ul class="ul3">
+        <li class="li3">
+          <div class="tate"></div>
+        </li>
+        <li class="li3">
+          <div class="tate"></div>
+        </li>
+        <li class="li3">
+          <div class="tate"></div>
+        </li>
+        <li class="li3">
+          <div class="tate"></div>
+        </li>
+      </ul> -->
+    </div>
+  </div>
+</div>
+
+<div class="line move">
+  <h2>今後の流れ</h2>
+</div>
+<div class="grid-x grid-padding-x">
+  <div class="cell small-10 small-offset-1 midiun-10 main1">
+    <p>商品の到着後、内容物をご確認ください。<br>利用後は集荷依頼を行い、返却を行なってください</p>
+  </div>
+  <div class="cell small-8 small-offset-2 midiun-10 hatena">
+    <div class="maru">?</div>
+    <a href="#">返却（集荷依頼）の方法はこちら</a>
+  </div>
+</div>
+
+<div class="line2">
+  <div class="grid-x grid-padding-x">
+    <div class="cell back2">
+      <input type="checkbox" name="#" value="appple" id="" />
+      <label for="appple" class="back">最初のページに行く</label>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
