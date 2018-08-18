@@ -129,8 +129,39 @@ class CartView(generic.ListView):
         self.request.session['cart'] = str(cart.uuid)
         return models.Reservation.objects.filter(cart=cart, status=1).order_by('-created_at')
 
-    def post(self, request):
-        request.session['reservation'] = request.POST.get('reservation')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['regions'] = models.Region.objects.all()
+        context['attachments'] = models.Attachment.objects.all()
+        return context
+
+
+class RentalReadyView(generic.View):
+
+    def get(self, request):
+        request.session['reservation'] = request.GET.get('reservation')
+        reservation = models.Reservation.objects.get(uuid=request.GET.get('reservation'))
+
+        reservation.start_date = request.GET.get('start_date')
+        reservation.return_date = request.GET.get('return_date')
+        reservation.total_fee = int(request.GET.get('total_fee'))
+
+        if request.GET.get('warranty') == 'true':
+            reservation.is_warranted = True
+        elif request.GET.get('warranty') == 'false':
+            reservation.is_warranted = False
+
+        if 'region' in request.GET:
+            reservation.region = models.Region.objects.get(uuid=request.GET.get('region'))
+
+        reservation.save()
+        for uuid in request.GET.getlist('attachment'):
+            attachment = models.Attachment.objects.get(uuid=uuid)
+            reservation.attachments.add(attachment)
+        for attachment in reservation.attachments.all():
+            if str(attachment.uuid) not in request.GET.getlist('attachment'):
+                reservation.attachments.remove(attachment)
+
         return redirect('main:rental')
 
 

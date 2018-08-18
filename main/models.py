@@ -298,6 +298,62 @@ class ItemImage(UUIDModel):
         super().delete(*args, **kwargs)
 
 
+class AttachmentCategory(UUIDModel):
+    name = models.CharField(_('付属品分類名'), max_length=50)
+    description = models.TextField(_('備考'), blank=True)
+    order= models.SmallIntegerField(_('表示順'))
+    created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+
+    class Meta:
+        db_table = 'attachment_categories'
+        ordering = ['order']
+        verbose_name = _('付属品分類')
+        verbose_name_plural = _('付属品分類')
+
+    def __str__(self):
+        return '%s' % self.name
+
+
+class Attachment(UUIDModel):
+
+    def _get_image_path(self, filename):
+        prefix = 'img/attachment/'
+        path = get_image_path(self, filename)
+        return prefix + path
+
+    attachment_category = models.ForeignKey('AttachmentCategory', on_delete=models.PROTECT, verbose_name=_('付属品分類'))
+    name = models.CharField(_('付属品名'), max_length=50)
+    description = models.TextField(_('備考'), blank=True)
+    image = models.ImageField(upload_to=_get_image_path, verbose_name=_('画像'))
+    fee = models.IntegerField(_('料金'))
+    created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+
+    class Meta:
+        db_table = 'attachments'
+        ordering = ['attachment_category__order', 'name']
+        verbose_name = _('付属品')
+        verbose_name_plural = _('付属品')
+
+    def __str__(self):
+        return '%s' % self.name
+
+    def save(self, *args, **kwargs):
+        try:
+            attachment = Attachment.objects.get(pk=self.pk)
+            if attachment.image:
+                if attachment.image.url != self.image.url:
+                    attachment.image.delete(save=False)
+        except self.DoesNotExist:
+            pass
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super().delete(*args, **kwargs)
+
+
 class Cart(UUIDModel):
     user = models.OneToOneField('accounts.User', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('ユーザー'))
     description = models.TextField(_('備考'), blank=True)
@@ -341,7 +397,9 @@ class Reservation(UUIDModel):
     item = models.ForeignKey('Item', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('アイテム'))
     size = models.ForeignKey('Size', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('サイズ'))
     type = models.ForeignKey('Type', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('タイプ'))
-    prefecture = models.ForeignKey('Prefecture', on_delete=models.PROTECT, verbose_name=_('都道府県'), blank=True, null=True)
+    region = models.ForeignKey('Region', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('地域'))
+    prefecture = models.ForeignKey('Prefecture', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('都道府県'))
+    attachments = models.ManyToManyField('Attachment', db_table='reservations_attachments', blank=True, verbose_name=_('付属品'))
     start_date = models.DateField(_('開始日'), blank=True, null=True)
     return_date = models.DateField(_('返却日'), blank=True, null=True)
     zip_code = models.CharField(_('郵便番号'), max_length=50, blank=True)
@@ -355,6 +413,7 @@ class Reservation(UUIDModel):
     item_fee = models.IntegerField(_('小計価格'), blank=True, null=True)
     postage = models.IntegerField(_('送料'), blank=True, null=True)
     total_fee = models.IntegerField(_('合計価格'), blank=True, null=True)
+    is_warranted = models.BooleanField(_('保障パック加入'), default=False)
     status = models.SmallIntegerField(_('ステータス'), default=1)
     description = models.TextField(_('備考'), blank=True)
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)

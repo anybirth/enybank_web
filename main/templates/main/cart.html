@@ -3,17 +3,543 @@
 {% load static %}
 {% block content %}
 
-<p>cart</p>
+<section class="progress-bar">
+  <img class="center-horizontally" src="{% static 'main/img/progress-1.png' %}">
+</section>
 
+<section id="cart">
+  <h1 id="cart-title" class="text-center">カートの確認</h1>
+  <p id="cart-text" >カートに追加した商品をご確認の上、『個数』『発送先地域』『受け取り/返却日』『料金』を選択してください。</p>
+  {% for reservation in reservations %}
+  <div id="{{ reservation.uuid }}" class="cart-item">
+    <div class="cart-item-up grid-x">
+      <div class="cell small-4">
+        <label class="checkbox-label">
+          <input type="checkbox" name="{{ reservation.uuid }}" class="checkbox-input">
+          <span class="checkbox-parts"></span>
+        </label>
+      </div>
+      <div class="cell small-8">
+        <h2>{{ reservation.item.name }}</h2>
+      </div>
+    </div>
+    <div class="cart-item-down grid-x">
+      <div class="cell small-4">
+        <img src="{{ reservation.item.item_image_set.all.0.image.url }}">
+      </div>
+      <div class="cell small-8">
+        <div class="tags grid-x">
+           <div class="cell small-4">
+             <div class="tag">
+               <p class="text-center">即日配送</p>
+             </div>
+           </div>
+           <div class="cell small-4">
+             <div class="tag">
+               <p class="text-center">送料無料</p>
+             </div>
+           </div>
+           <div class="cell small-4">
+             <div class="tag">
+               <p class="text-center">新品</p>
+             </div>
+           </div>
+        </div>
+        <p class="cart-item-text">{{ reservation.item.description|truncatechars:75 }}</p>
+        <div class="select-num grid-x">
+          <div class="cell small-3 small-offset-6">
+            <label class="text-right">個数</label>
+          </div>
+          <div class="cell small-3">
+            <select>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>カート内に商品はありません</p>
+  {% endfor %}
+</section>
+
+{% if reservations %}
 {% for reservation in reservations %}
-<p>{{ reservation }}</p>
+<div class="cart-detail {{ reservation.uuid }}">
+  <section id="distant" >
+    <div class="ttl-bar">
+      <h1>遠方地域へお届け希望の方</h1>
+    </div>
+    {% for region in regions %}
+    <div class="region grid-x">
+      <div>
+        <input class="region-checkbox" type="checkbox" name="{{ region.uuid }}">
+      </div>
+      <div>
+        <p>{{ region.name }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
 
-<form action="" method="post">
-  {% csrf_token %}
-  <p class="text-center"><button type="submit" name="reservation" value="{{ reservation.uuid }}" class="button">reserve→</button></p>
-</form>
+  <section id="schedule">
+    <div class="ttl-bar">
+      <h1>ご希望の日程</h1>
+    </div>
+    <div id="schedule-input" class="grid-x">
+      <div id="start_date" class="start_date cell small-6">
+        <label>お届け日</label>
+        <input class="date_picker" readonly type="text" name="start_date">
+      </div>
+      <div id="return_date" class="return_date cell small-6">
+        <label>返却日</label>
+        <input class="date_picker" readonly type="text" name="return_date">
+      </div>
+    </div>
+    <div id="schedule-div">
+      <div id="schedule-div-up">
+        <h2 class="text-center">スケジュール</h2>
+      </div>
+      <div id="schedule-div-down" class="grid-x">
+        <table>
+          <tr>
+            <td class="schedule_start schedule-date text-right"></td>
+            <td>スーツケースがご自宅に到着</td>
+          </tr>
+          <tr class="schedule-middle">
+            <td class="schedule-date text-right"><br><br><br></td>
+            <td><br>レンタル中<br><br></td>
+          </tr>
+          <tr>
+            <td class="schedule_return schedule-date text-right"></td>
+            <td>集荷スタッフに返却</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <h2 id="schedule-prompt" class="text-center">旅行前後は余裕をお持ちになるのがオススメです！</h2>
+    <div class="schedule-button selected schedule-button-now grid-x">
+      <div class="cell small-5">
+        <div class="schedule-button-date schedule-button-date-now">
+          <p class="text-center"></p>
+        </div>
+        <div class="schedule-button-days schedule-button-days-now">
+          <p class="text-center"></p>
+        </div>
+      </div>
+      <div class="schedule-button-fee schedule-button-fee-now cell small-7">
+        <p class="text-center"></p>
+      </div>
+    </div>
+    <div class="schedule-button schedule-button-before grid-x">
+      <div class="cell small-5">
+        <div class="schedule-button-date schedule-button-date-before">
+          <p class="text-center"></p>
+        </div>
+        <div class="schedule-button-days schedule-button-days-before">
+          <p class="text-center"></p>
+        </div>
+      </div>
+      <div class="schedule-button-fee schedule-button-fee-before cell small-7">
+        <p class="text-center"></p>
+      </div>
+    </div>
+    <div class="schedule-button schedule-button-after grid-x">
+      <div class="cell small-5">
+        <div class="schedule-button-date schedule-button-date-after">
+          <p class="text-center"></p>
+        </div>
+        <div class="schedule-button-days schedule-button-days-after">
+          <p class="text-center"></p>
+        </div>
+      </div>
+      <div class="schedule-button-fee schedule-button-fee-after cell small-7">
+        <p class="text-center"></p>
+      </div>
+    </div>
+    <div class="schedule-button schedule-button-both grid-x">
+      <div class="cell small-5">
+        <div class="schedule-button-date schedule-button-date-both">
+          <p class="text-center"></p>
+        </div>
+        <div class="schedule-button-days schedule-button-days-both">
+          <p class="text-center"></p>
+        </div>
+      </div>
+      <div class="schedule-button-fee schedule-button-fee-both cell small-7">
+        <p class="text-center"></p>
+      </div>
+    </div>
+    <!-- <img src="{% static 'main/img/button-now.png' %}" class="schedule-button">
+    <img src="{% static 'main/img/button-normal.png' %}" class="schedule-button">
+    <img src="{% static 'main/img/button-popular.png' %}" class="schedule-button">
+    <img src="{% static 'main/img/button-normal.png' %}" class="schedule-button"> -->
+  </section>
+
+  <section id="return">
+    <div class="ttl-bar">
+      <h1>返却日時</h1>
+    </div>
+    <h2 id="return-time" class="return-time text-center"></h2>
+    <p class="return-text text-center">上記で指定の時刻までに、集荷をご依頼ください。<br>集荷依頼は、レンタル予約完了後にマイページより行えます。</p>
+    <p  class="return-help text-center"><a href=""><i class="fas fa-question-circle"></i>&nbsp;返却（集荷依頼）の方法はこちら</a></p>
+  </section>
+
+  <section id="warranty">
+    <div class="ttl-bar">
+      <h1>安心保証</h1>
+    </div>
+    <p>海外旅行などでは、<span class="warranty-bold">空港スタッフの扱いの悪さ</span>や、内容物の液体漏れなど、予期せぬ出来事により、多くの頻度で故障や汚れることがあります。</p>
+    <div class="grid-x">
+      <div class="cell small-6">
+        <img src="{% static 'main/img/broken-by-weight.png' %}">
+      </div>
+      <div class="cell small-6">
+        <img src="{% static 'main/img/broken-by-throwing.png' %}">
+      </div>
+    </div>
+    <p>そこで……</p>
+    <p class="text-center">『<span class="under-line">汚れ</span>』『<span class="under-line">故障</span>』『<span class="under-line">盗難</span>』</p>
+    <p>など全てに対応した〝安心保障パック〟がオススメ！</p>
+    <div class="warranty-button">
+      <p class="text-center">安心保障パック加入(￥300)</p>
+    </div>
+  </section>
+
+  <section id="attachment">
+    <div class="ttl-bar">
+      <h1>ご一緒に</h1>
+    </div>
+    <div class="scroll-wrapper scroll-wrapper-medium">
+      <div class="scroll-inner scroll-inner-medium">
+        {% for attachment in attachments %}
+        <div id="{{ attachment.uuid }}" class="{{ attachment.uuid }} attachment-box box box-medium">
+          <div class="scroll-img-medium">
+            <label class="checkbox-label">
+              <input type="checkbox" name="{{ attachment.uuid }}" class="checkbox-input">
+              <span class="checkbox-parts"></span>
+            </label>
+            <img src="{{ attachment.image.url }}">
+          </div>
+          <p class="attachment-name">{{ attachment.name|truncatechars:16 }}</p>
+          <p id="{{ attachment.fee }}" class="attachment-price text-center">{{ attachment.fee }}円</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="total">
+    <h2 class="text-center">合計金額<span></span>円</h2>
+    <p class="text-center"><a href="{% url 'main:rental_ready' %}" class="button">ご注文手続きに進む→</a></p>
+  </section>
+</div>
+
+<script>
+$(function() {
+
+  var region = new Object();
+  var startDateStr = new Object();
+  var returnDateStr = new Object();
+  var startDate = new Object();
+  var returnDate = new Object();
+  var startDateAlt = new Object();
+  var returnDateAlt = new Object();
+  var daysNow = new Object();
+  var daysOne = new Object();
+  var daysTwo = new Object();
+  var dateStatus = new Object();
+  var warranty = new Object();
+  var attachment = new Object();
+  var totalFee = new Object();
+
+  //distant
+  $('.{{ reservation.uuid }} .region-checkbox').on('click', function() {
+    region['{{ reservation.uuid }}'] = $(this).attr("name");
+    if ($(this).prop('checked')) {
+      $('.{{ reservation.uuid }} .region-checkbox').not($(this)).prop('checked', false);
+    }
+  });
+
+  // schedule
+  startDateStr['{{ reservation.uuid }}'] = '{{ reservation.start_date|date:"Y-m-d" }}';
+  returnDateStr['{{ reservation.uuid }}'] = '{{ reservation.return_date|date:"Y-m-d" }}';
+  dateStatus['{{ reservation.uuid }}'] = 'now';
+  warranty['{{ reservation.uuid }}'] = false;
+  attachment['{{ reservation.uuid }}'] = new Object();
+
+  $('.{{ reservation.uuid }} [name=start_date]').val(startDateStr['{{ reservation.uuid }}']);
+  $('.{{ reservation.uuid }} [name=return_date]').val(returnDateStr['{{ reservation.uuid }}']);
+  changeDate();
+
+  $('.{{ reservation.uuid }} [name=start_date], .{{ reservation.uuid }} [name=return_date]').change(function() {
+    startDateStr['{{ reservation.uuid }}'] = $('.{{ reservation.uuid }} [name=start_date]').val();
+    returnDateStr['{{ reservation.uuid }}'] = $('.{{ reservation.uuid }} [name=return_date]').val();
+    changeDate();
+    if (!$('.{{ reservation.uuid }} .selected').hasClass('schedule-button-now')) {
+      $('.{{ reservation.uuid }} .schedule-button').removeClass('selected');
+      $('.{{ reservation.uuid }} .schedule-button-now').addClass('selected');
+    }
+    return false;
+  });
+
+  $('.{{ reservation.uuid }} .schedule-button').on('click', function(event) {
+    $('.{{ reservation.uuid }} .schedule-button').removeClass('selected');
+    $(this).addClass('selected');
+    if ($(this).hasClass('schedule-button-now')) {
+      $('.{{ reservation.uuid }} [name=start_date]').val(startDate['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (startDate['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + startDate['{{ reservation.uuid }}'].getDate()).slice(-2));
+      $('.{{ reservation.uuid }} [name=return_date]').val(returnDate['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (returnDate['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + returnDate['{{ reservation.uuid }}'].getDate()).slice(-2));
+      $('.{{ reservation.uuid }} .schedule_start').text((startDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + (' ' + startDate['{{ reservation.uuid }}'].getDate()).slice(-2) + '日');
+      $('.{{ reservation.uuid }} .schedule_return').text((returnDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + (' ' + returnDate['{{ reservation.uuid }}'].getDate()).slice(-2) + '日');
+      $('.{{ reservation.uuid }} .return-time').text(returnDate['{{ reservation.uuid }}'].getFullYear() + '年' + (returnDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + returnDate['{{ reservation.uuid }}'].getDate() + '日 17時');
+      $('.{{ reservation.uuid }} #total h2 span').text('￥' + calculateFee(startDate['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}']));
+      dateStatus['{{ reservation.uuid }}'] = 'now';
+   } else if ($(this).hasClass('schedule-button-before')) {
+      $('.{{ reservation.uuid }} [name=start_date]').val(startDateAlt['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (startDateAlt['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + startDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2));
+      $('.{{ reservation.uuid }} [name=return_date]').val(returnDate['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (returnDate['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + returnDate['{{ reservation.uuid }}'].getDate()).slice(-2));
+      $('.{{ reservation.uuid }} .schedule_start').text((startDateAlt['{{ reservation.uuid }}'].getMonth() + 1) + '月' + (' ' + startDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2) + '日');
+      $('.{{ reservation.uuid }} .schedule_return').text((returnDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + (' ' + returnDate['{{ reservation.uuid }}'].getDate()).slice(-2) + '日');
+      $('.{{ reservation.uuid }} .return-time').text(returnDate['{{ reservation.uuid }}'].getFullYear() + '年' + (returnDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + returnDate['{{ reservation.uuid }}'].getDate() + '日 17時');
+      $('.{{ reservation.uuid }} #total h2 span').text('￥' + calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}']));
+      dateStatus['{{ reservation.uuid }}'] = 'before';
+    } else if ($(this).hasClass('schedule-button-after')) {
+      $('.{{ reservation.uuid }} [name=start_date]').val(startDate['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (startDate['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + startDate['{{ reservation.uuid }}'].getDate()).slice(-2));
+      $('.{{ reservation.uuid }} [name=return_date]').val(returnDateAlt['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (returnDateAlt['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + returnDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2));
+      $('.{{ reservation.uuid }} .schedule_start').text((startDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + (' ' + startDate['{{ reservation.uuid }}'].getDate()).slice(-2) + '日');
+      $('.{{ reservation.uuid }} .schedule_return').text((returnDateAlt['{{ reservation.uuid }}'].getMonth() + 1) + '月' + (' ' + returnDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2) + '日');
+      $('.{{ reservation.uuid }} .return-time').text(returnDateAlt['{{ reservation.uuid }}'].getFullYear() + '年' + (returnDateAlt['{{ reservation.uuid }}'].getMonth() + 1) + '月' + returnDateAlt['{{ reservation.uuid }}'].getDate() + '日 17時');
+      $('.{{ reservation.uuid }} #total h2 span').text('￥' + calculateFee(startDate['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}']));
+      dateStatus['{{ reservation.uuid }}'] = 'after';
+    } else if ($(this).hasClass('schedule-button-both')) {
+      $('.{{ reservation.uuid }} [name=start_date]').val(startDateAlt['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (startDateAlt['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + startDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2));
+      $('.{{ reservation.uuid }} [name=return_date]').val(returnDateAlt['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (returnDateAlt['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + returnDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2));
+      $('.{{ reservation.uuid }} .schedule_start').text((startDateAlt['{{ reservation.uuid }}'].getMonth() + 1) + '月' + (' ' + startDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2) + '日');
+      $('.{{ reservation.uuid }} .schedule_return').text((returnDateAlt['{{ reservation.uuid }}'].getMonth() + 1) + '月' + (' ' + returnDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2) + '日');
+      $('.{{ reservation.uuid }} .return-time').text(returnDateAlt['{{ reservation.uuid }}'].getFullYear() + '年' + (returnDateAlt['{{ reservation.uuid }}'].getMonth() + 1) + '月' + returnDateAlt['{{ reservation.uuid }}'].getDate() + '日 17時');
+      $('.{{ reservation.uuid }} #total h2 span').text('￥' + calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}']));
+      dateStatus['{{ reservation.uuid }}'] = 'both';
+    }
+  });
+
+  // warranty
+  $('.{{ reservation.uuid }} .warranty-button').on('click', function(event) {
+    if (!$(this).hasClass('selected')) {
+      $(this).addClass('selected');
+      warranty['{{ reservation.uuid }}'] = true;
+      if (dateStatus['{{ reservation.uuid }}'] == 'now') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDate['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'before') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'after') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDate['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'both') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}'])));
+      }
+    } else {
+      $(this).removeClass('selected');
+      warranty['{{ reservation.uuid }}'] = false;
+      if (dateStatus['{{ reservation.uuid }}'] == 'now') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDate['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'before') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'after') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDate['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'both') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}'])));
+      }
+    }
+  });
+
+  // attachment
+  $('.{{ reservation.uuid }} .attachment-box').on('click', function(event) {
+    startDate['{{ reservation.uuid }}'] = new Date(startDateStr['{{ reservation.uuid }}'] + ' 00:00');
+    startDateAlt['{{ reservation.uuid }}'] = new Date(startDate['{{ reservation.uuid }}'].getFullYear(), startDate['{{ reservation.uuid }}'].getMonth(), startDate['{{ reservation.uuid }}'].getDate() - 1);
+    returnDate['{{ reservation.uuid }}'] = new Date(returnDateStr['{{ reservation.uuid }}'] + ' 00:00');
+    returnDateAlt['{{ reservation.uuid }}'] = new Date(returnDate['{{ reservation.uuid }}'].getFullYear(), returnDate['{{ reservation.uuid }}'].getMonth(), returnDate['{{ reservation.uuid }}'].getDate() + 1);
+
+    if (!$('.{{ reservation.uuid }} [name=' + $(this).attr("id") + ']').prop('checked')) {
+      attachment['{{ reservation.uuid }}'][$(this).attr("id")] = parseInt($(this).find('.attachment-price').attr("id"));
+      $('.{{ reservation.uuid }} [name=' + $(this).attr("id") + ']').prop('checked', true);
+      if (dateStatus['{{ reservation.uuid }}'] == 'now') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDate['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'before') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'after') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDate['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'both') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}'])));
+      }
+    } else {
+      delete attachment['{{ reservation.uuid }}'][$(this).attr("id")];
+      $('.{{ reservation.uuid }} [name=' + $(this).attr("id") + ']').prop('checked', false);
+      if (dateStatus['{{ reservation.uuid }}'] == 'now') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDate['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'before') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'after') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDate['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}'])));
+      } else if (dateStatus['{{ reservation.uuid }}'] == 'both') {
+        $('.{{ reservation.uuid }} #total h2 span').text('￥' + (calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}'])));
+      }
+    }
+  });
+
+  // total
+  $('.{{ reservation.uuid }} #total a').on('click', function() {
+    var _href = $(this).attr("href");
+    var param = '?reservation={{ reservation.uuid }}';
+
+    // date
+    var start_date = '';
+    var return_date = '';
+
+    if (dateStatus['{{ reservation.uuid }}'] == 'now') {
+      start_date = startDate['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (startDate['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + startDate['{{ reservation.uuid }}'].getDate()).slice(-2);
+      return_date = returnDate['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (returnDate['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + returnDate['{{ reservation.uuid }}'].getDate()).slice(-2);
+    } else if (dateStatus['{{ reservation.uuid }}'] == 'before') {
+      start_date = startDateAlt['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (startDateAlt['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + startDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2);
+      return_date = returnDate['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (returnDate['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + returnDate['{{ reservation.uuid }}'].getDate()).slice(-2);
+    } else if (dateStatus['{{ reservation.uuid }}'] == 'after') {
+      start_date = startDate['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (startDate['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + startDate['{{ reservation.uuid }}'].getDate()).slice(-2);
+      return_date = returnDateAlt['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (returnDateAlt['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + returnDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2);
+    } else if (dateStatus['{{ reservation.uuid }}'] == 'both') {
+      start_date = startDateAlt['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (startDateAlt['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + startDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2);
+      return_date = returnDateAlt['{{ reservation.uuid }}'].getFullYear() + '-' +  ('0' + (returnDateAlt['{{ reservation.uuid }}'].getMonth() + 1)).slice(-2) + '-' + ('0' + returnDateAlt['{{ reservation.uuid }}'].getDate()).slice(-2);
+    }
+    param += '&start_date=' + start_date + '&return_date=' + return_date;
+
+    // region
+    if (region['{{ reservation.uuid }}']) {
+      param += '&region=' + region['{{ reservation.uuid }}'];
+    }
+
+    // warranty
+    param += '&warranty=' + warranty['{{ reservation.uuid }}'];
+
+    // attachment
+    for (uuid in attachment['{{ reservation.uuid }}']) {
+      param += '&attachment=' + uuid;
+    }
+
+    // totalFee
+    param += '&total_fee=' + totalFee['{{ reservation.uuid }}'];
+    $(this).attr("href", _href + param);
+  });
+
+  function changeDate() {
+    startDate['{{ reservation.uuid }}'] = new Date(startDateStr['{{ reservation.uuid }}'] + ' 00:00');
+    startDateAlt['{{ reservation.uuid }}'] = new Date(startDate['{{ reservation.uuid }}'].getFullYear(), startDate['{{ reservation.uuid }}'].getMonth(), startDate['{{ reservation.uuid }}'].getDate() - 1);
+    returnDate['{{ reservation.uuid }}'] = new Date(returnDateStr['{{ reservation.uuid }}'] + ' 00:00');
+    returnDateAlt['{{ reservation.uuid }}'] = new Date(returnDate['{{ reservation.uuid }}'].getFullYear(), returnDate['{{ reservation.uuid }}'].getMonth(), returnDate['{{ reservation.uuid }}'].getDate() + 1);
+    daysNow['{{ reservation.uuid }}'] = (returnDate['{{ reservation.uuid }}'].getTime() - startDate['{{ reservation.uuid }}'].getTime()) / (1000 * 60 * 60 * 24) + 1;
+    daysOne['{{ reservation.uuid }}'] = (returnDate['{{ reservation.uuid }}'].getTime() - startDateAlt['{{ reservation.uuid }}'].getTime()) / (1000 * 60 * 60 * 24) + 1;
+    daysTwo['{{ reservation.uuid }}'] = (returnDateAlt['{{ reservation.uuid }}'].getTime() - startDateAlt['{{ reservation.uuid }}'].getTime()) / (1000 * 60 * 60 * 24) + 1;
+    $('.{{ reservation.uuid }} .schedule_start').text((startDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + (' ' + startDate['{{ reservation.uuid }}'].getDate()).slice(-2) + '日');
+    $('.{{ reservation.uuid }} .schedule_return').text((returnDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + (' ' + returnDate['{{ reservation.uuid }}'].getDate()).slice(-2) + '日');
+    $('.{{ reservation.uuid }} .schedule-button-date-now p').text((startDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + startDate['{{ reservation.uuid }}'].getDate() + '日~' + (returnDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + returnDate['{{ reservation.uuid }}'].getDate() + '日');
+    $('.{{ reservation.uuid }} .schedule-button-date-before p').text((startDateAlt['{{ reservation.uuid }}'].getMonth() + 1) + '月' + startDateAlt['{{ reservation.uuid }}'].getDate() + '日~' + (returnDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + returnDate['{{ reservation.uuid }}'].getDate() + '日');
+    $('.{{ reservation.uuid }} .schedule-button-date-after p').text((startDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + startDate['{{ reservation.uuid }}'].getDate() + '日~' + (returnDateAlt['{{ reservation.uuid }}'].getMonth() + 1) + '月' + returnDateAlt['{{ reservation.uuid }}'].getDate() + '日');
+    $('.{{ reservation.uuid }} .schedule-button-date-both p').text((startDateAlt['{{ reservation.uuid }}'].getMonth() + 1) + '月' + startDateAlt['{{ reservation.uuid }}'].getDate() + '日~' + (returnDateAlt['{{ reservation.uuid }}'].getMonth() + 1) + '月' + returnDateAlt['{{ reservation.uuid }}'].getDate() + '日');
+    $('.{{ reservation.uuid }} .schedule-button-days-now p').text(daysNow['{{ reservation.uuid }}'] + '日間');
+    $('.{{ reservation.uuid }} .schedule-button-days-before p').text(daysOne['{{ reservation.uuid }}'] + '日間');
+    $('.{{ reservation.uuid }} .schedule-button-days-after p').text(daysOne['{{ reservation.uuid }}'] + '日間');
+    $('.{{ reservation.uuid }} .schedule-button-days-both p').text(daysTwo['{{ reservation.uuid }}'] + '日間');
+    $('.{{ reservation.uuid }} .schedule-button-fee-now p').html('約<span>' + Math.round(calculateFee(startDate['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}']) / daysNow['{{ reservation.uuid }}']) + '</span>円/日');
+    $('.{{ reservation.uuid }} .schedule-button-fee-before p').html('約<span>' + Math.round(calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}']) / daysOne['{{ reservation.uuid }}']) + '</span>円/日');
+    $('.{{ reservation.uuid }} .schedule-button-fee-after p').html('約<span>' + Math.round(calculateFee(startDate['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}']) / daysOne['{{ reservation.uuid }}']) + '</span>円/日');
+    $('.{{ reservation.uuid }} .schedule-button-fee-both p').html('約<span>' + Math.round(calculateFee(startDateAlt['{{ reservation.uuid }}'], returnDateAlt['{{ reservation.uuid }}']) / daysTwo['{{ reservation.uuid }}']) + '</span>円/日');
+    $('.{{ reservation.uuid }} .return-time').text(returnDate['{{ reservation.uuid }}'].getFullYear() + '年' + (returnDate['{{ reservation.uuid }}'].getMonth() + 1) + '月' + returnDate['{{ reservation.uuid }}'].getDate() + '日 17時');
+    $('.{{ reservation.uuid }} #total h2 span').text('￥' + calculateFee(startDate['{{ reservation.uuid }}'], returnDate['{{ reservation.uuid }}']));
+  }
+
+  function calculateFee(startDate, returnDate) {
+    var intercept = {{ reservation.item.fee_intercept }};
+    var coefs = [];
+
+    {% for coef in reservation.item.item_fee_coef_set.all %}
+    coefs[{{ forloop.counter0 }}] = {};
+    coefs[{{ forloop.counter0 }}].feeCoef = {{ coef.fee_coef }};
+    coefs[{{ forloop.counter0 }}].startingPoint = {{ coef.starting_point }};
+    {% if coef.end_point %}
+    coefs[{{ forloop.counter0 }}].endPoint = {{ coef.end_point }};
+    {% else %}
+    coefs[{{ forloop.counter0 }}].endPoint = null;
+    {% endif %}
+    {% endfor %}
+
+    var days = (returnDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
+    var fee = intercept;
+    if (warranty['{{ reservation.uuid }}']) {
+      fee += 300;
+    }
+    for (uuid in attachment['{{ reservation.uuid }}']) {
+      fee += attachment['{{ reservation.uuid }}'][uuid];
+    }
+
+    for (coef of coefs) {
+      feeCoef = coef.feeCoef;
+      startingPoint = coef.startingPoint;
+      endPoint = coef.endPoint;
+
+      if (endPoint) {
+        if (days <= endPoint) {
+          fee += feeCoef * (days - startingPoint);
+          totalFee['{{ reservation.uuid }}'] = fee;
+          return Math.round(fee);
+        } else if (endPoint < days) {
+          fee += feeCoef * (endPoint - startingPoint);
+        }
+      } else {
+        fee += feeCoef * (days - startingPoint);
+        totalFee['{{ reservation.uuid }}'] = fee;
+        return Math.round(fee);
+      }
+    }
+    totalFee['{{ reservation.uuid }}'] = fee;
+    return Math.round(fee);
+  }
+});
+</script>
+
 {% endfor %}
+{% endif %}
 
-<p class="text-center"><a href="{% url 'main:index' %}" class="button secondary">←back to home</a></p>
+<section class="back">
+  <p class="text-center"><a href="{% url 'main:index' %}" class="button">←前のページに戻る</a></p>
+</section>
+
+<script>
+$(function() {
+
+  // cart
+  var reservation = '{{ reservations.0.uuid }}';
+  $('.cart-item .checkbox-input').prop('checked', false);
+  $('[name=' + reservation + ']').prop('checked', true);
+  $('.cart-detail').addClass('display-none');
+  $('.' + reservation).removeClass('display-none');
+
+  $('.cart-item').on('click', function(event) {
+    if (!$(event.target).closest('.select-num').length) {
+      reservation = $(this).attr("id");
+      if (!$('[name=' + reservation + ']').prop('checked')) {
+        $('.cart-item .checkbox-input').prop('checked', false);
+        $('[name=' + reservation + ']').prop('checked', true);
+        $('.cart-detail').addClass('display-none');
+        $('.' + reservation).removeClass('display-none');
+      }
+    }
+  });
+});
+</script>
 
 {% endblock %}

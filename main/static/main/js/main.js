@@ -12,7 +12,7 @@ $(function() {
   // datepicker
   $(".date_picker").datepicker({
     showOn: "both",
-    buttonImage: "static/main/img/calendar.png",
+    buttonImage: "/static/main/img/calendar.png",
     buttonImageOnly: true,
     buttonText: "日付を選択",
     dateFormat: "yy-mm-dd",
