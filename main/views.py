@@ -129,6 +129,12 @@ class CartView(generic.ListView):
         self.request.session['cart'] = str(cart.uuid)
         return models.Reservation.objects.filter(cart=cart, status=1).order_by('-created_at')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['regions'] = models.Region.objects.all()
+        context['attachments'] = models.Attachment.objects.all()
+        return context
+
 
 class RentalView(generic.UpdateView):
     model = models.Reservation
