@@ -158,6 +158,23 @@ class ColorCategory(UUIDModel):
         return '%s' % self.name
 
 
+class MaterialCategory(UUIDModel):
+    name = models.CharField(_('材質分類名'), max_length=50)
+    description = models.TextField(_('備考'), blank=True)
+    order= models.SmallIntegerField(_('表示順'))
+    created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+
+    class Meta:
+        db_table = 'material_categories'
+        ordering = ['order']
+        verbose_name = _('材質分類')
+        verbose_name_plural = _('材質分類')
+
+    def __str__(self):
+        return '%s' % self.name
+
+
 class Bland(UUIDModel):
     name = models.CharField(_('ブランド名'), max_length=50)
     description = models.TextField(_('備考'), blank=True)
