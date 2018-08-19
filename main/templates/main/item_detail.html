@@ -69,7 +69,7 @@
     </div>
 
     <h1>商品説明</h1>
-    <p>{{ item.description }}</p>
+    <p>{{ item.description|linebreaksbr }}</p>
 
     <div class="grid-x grid-padding-x fluid amount">
       <div class="cell small-4 secondul">
@@ -108,16 +108,7 @@
       </div>
     </div>
     <div id="nagai">
-      Cosmolite(コスモライト )は革新的素材Curvを採用した超軽量・最強スーツケースです。重量はわずか1.8kg。特許素材Curv(カーヴ)を使用したスーツケースが、生まれ変わって更に軽くなりました。衝撃や歪みに対し優れた耐性を持ち、同時に驚きの軽さを実現。独創的な独特のフォルムは、貝殻(シェル)の強さに発想を得て開発されました。その中でも小型サイズであり、国際線(一部国内線)において手荷物として預けることのできるタイプです。<br><br>
-
-      ■軽量ホイール<br>
-      軽量化され、スタイリッシュになった車輪がスムーズに回転します。<br>
-      <br>
-      ■TSAロック<br>
-      世界的に認可された画期的なTSAロックがケースに搭載されています。このロックのおかげで、セキュリティチェックの際にケースを破損することなく開けることができます。<br>
-      <br>
-      ■Curv(カーヴ)素材<br>
-      ポリプロピレンシートが幾重にも重ねられた構造を持ち、日常環境下だけではなく極度の低温下においてもきわめて高い衝撃耐性を発揮します。
+      {{ item.text|linebreaksbr }}
     </div>
     <h1>対応航空会社</h1>
     <div class="grid-x grid-padding-x fluid amount">
@@ -125,7 +116,7 @@
       <div class="grid-x grid-padding-x fluid" id="kinai">
         {% if item.length|add:item.width|add:item.depth < 115 %}
         {% for airline in airlines %}
-        {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions %}
+        {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions_carry_on %}
         <div class="cell small-6">
           <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
             <a href="">
@@ -161,7 +152,7 @@
       <h2 class="subtitle">国内線預け</h2>
       <div class="grid-x grid-padding-x fluid" id="kokunai">
         {% for airline in airlines %}
-        {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions %}
+        {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions_domestic %}
         <div class="cell small-6">
           <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
             <a href="">
@@ -185,7 +176,7 @@
       <h2 class="subtitle">国際線預け</h2>
       <div class="grid-x grid-padding-x fluid" id="kokusai">
         {% for airline in airlines %}
-        {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions %}
+        {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions_international %}
         <div class="cell small-6">
           <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
             <a href="">

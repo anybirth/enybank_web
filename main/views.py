@@ -53,9 +53,9 @@ class ItemDetailView(generic.DetailView):
         request.session['cart'] = str(cart.uuid)
         reservation = models.Reservation(
             cart=cart,
-            item=models.Item.objects.get(uuid=request.POST['item']),
-            start_date=request.POST['start_date'],
-            return_date=request.POST['return_date'],
+            item=models.Item.objects.get(uuid=request.POST.get('item')),
+            start_date=request.POST.get('start_date'),
+            return_date=request.POST.get('return_date'),
         )
         if request.user.is_authenticated:
             reservation.user = request.user
