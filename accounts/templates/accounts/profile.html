@@ -5,6 +5,8 @@
 
 <p>profile</p>
 
+<p>{{ request.user }}</p>
+
 <p class="text-center"><a href="{% url 'accounts:associate' %}" class="button">associate with Facebook</a></p>
 <p class="text-center"><a href="{% url 'accounts:logout' %}" class="button secondary">logout</a></p>
 
