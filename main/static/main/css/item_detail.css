@@ -1,0 +1,630 @@
+/* second-page
+       =========================================================================
+*/
+
+#item .pic1 {
+  width: 50.4375vw;
+  height: 75.3125vw;
+  background-color: #d8d8d8;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:8px;
+  margin-bottom: 16px;
+  z-index: -1;
+}
+
+#item .sub {
+  /*opacity: 0.36;*/
+  background-color: rgb(237, 237, 237);
+  width: 100vw;
+  /*border: solid 0.7px #979797;
+  border-top: none;
+  border-bottom: none;*/
+}
+
+#item .sub .cell h2 {
+  opacity: 1;
+  padding-top: 11px;
+  text-align: left;
+  font-family: HiraginoSans-W5;
+  font-size: 5.3vw;
+  color: #000000;
+}
+
+#item .sub .box1 {
+  width: 29%;
+  height: 5.625vw;
+  background-color: #da96f2;
+  text-align: center;
+  font-family: HiraginoSans-W6;
+  font-size: 2.813vw;
+  line-height: 6vw;
+  margin-left: 2%;
+  color: #fff;
+}
+#item .sub .box2 {
+  width: 29%;
+  height: 5.625vw;
+  background-color: #f296c8;
+  text-align: center;
+  font-family: HiraginoSans-W6;
+  font-size: 2.813vw;
+  margin-left: 3%;
+  line-height: 6vw;
+  color: #fff;
+}
+#item .sub .box3 {
+  width: 29%;
+  height: 5.625vw;
+  background-color: #f29696;
+  text-align: center;
+  font-family: HiraginoSans-W6;
+  font-size: 2.813vw;
+  margin-left: 3%;
+  line-height: 6vw;
+  color: #fff;
+}
+
+#item .sub .price {
+  width: 68vw;
+  height: 2em;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 5vw;
+  margin-bottom: 5vw;
+  background-blend-mode: darken;
+}
+#item .sub .price .dayfor {
+  color: #ff7777;
+  font-size: 4vw;
+  font-family: HiraginoSans-W6;
+  /*background-image: linear-gradient(transparent 50%, #f8e71c 50%);*/
+}
+#item .sub .price .money {
+  color: #ff7777;
+  font-size: 7vw;
+  font-family: HiraginoSans-W6;
+  /*background-image: linear-gradient(transparent 63%, #f8e71c 40%);*/
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+#item .price2 {
+  display: inline-block;
+}
+
+
+
+
+/*=========================calender ========================================*/
+
+
+
+
+#item .calender {
+  background-color: #fff;
+  width: 100vw;
+  padding: 1.5vw
+}
+
+#start_date, #return_date {
+  position: relative;
+  display: inline-block;
+}
+#start_date {
+  padding-left: 22px;
+  padding-right: 8px;
+}
+#return_date {
+  padding-left: 8px;
+  padding-right: 22px;
+}
+#start_date label p, #return_date label p{
+  font-size: 15px;
+  /*font-weight: 700;*/
+  font-family: HiraKakuPro-W6;
+  padding-left: 2vw;
+  color: #606060;
+  /*text-align: center;*/
+  display:inline;
+}
+
+#must {
+  /*width: 6vw;
+  height: 2vw;*/
+  border-radius: 3px;
+  background-color: #ff5858;
+  font-family: HiraginoSans-W4;
+  font-size: 3.125vw;
+  color: #ffffff;
+  padding:1.3vw 2.5vw 1vw 2.5vw;
+  text-align: center;
+  display:inline;
+}
+
+.date_picker {
+  cursor: pointer !important;
+  background-color: #FFF !important;
+  height: 32px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+.ui-datepicker-trigger {
+  position: absolute;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  bottom: 16px;
+  z-index: 300;
+}
+#start_date .ui-datepicker-trigger {
+  right: 16px;
+}
+#return_date .ui-datepicker-trigger {
+  right: 30px;
+}
+
+
+
+/*=========================botton========================================*/
+
+
+#item .sub2 {
+  background-color: rgb(237, 237, 237);
+  width: 100vw;
+  text-align: left;
+  padding-bottom: 2.5vw;
+}
+#item .sub2 p {
+  /*margin-right: auto;*/
+  padding: 5vw 0 0vw 22vw;
+  font-family: HiraginoSans-W4;
+  font-size: 3.4vw;
+  line-height: 1.3;
+  color: #3b3b3b;
+}
+
+#item .sub2 .botton11 {
+  height: 12.8vw;
+  text-align: center;
+  background-color: #ff7e7e;
+  border-radius: 8px;
+}
+
+#item .sub2  .botton12 p {
+  /*line-height: -18px;*/
+  margin-top: -2vw;
+  margin-left: -24vw;
+  color: #fff;
+  font-family: HiraginoSans-W6;
+  font-size: 5.9375vw;
+}
+
+#item .sub2 .cartimg {
+  width:6vw;
+  height:6vw;
+  margin-right: 2vw;
+  margin-top: -1.5vw;
+}
+
+
+/*===========================注意書き&タイトル==================================*/
+#explain-item .chui {
+
+}
+
+#explain-item  .firstul ul{
+  list-style: none;
+  margin-top: 5vw;
+  margin-left: 0vw;
+}
+#explain-item .firstul li{
+  font-family: HiraginoSans-4;
+  font-size: 3vw;
+  padding-left:1em;
+  text-indent:-1em;
+}
+
+#explain-item  .firstul li::before{
+  content: '※';
+  font-size: 3vw;
+  display: inline;
+}
+
+#explain-item .under h1 {
+  font-family: HiraginoSans-W5;
+  font-size: 6.25vw;
+  text-align: center;
+  margin-left: auto;
+  margin-right:auto;
+  padding: 3.125vw 0 10vw 0;
+  width: 100%;
+  height: 3px;
+  border-top: solid 1.4px #979797
+}
+
+#explain-item .under p {
+  font-family: HiraginoSans-W4;
+  font-size: 3.5vw;
+}
+
+/*===========================詳しい数字=======================================*/
+
+#explain-item .under .amount {
+  background-color: rgb(237, 237, 237);
+  margin-left: -0.5rem;
+  margin-bottom: 5vw;
+  width: 105%;
+  padding: 3vw 2vw;
+}
+
+#explain-item .under .amount .secondul ul, #explain-item .under .amount .thirdul ul{
+  list-style: none;
+  margin-left:0;
+  margin-bottom:0;
+  font-size: 3.5vw;
+  line-height: 2.6;
+}
+
+#explain-item .under .amount .secondul li{
+  border-bottom: solid 1.4px #c1bbbb;
+  width: 130%;
+}
+
+#explain-item .under .amount .thirdul li{
+  border-bottom: solid 1.4px #c1bbbb;
+  margin-right:2vw;
+}
+
+#explain-item #nasi {
+  border-bottom: none;
+}
+
+#explain-item .amount .thirdul .sizebotton {
+  font-size: 3vw;
+  padding: 1.5vw 3vw;
+  margin-left: 2vw;
+  text-align:center;
+  border:1px solid;
+  border-radius: 1.5vw;
+  border-color: #979797;
+  background: rgba(255, 255, 255, 0.72);
+  display: inline;
+  color: #686868;
+  font-family: HiraginoSans-W6;
+}
+
+
+
+/*===========================長い説明=======================================*/
+
+#explain-item .under #nagai {
+  font-family: HiraginoSans-W3;
+  font-size: 3.5vw;
+  margin: 0 0 5vw 0;
+}
+
+
+
+
+
+
+/*===========================対抗航空会社=======================================*/
+
+
+
+#explain-item .under h2.subtitle {
+  /*color: #fff;*/
+  font-family: HiraginoSans-W6;
+  font-size: 5vw;
+  position: relative;
+  display: inline-block;
+  padding: 0 55px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#explain-item .under h2.subtitle::before,#explain-item .under h2.subtitle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  width: 13vw;
+  height: 3px;
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
+}
+
+#explain-item .under h2.subtitle::before {left:0;}
+#explain-item .under h2.subtitle:after {right: 0;}
+
+#kinai {
+  margin: 12px 0px 0px 0px;
+  width: 100%;
+}
+#kinai .airline-grid {
+  margin: 6px 4px 0;
+  border-radius: 6px;
+}
+#kinai .airline-name {
+  width: 80%;
+  border-right: 1px solid #fff;
+}
+#kinai .airline-pointer {
+  width: 20%;
+}
+#kinai .airline-name p {
+  font-family: HiraginoSans-W5;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 0;
+  padding: 9px 0 9px 3px;
+  color: #ffffff;
+}
+#kinai .airline-pointer p {
+  font-family: HiraginoSans-W5;
+  font-size: 24px;
+  margin: auto;
+  color: #ffffff;
+}
+
+#explain-item #kinai .botton11 {
+  height: 12.8vw;
+  text-align: center;
+  background-color: #ff7e7e;
+  border-radius: 8px;
+  padding-left: 4vw;
+  padding-right: 4vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#explain-item #kinai .botton12 p {
+  /*line-height: -18px;*/
+  margin-top: 2vw;
+  /*margin-left: -24vw;*/
+  color: #fff;
+  font-family: HiraginoSans-W6;
+  font-size: 5vw;
+  padding-left: 0;
+}
+
+#explain-item #kinai .cartimg {
+  width:6vw;
+  height:6vw;
+  margin-right: 2vw;
+  margin-top: -1.5vw;
+}
+
+
+
+
+.label2 .cell {
+  margin: 32px 0 10px 0 ;
+}
+.label2 .cell h1 {
+  background-color: #ff8c8c;
+  color: white;
+  /*width: 227px;*/
+  height: 10.9375vw;
+  font-family: HiraginoSans-W7;
+  font-size: 5.9375vw;
+  position: relative;
+  text-align: left;
+  padding-left: 1rem;
+  line-height: 40px;
+}
+
+.label2 .cell h1::after{
+  content: "";
+  position:absolute;
+  top:0;
+  right:0;
+  width:0;
+  height:0;
+  border-style: solid;
+  border-color: transparent #FFF transparent transparent;
+  border-width: 5.33vw 4vw 5.33vw 0;
+}
+
+.sub .cell h3 {
+  opacity: 1;
+  margin-top: 3px;
+  text-align: center;
+  font-family: HiraginoSans-W5;
+  font-size: 5.3vw;
+  color: #000000;
+}
+
+.sub .cell p {
+  opacity: 1;
+  padding-top: 4px;
+  text-align: center;
+  font-family: HiraginoSans-W3;
+  font-size: 18px;
+  color: #000000;
+}
+
+.sub .explain2 p {
+  font-family: HiraginoSans-W3;
+  font-size: 3vw;
+  margin-top: -10px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.sub .price2nd {
+  width: 40vw;
+  height: 1em;
+  /*margin-left: 35%;*/
+  margin-top: -10px;
+  margin-bottom: 8px;
+  background-blend-mode: darken;
+}
+.sub .price2nd .dayfor {
+  color: #ff7777;
+  font-size: 3.2vw;
+  font-family: HiraginoSans-W6;
+  /*background-image: linear-gradient(transparent 50%, #f8e71c 50%);*/
+}
+.sub .price2nd .money {
+  color: #ff7777;
+  font-size: 4.8vw;
+  font-family: HiraginoSans-W6;
+  /*background-image: linear-gradient(transparent 63%, #f8e71c 40%);*/
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+.price2nd2 {
+  display: inline-block;
+}
+
+.cell .botton21 {
+  height: 10.8vw;
+  background-color: #ff7e7e;
+  border-radius: 0 0 18px 18px / 0 0 18px 18px;
+  -webkit-border-radius: 0 0 18px 18px / 0 0 18px 18px;
+  -moz-border-radius: 0 0 18px 18px / 0 0 18px 18px;
+}
+
+.cell .botton22 p {
+  /*line-height: -18px;*/
+  margin-left: 4vw;
+  margin-top: 1vw;
+  color: #fff;
+  font-family: HiraginoSans-W6;
+  font-size: 5.5vw;
+  display: block;
+}
+
+.more p{
+  margin: 5vw 0 10vw 43.875vw;
+  color: #ff6060;
+  font-family: HiraginoSans-W6;
+  font-size: 4.0625vw;
+  text-decoration: underline
+}
+
+.red {
+  background-color: #ff8c8c;
+  height: 123.4375vw;
+  width: 100vw;
+}
+
+.waku {
+  position: relative;
+  margin: 11.25vw 0 0 1.6vw;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  border-radius: 18px;
+  border: 1.5px solid #fff;
+  height: 107.2vw;
+  width: 90.93vw;
+  /*border-color: #fff;
+  border-width: 1.5px;*/
+  /*background-color: none;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);*/
+  }
+
+.waku .title p{
+  text-align: center;
+  color: #fff;
+  font-family: HiraginoSans-W7;
+  font-size: 6.25vw;
+  margin-top: -28px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ff8c8c;
+  width: 11rem;
+}
+
+.imgs {
+  width: 14.5vw;
+  height: 14.5vw;
+}
+
+.waku .grid-x {
+  margin-top: 12.5vw;
+}
+
+.waku .ul1 {
+  list-style: none;
+  margin-left: 5px;
+}
+
+.waku .li1 {
+  margin: 0 0 7.5vw 7vw;
+}
+
+.waku .ul2 {
+  list-style: none;
+  margin-top: -1vw;
+  margin-left: -15px;
+  width: 53.857vw;
+}
+
+.waku .li2 {
+  /*margin: 0 0 7.5vw 7vw;*/
+  margin-bottom: 23px;
+}
+
+.waku .li2 h3 {
+  margin-bottom: 5px;
+  color: #fff;
+  font-size: 4vw;
+  font-family: HiraginoSans-W6;
+}
+
+.waku .li2 p {
+  color: #fff;
+  font-size: 2.812vw;
+  font-family: HiraginoSans-w5;
+}
+
+ /*.li3 .tate {
+  height: 7.5vw;
+  width: 2px;
+  border-right: solid 1.5px #0000;
+  margin: -100px 0 0 72px;
+}
+
+.ul3 {
+  height: 7.5vw;
+  width: 2px;
+  list-style: none;
+}
+.tate .li3 {
+
+}*/
+
+
+.back {
+  width: 56.56vw;
+  font-size: 3.75vw;
+  font-family: HiraginoSans-W3;
+  text-decoration:none;
+  display:block;
+  text-align:center;
+  padding:8px 0 10px;
+  color: #000000;
+  background-color: #fff;
+  border-radius:6px;
+  text-align: center;
+  margin-top: 24px;
+  margin-left: auto;
+  margin-bottom: 24px;
+  margin-right: auto;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+
+/* second-page
+       =========================================================================
+*/
