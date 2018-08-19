@@ -3,30 +3,201 @@
 {% load static %}
 {% block content %}
 
-<p>rental confirm</p>
+<div class="grid-container">
+  <div class="grid-x grid-padding-x">
+    <div class="large-12 cell">
+      <!-- <div class="callout"> -->
+        <div class="grid-x grid-padding-x">
+          <div class="large-12 small-12 cell">
+            <img src="{% static 'main/img/preview5.png' %}" alt="bar" title="bar" class="imgs">
+          </div>
+          <div class="cell small-8 small-offset-2 title">
+            <h1>ご注文情報の確認</h1>
+          </div>
+          <div class="exp1 small-9 small-offset-1 ">
+            <p>下記の内容をご確認後、利用規約にご同意の上で、最後のお支払いにお進みください。<p>
+          </div>
+        </div>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
 
-<p>{{ reservation }}</p>
+<div class="line">
+  <h2>スーツケース情報</h2>
+</div>
+<div class="grid-x grid-padding-x">
+  <div class="cell small-6 midiun-6 main1">
+    <ul>
+      <li><p>スーツケースの到着日時 :</p></li>
+      <li><p>スーツケースの返却日時 :</p></li>
+      <li><p>安心保障パック :</p></li>
+      <li><p>付属品 :</p></li>
+    </ul>
+  </div>
+  <div class="cell small-6 midiun-6 sub1">
+    <ul>
+      <li><p>{{ reservation.start_date }}</p></li>
+      <li><p>{{ reservation.return_date }}</p></li>
+      <li><p>{% if not reservation.is_warranted %}未{% endif %}加入</p></li>
+      <li><p>{% if reservation.attachments.all.0 %}含む{% else %}含まない{% endif %}</p></li>
+    </ul>
+  </div>
+</div>
 
-{% for item_image in reservation.item.item_image_set.all %}
-<img style="width:250px;" src="{{ item_image.image.url }}">
-{% endfor %}
+<div class="line">
+  <h2>お客様情報</h2>
+</div>
+<div class="grid-x grid-padding-x">
+  <div class="cell small-4 midiun-6 main2">
+    <ul>
+      <li><p>お名前 :</p></li>
+      <li><p>フリガナ :</p></li>
+      <li><p>郵便番号 :</p></li>
+      <li><p>住所 :</p></li>
+      <li><p>メール :</p></li>
+    </ul>
+  </div>
+  <div class="cell small-8 midiun-6 sub2">
+    <ul>
+      <li><p>{{ reservation.address_name }}</p></li>
+      <li><p>{{ reservation.address_name_kana }}</p></li>
+      <li><p>{{ reservation.zip_code }}</p></li>
+      <li><p>{{ reservation.city }}{{ reservation.address }}</p></li>
+      <li><p>{{ reservation.email }}</p></li>
+    </ul>
+  </div>
+</div>
 
-<form action="{% url 'main:rental_checkout' %}" method="POST">
+<div class="line">
+  <h2>お支払い情報</h2>
+</div>
+<div class="grid-x grid-padding-x">
+  <div class="cell small-9 midiun-6 main3">
+    <ul>
+      <li><p>スーツケース　レンタル料金（{{ days }}日間) :</p></li>
+      <li><p>安心保障パック :</p></li>
+      <li><p>付属品【スーツケースベルト】 :</p></li>
+      <li><p id="sen">小計金額 :</p></li>
+      <li><p>(消費税8% :</p></li>
+      <li><p>税込後合計 :</p></li>
+    </ul>
+  </div>
+  <div class="cell small-3 midiun-6 sub3">
+    <ul>
+      <li><p>{{ reservation.item_fee }}円</p></li>
+      <li><p>{% if reservation.is_warranted %}30{% endif %}0円</p></li>
+      <li><p>{{ attachment_fee }}円</p></li>
+      <li><p id="sen">{{ reservation.total_fee }}円</p></li>
+      <li><p>{{ tax }}円)</p></li>
+      <li><p>{{ reservation.total_fee|add:tax }}円</p></li>
+    </ul>
+  </div>
+  <div class="cell small-10 small-offset-1 bousen">
+  </div>
+</div>
+
+<div class="line">
+  <h2>サービス利用規約</h2>
+</div>
+
+<div class="grid-x grid-padding-x">
+  <div class="cell small-10 small-offset-1 kiyaku">
+    <p>利用規約</p>
+    <p>第１条 （利用規約の適用）
+    １． 当社は、この利用規約（以下単に「利用規約」といいます。）に基づき、本サービスを提供します。<br>
+    ２． 利用規約と個別の利用契約の規定が異なるときは、個別の利用契約の規定が利用規約に優先して適用されるものとします。<br>
+    ３． 利用規約は契約を締結する法人、個人事業主及びその従業員に適用されるものとします。</p>
+    <p>第２条 （定義）</p>
+    <p>利用規約においては、次の用語はそれぞれ次の意味で使用します。<br>
+    （１） 本サービス<br>
+    利用規約に基づき当社が契約者に提供する別表Ａ所定のサービス<br>
+    （２） 契約者<br>
+    利用規約に基づく利用契約を当社と締結し、本サービスの提供を受ける法人、個人事業主及びその従業員<br>
+    （３） 利用契約<br>
+    利用規約に基づき当社と契約者との間に締結される本サービスの提供に関する契約<br>
+    （４） 利用契約等<br>
+    利用契約及び利用規約<br>
+    （５） 本サービス用設備<br>
+    本サービスを提供するために当社が貸与する冷蔵庫並びにそれらに付随する商品・容器保管用ボックス・料金箱などの備品（以下、総称して「貸与品等」といいます。）<br>
+    （６） 契約者設備<br>
+    本サービスを利用するために必要な電子レンジ等の加熱機器<br>
+    （７） 従業員<br>
+    本サービスを利用する場所に勤務する、正社員、契約社員、派遣社員、アルバイト、インターンなど、業務に従事する全ての人員<br>
+    （８） 消費税等<br>
+    消費税法及び同法に関連する法令の規定に基づき課税される消費税の額並びに地方税法及び同法に関する法令の規定に基づき課税される地方消費税の額その他契約者が支払に際して負担すべき公租公課<br>
+    （９） 利用料金<br>
+  </div>
+</div>
+
+<div class="grid-x grid-padding-x">
+  <div class="cell small-8 small-offset-2 botton1">
+    <input type="checkbox" name="appple" value="appple" id="appple" />
+    <label for="appple" class="sample_label"><div id="moji">上記サービス利用規約に同意します</div></label>
+  </div>
+</div>
+
+<div class="line2">
+  <div class="grid-x grid-padding-x">
+
+    <div class="cell back2">
+      <a href="{% url 'main:rental' %}" class="button">←前のページに戻る</a>
+    </div>
+    <style>
+    .back2 a {
+      font-family: HiraginoSans-W2, HiraginoSans-W3;
+      font-size: 14px;
+      color: #000000;
+      border-radius: 6px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      margin: 0 auto 0 auto;
+    }
+    </style>
+    <!-- <div class="cell back2">
+      <input type="checkbox" name="#" value="appple" id="" />
+      <label for="appple" class="back">←前のページに戻る</label>
+    </div> -->
+  </div>
+
+  <div class="grid-x grid-padding-x">
+    <div class="cell back4">
+      <form action="{% url 'main:rental_checkout' %}" method="POST">
   {% csrf_token %}
   <p class="text-center">
-    <script
-      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="pk_test_Ht65fJK5QQKbqmVcD0XLK52t"
-      data-amount="{{ reservation.total_fee }}"
-      data-name="支払い"
-      data-description="レンタル料の支払いです"
-      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-      data-locale="auto"
-      data-currency="jpy">
-    </script>
-  </p>
-</form>
+    <form action="{% url 'main:rental_checkout' %}" method="POST">
+      {% csrf_token %}
+      <p class="text-center">
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="pk_test_Ht65fJK5QQKbqmVcD0XLK52t"
+          data-amount="{{ reservation.total_fee|add:tax }}"
+          data-name="支払い"
+          data-description="レンタル料の支払いです"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-locale="auto"
+          data-currency="jpy">
+        </script>
+      </p>
+    </form>
 
-<p class="text-center"><a href="{% url 'main:cart' %}">back to cart</a></p>
+      <!-- <input type="checkbox" name="#" value="appple" id="" />
+      <label for="appple" class="back3">お支払いへ→</label> -->
+    </div>
+  </div>
+</div>
+
+<script>
+$(function() {
+  $('.stripe-button-el').addClass('display-none');
+  $('.sample_label').on('click', function(event) {
+    if (!$('[name=appple]').prop('checked')) {
+      $('.stripe-button-el').removeClass('display-none');
+    } else {
+      $('.stripe-button-el').addClass('display-none');
+    }
+  });
+});
+</script>
 
 {% endblock %}

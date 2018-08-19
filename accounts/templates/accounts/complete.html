@@ -3,8 +3,115 @@
 {% load static %}
 {% block content %}
 
-<p>complete</p>
+<div class="grid-container">
+  <div class="grid-x grid-padding-x">
+    <div class="large-12 cell">
+        <div class="grid-x grid-padding-x">
+          <div class="cell title">
+            <h1>会員登録が完了しました</h1>
+          </div>
+          <div class="cell small-4 small-offset-4 ">
+            <img src="{% static 'accounts/img/preview8.png' %}" alt="チェック" title="チェック" class="imgs">
+          </div>
+          <div class="cell small-6 small-offset-3 cus">
+            <!-- <h2>{{ reservation.user }}　様</h2>
+            <p>{{ reservation.email }}</p> -->
+          </div>
+          <div class="cell small-10 small-offset-1 syousai">
+            <p>詳細は、ご登録いただいた上記メールアドレス宛に送信させていただきましたので、ご確認ください。</p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
 
-<p class="text-center"><a href="{% url 'accounts:profile' %}" class="button">profile</a></p>
+<div class="line2">
+  <div class="grid-x grid-padding-x">
+    <div class="cell back2">
+      <a href="{% url 'main:index' %}" class="button">最初のページへ</a>
+      <!-- <input type="checkbox" name="#" value="appple" id="" />
+      <label for="appple" class="back">最初のページへ</label> -->
+    </div>
+    <div class="cell back4">
+      <a href="{% url 'accounts:login' %}" class="button">ログインページへ</a>
+      <!-- <input type="checkbox" name="#" value="appple" id="" />
+      <label for="appple" class="back3">ログインページへ</label> -->
+    </div>
+    <style>
+    .back2 a {
+      font-family: HiraginoSans-W2, HiraginoSans-W3;
+      font-size: 14px;
+      color: #000000;
+      border-radius: 6px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      margin: 0 auto 0 auto;
+    }
+    .back2 a:hover {
+      font-family: HiraginoSans-W2, HiraginoSans-W3;
+      font-size: 14px;
+      color: #000000;
+      border-radius: 6px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      margin: 0 auto 0 auto;
+    }
+    .back2 a:active {
+      font-family: HiraginoSans-W2, HiraginoSans-W3;
+      font-size: 14px;
+      color: #000000;
+      border-radius: 6px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      margin: 0 auto 0 auto;
+    }
+    .back2 a:visited {
+      font-family: HiraginoSans-W2, HiraginoSans-W3;
+      font-size: 14px;
+      color: #000000;
+      border-radius: 6px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      margin: 0 auto 0 auto;
+    }
+    .back4 a {
+      font-family: HiraginoSans-W2, HiraginoSans-W3;
+      font-size: 14px;
+      color: #ffffff;
+      border-radius: 6px;
+      background-color: #ff7777;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      margin: 0 auto 0 auto;
+    }
+    .back4 a:hover {
+      font-family: HiraginoSans-W2, HiraginoSans-W3;
+      font-size: 14px;
+      color: #ffffff;
+      border-radius: 6px;
+      background-color: #ff7777;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      margin: 0 auto 0 auto;
+    }
+    .back4 a:active {
+      font-family: HiraginoSans-W2, HiraginoSans-W3;
+      font-size: 14px;
+      color: #ffffff;
+      border-radius: 6px;
+      background-color: #ff7777;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      margin: 0 auto 0 auto;
+    }
+    .back4 a:visited {
+      font-family: HiraginoSans-W2, HiraginoSans-W3;
+      font-size: 14px;
+      color: #ffffff;
+      border-radius: 6px;
+      background-color: #ff7777;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      margin: 0 auto 0 auto;
+    }
+    </style>
+  </div>
+</div>
 
 {% endblock %}

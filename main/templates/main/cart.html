@@ -362,9 +362,9 @@ $(function() {
 
   // attachment
   $('.{{ reservation.uuid }} .attachment-box').on('click', function(event) {
-    startDate['{{ reservation.uuid }}'] = new Date(startDateStr['{{ reservation.uuid }}'] + ' 00:00');
+    startDate['{{ reservation.uuid }}'] = parseDate(startDateStr['{{ reservation.uuid }}']);
     startDateAlt['{{ reservation.uuid }}'] = new Date(startDate['{{ reservation.uuid }}'].getFullYear(), startDate['{{ reservation.uuid }}'].getMonth(), startDate['{{ reservation.uuid }}'].getDate() - 1);
-    returnDate['{{ reservation.uuid }}'] = new Date(returnDateStr['{{ reservation.uuid }}'] + ' 00:00');
+    returnDate['{{ reservation.uuid }}'] = parseDate(returnDateStr['{{ reservation.uuid }}']);
     returnDateAlt['{{ reservation.uuid }}'] = new Date(returnDate['{{ reservation.uuid }}'].getFullYear(), returnDate['{{ reservation.uuid }}'].getMonth(), returnDate['{{ reservation.uuid }}'].getDate() + 1);
 
     if (!$('.{{ reservation.uuid }} [name=' + $(this).attr("id") + ']').prop('checked')) {
@@ -437,9 +437,9 @@ $(function() {
   });
 
   function changeDate() {
-    startDate['{{ reservation.uuid }}'] = new Date(startDateStr['{{ reservation.uuid }}'] + ' 00:00');
+    startDate['{{ reservation.uuid }}'] = parseDate(startDateStr['{{ reservation.uuid }}']);
     startDateAlt['{{ reservation.uuid }}'] = new Date(startDate['{{ reservation.uuid }}'].getFullYear(), startDate['{{ reservation.uuid }}'].getMonth(), startDate['{{ reservation.uuid }}'].getDate() - 1);
-    returnDate['{{ reservation.uuid }}'] = new Date(returnDateStr['{{ reservation.uuid }}'] + ' 00:00');
+    returnDate['{{ reservation.uuid }}'] = parseDate(returnDateStr['{{ reservation.uuid }}']);
     returnDateAlt['{{ reservation.uuid }}'] = new Date(returnDate['{{ reservation.uuid }}'].getFullYear(), returnDate['{{ reservation.uuid }}'].getMonth(), returnDate['{{ reservation.uuid }}'].getDate() + 1);
     daysNow['{{ reservation.uuid }}'] = (returnDate['{{ reservation.uuid }}'].getTime() - startDate['{{ reservation.uuid }}'].getTime()) / (1000 * 60 * 60 * 24) + 1;
     daysOne['{{ reservation.uuid }}'] = (returnDate['{{ reservation.uuid }}'].getTime() - startDateAlt['{{ reservation.uuid }}'].getTime()) / (1000 * 60 * 60 * 24) + 1;
@@ -507,6 +507,11 @@ $(function() {
     }
     totalFee['{{ reservation.uuid }}'] = fee;
     return Math.round(fee);
+  }
+
+  function parseDate(input) {
+    var parts = String(input).match(/(\d+)/g);
+    return new Date(parts[0], parts[1]-1, parts[2]);
   }
 });
 </script>
