@@ -31,6 +31,47 @@ class IndexView(generic.TemplateView):
         return context
 
 
+class ItemDetailView(generic.DetailView):
+    model = models.Item
+    template_name = 'main/item_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['airlines'] = models.Airline.objects.all()
+        return context
+
+    def post(self, request, pk):
+        if request.user.is_authenticated:
+            cart, _ = models.Cart.objects.get_or_create(user=request.user)
+        elif 'cart' in request.session and not request.user.is_authenticated:
+            cart, _ = models.Cart.objects.get_or_create(uuid=request.session.get('cart'))
+        else:
+            _uuid = str(uuid.uuid4())
+            new_cart = models.Cart(uuid=_uuid)
+            new_cart.save()
+            cart = models.Cart.objects.get(uuid=_uuid)
+        request.session['cart'] = str(cart.uuid)
+        reservation = models.Reservation(
+            cart=cart,
+            item=models.Item.objects.get(uuid=request.POST.get('item')),
+            start_date=request.POST.get('start_date'),
+            return_date=request.POST.get('return_date'),
+        )
+        if request.user.is_authenticated:
+            reservation.user = request.user
+            reservation.zip_code = request.user.zip_code
+            reservation.prefecture = request.user.prefecture
+            reservation.city = request.user.city
+            reservation.address = request.user.address
+            reservation.address_name = request.user.address_name
+            reservation.address_name_kana = request.user.address_name_kana
+            reservation.email = request.user.email
+            reservation.gender = request.user.gender
+            reservation.age_range = request.user.age_range
+        reservation.save()
+        return redirect('main:cart', permanent=True)
+
+
 class SearchView(generic.TemplateView):
     template_name = 'main/search.html'
 

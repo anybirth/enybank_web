@@ -120,7 +120,7 @@ class PrefectureAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description']
 
 class AirlineAdmin(admin.ModelAdmin):
-    list_display = ('name', 'max_total_dimensions', 'max_weight', 'is_supported')
+    list_display = ('name', 'max_total_dimensions_carry_on', 'max_total_dimensions_domestic', 'max_total_dimensions_international', 'is_supported')
     list_filter = ['is_supported']
     search_fields = ['name', 'max_total_dimensions', 'max_weight', 'is_supported']
 
