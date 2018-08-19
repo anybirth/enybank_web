@@ -32,8 +32,8 @@
 
 .line h2 {
   font-family: HiraginoSans-W5;
-  font-size: 16px;
-  line-height: 35px;
+  font-size: 4.26vw;
+  line-height: 9.3vw;
   margin-left: 8px;
 }
 
@@ -44,7 +44,7 @@
 .main1 ul {
   list-style: none;
   font-family: HiraginoSans-W4;
-  font-size: 14px;
+  font-size: 3.7vw;
   width: 50vw;
   margin: 0;
 }
@@ -65,8 +65,8 @@
 .sub1 ul {
   list-style: none;
   font-family: HiraginoSans-W4;
-  font-size: 14px;
-  width: 50vw;
+  font-size: 3.7vw;
+  width: 43vw;
   margin: 0 0 0 4vw;
 }
 
@@ -90,7 +90,7 @@
 .main2 ul {
   list-style: none;
   font-family: HiraginoSans-W4;
-  font-size: 14px;
+  font-size: 3.7vw;
   width: 25vw;
   margin: 0;
 }
@@ -111,9 +111,9 @@
 .sub2 ul {
   list-style: none;
   font-family: HiraginoSans-W4;
-  font-size: 14px;
+  font-size: 3.7vw;
   width: 50vw;
-  margin: 0 0 0 -4vw;
+  margin: 0 0px 0 -4vw;
 }
 
 .sub2 ul li {
@@ -136,7 +136,7 @@
 .main3 ul {
   list-style: none;
   font-family: HiraginoSans-W4;
-  font-size: 14px;
+  font-size: 3.7vw;
   width: 70vw;
   margin: 0;
 }
@@ -157,8 +157,8 @@
 .sub3 ul {
   list-style: none;
   font-family: HiraginoSans-W4;
-  font-size: 14px;
-  width: 50vw;
+  font-size: 3.7vw;
+  width: 24vw;
   margin: 0 0 0 -2vw;
 }
 
@@ -177,7 +177,7 @@
 
 .bousen {
   border-top: solid 1px #979797;
-  margin-top: -100px;
+  margin-top: -26.667vw;
 }
 
 .kiyaku {
@@ -212,9 +212,9 @@
 .botton1 .sample_label{
   font-family: HiraginoSans-W6;
   font-size: 3.4vw;
-  line-height: 30px;
   color: #fff;
   text-align: right;
+  margin-top: -2vw;
 }
 
 input[type=checkbox] {

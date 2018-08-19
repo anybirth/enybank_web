@@ -135,13 +135,13 @@
 }
 
 .sub .price {
-  width: 13em;
+  width: 54vw;
   height: 2em;
   /*margin-left: 35%;*/
   margin-top: 5vw;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   background-blend-mode: darken;
-  margin-left: 35.25vw;
+  margin-left: 31.25vw;
 }
 .sub .price .dayfor {
   color: #ff7777;
@@ -233,11 +233,11 @@
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
 }
 
 .sub .price2nd {
-  width: 10em;
+  width: 40vw;
   height: 1em;
   /*margin-left: 35%;*/
   margin-top: -10px;
