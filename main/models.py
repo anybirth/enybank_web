@@ -193,7 +193,7 @@ class Series(UUIDModel):
 
 class Item(UUIDModel):
     bland = models.ForeignKey('Bland', on_delete=models.PROTECT, verbose_name=_('ブランド'))
-    series = models.ForeignKey('Series', on_delete=models.PROTECT, verbose_name=_('シリーズ'))
+    series = models.ForeignKey('Series', on_delete=models.PROTECT, verbose_name=_('シリーズ'), blank=True, null=True)
     size = models.ForeignKey('Size', on_delete=models.PROTECT, verbose_name=_('サイズ'))
     type = models.ForeignKey('Type', on_delete=models.PROTECT, verbose_name=_('タイプ'))
     color_category = models.ForeignKey('ColorCategory', on_delete=models.PROTECT, verbose_name=_('カラー分類'))
