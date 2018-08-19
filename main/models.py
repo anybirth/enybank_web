@@ -158,6 +158,23 @@ class ColorCategory(UUIDModel):
         return '%s' % self.name
 
 
+class MaterialCategory(UUIDModel):
+    name = models.CharField(_('材質分類名'), max_length=50)
+    description = models.TextField(_('備考'), blank=True)
+    order= models.SmallIntegerField(_('表示順'))
+    created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+
+    class Meta:
+        db_table = 'material_categories'
+        ordering = ['order']
+        verbose_name = _('材質分類')
+        verbose_name_plural = _('材質分類')
+
+    def __str__(self):
+        return '%s' % self.name
+
+
 class Bland(UUIDModel):
     name = models.CharField(_('ブランド名'), max_length=50)
     description = models.TextField(_('備考'), blank=True)
@@ -193,12 +210,15 @@ class Series(UUIDModel):
 
 class Item(UUIDModel):
     bland = models.ForeignKey('Bland', on_delete=models.PROTECT, verbose_name=_('ブランド'))
-    series = models.ForeignKey('Series', on_delete=models.PROTECT, verbose_name=_('シリーズ'))
+    series = models.ForeignKey('Series', on_delete=models.PROTECT, verbose_name=_('シリーズ'), blank=True, null=True)
     size = models.ForeignKey('Size', on_delete=models.PROTECT, verbose_name=_('サイズ'))
     type = models.ForeignKey('Type', on_delete=models.PROTECT, verbose_name=_('タイプ'))
     color_category = models.ForeignKey('ColorCategory', on_delete=models.PROTECT, verbose_name=_('カラー分類'))
+    material_category = models.ForeignKey('MaterialCategory', on_delete=models.PROTECT, verbose_name=_('材質分類'), blank=True, null=True)
     color = models.CharField(_('カラー'), max_length=50)
+    material = models.CharField(_('材質'), max_length=50, blank=True)
     name = models.CharField(_('商品名'), max_length=50)
+    model_number = models.CharField(_('型番'), max_length=255, blank=True)
     description = models.TextField(_('備考'), blank=True)
     capacity = models.IntegerField(_('容量'))
     length = models.FloatField(_('縦'))
@@ -414,6 +434,7 @@ class Reservation(UUIDModel):
     postage = models.IntegerField(_('送料'), blank=True, null=True)
     total_fee = models.IntegerField(_('合計価格'), blank=True, null=True)
     is_warranted = models.BooleanField(_('保障パック加入'), default=False)
+    is_agreed = models.BooleanField(_('規約同意'), default=False)
     status = models.SmallIntegerField(_('ステータス'), default=1)
     description = models.TextField(_('備考'), blank=True)
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
