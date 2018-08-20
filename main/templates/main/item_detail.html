@@ -223,13 +223,19 @@
 #kokunai .airline-pointer, #kokusai .airline-pointer {
     width: 20%;
 }
-#kokunai .airline-name p, #kokusai .airline-name p {
+#kinai .airline-name p, #kokunai .airline-name p, #kokusai .airline-name p {
     font-family: HiraginoSans-W5;
     font-size: 12px;
     font-weight: 700;
+    line-height: 1.5;
+    height: 27px;
     margin-bottom: 0;
     padding: 9px 0 9px 3px;
     color: #ffffff;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 #kokunai .airline-pointer p, #kokusai .airline-pointer p {
     font-family: HiraginoSans-W5;
