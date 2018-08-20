@@ -63,7 +63,7 @@ class ItemListView(generic.TemplateView):
                 for item in value:
                     total_dimensions = item.length + item.width + item.depth
                     if total_dimensions <= airline.max_total_dimensions_carry_on:
-                        context['items_dict'][key + airline.name].push(item)
+                        context['items_dict'][key + str(airline.uuid)].append(item)
         return context
 
 
