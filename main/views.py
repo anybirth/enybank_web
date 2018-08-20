@@ -144,14 +144,33 @@ class SearchView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['items'] = models.Item.objects.filter(
+        items = models.Item.objects.filter(
             color_category=self.request.GET.get('color_category'),
             type=self.request.GET.get('type')
         )
+        start_date = datetime.strptime(self.request.GET.get('start_date'), '%Y-%m-%d')
+        return_date = datetime.strptime(self.request.GET.get('return_date'), '%Y-%m-%d')
+        days = (return_date - start_date).days + 1
+
+        sizes = models.Size.objects.all()
+        for size in sizes:
+            min = size.min_days
+            max = size.max_days
+            if max:
+                if min <= days < max:
+                    size_recommended = size
+            elif not max:
+                if min <= days:
+                    size_recommended = size
+
+        items_size = items.filter(size=size_recommended)
+        if items_size:
+            context['items'] = items_size
+        else:
+            context['items'] = items
+
         context['days'], context['fee'] = [], []
-        for item in context['items'], :
-            start_date = datetime.strptime(self.request.GET.get('start_date'), '%Y-%m-%d')
-            return_date = datetime.strptime(self.request.GET.get('return_date'), '%Y-%m-%d')
+        for item in context['items']:
             context['days'].append((return_date - start_date).days + 1)
             context['fee'].append(self.fee_calculator())
         return context
