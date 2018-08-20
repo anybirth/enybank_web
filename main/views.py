@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.views import generic
 from django.db.models import Q, Count
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from accounts.models import User
 from accounts.forms import UserForm
@@ -87,11 +88,21 @@ class ItemDetailView(generic.DetailView):
             new_cart.save()
             cart = models.Cart.objects.get(uuid=_uuid)
         request.session['cart'] = str(cart.uuid)
+
+        item = models.Item.objects.get(uuid=request.POST.get('item'))
+        start_date = datetime.strptime(request.POST.get('start_date'), '%Y-%m-%d')
+        return_date = datetime.strptime(request.POST.get('return_date'), '%Y-%m-%d')
+
+        for reservation in item.reservation_set.all():
+            if not (return_date.date() + timedelta(days=1) < reservation.start_date or reservation.return_date < start_date.date() - timedelta(days=1)):
+                messages.error(request, '同じ日程にこのアイテムの予約があります')
+                return redirect('main:item_detail', pk=pk)
+
         reservation = models.Reservation(
             cart=cart,
-            item=models.Item.objects.get(uuid=request.POST.get('item')),
-            start_date=request.POST.get('start_date'),
-            return_date=request.POST.get('return_date'),
+            item=item,
+            start_date=start_date,
+            return_date=return_date,
         )
         if request.user.is_authenticated:
             reservation.user = request.user
@@ -111,11 +122,7 @@ class ItemDetailView(generic.DetailView):
 class SearchView(generic.TemplateView):
     template_name = 'main/search.html'
 
-    def fee_calculator(self):
-        item = models.Item.objects.get(
-            color_category=self.request.GET.get('color_category'),
-            type=self.request.GET.get('type')
-        )
+    def fee_calculator(self, item):
 
         intercept = item.fee_intercept
         coefs = item.item_fee_coef_set.order_by('starting_point')
@@ -169,10 +176,31 @@ class SearchView(generic.TemplateView):
         else:
             context['items'] = items
 
+        items_color = models.Item.objects.filter(
+            color_category=self.request.GET.get('color_category')
+        )
+        items_type = models.Item.objects.filter(
+            type=self.request.GET.get('type')
+        )
+        items_all = models.Item.objects.all()
+
+        for item_list in [items_color, items_type, items_all]:
+            if not context['items'].count():
+                context['items'] = item_list
+
+        for item in context['items']:
+            for reservation in item.reservation_set.all():
+                if not (return_date.date() + timedelta(days=1) < reservation.start_date or reservation.return_date < start_date.date() - timedelta(days=1)):
+                    context['items'] = items.exclude(uuid=item.uuid)
+                    for item_list in [items_color, items_type, items_all]:
+                        item_list = item_list.exclude(uuid=item.uuid)
+                        if not context['items'].count():
+                            context['items'] = item_list
+
         context['days'], context['fee'] = [], []
         for item in context['items']:
             context['days'].append((return_date - start_date).days + 1)
-            context['fee'].append(self.fee_calculator())
+            context['fee'].append(self.fee_calculator(item))
         return context
 
     def post(self, request):
@@ -186,13 +214,14 @@ class SearchView(generic.TemplateView):
             new_cart.save()
             cart = models.Cart.objects.get(uuid=_uuid)
         request.session['cart'] = str(cart.uuid)
+        item = models.Item.objects.get(uuid=request.POST.get('item'))
         reservation = models.Reservation(
             cart=cart,
-            item=models.Item.objects.get(uuid=request.POST.get('item')),
+            item=item,
             start_date=request.GET.get('start_date'),
             return_date=request.GET.get('return_date'),
-            item_fee=self.fee_calculator(),
-            total_fee=self.fee_calculator(),
+            item_fee=self.fee_calculator(item),
+            total_fee=self.fee_calculator(item),
             postage=0,
         )
         if request.user.is_authenticated:
