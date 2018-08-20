@@ -68,21 +68,21 @@
     <h1 class="text-center">これらが1日<span>800</span>円から借りられます！</h1>
     <div class="grid-x">
       <div class="cell small-4">
-        <a href="">
+        <a href="{% url 'main:item_detail' item_same_day.uuid %}">
           <h2 class="text-center"><img src="{% static 'main/img/time.png' %}">即日配送</h2>
             <img class="item-image center-horizontally" src="{{ item_same_day.item_image_set.all.0.image.url }}">
           <p class="text-center">800円/1日</p>
         </a>
       </div>
       <div class="cell small-4">
-        <a href="">
+        <a href="{% url 'main:item_detail' item_free_shipping.uuid %}">
           <h2 class="text-center"><img src="{% static 'main/img/car.png' %}">送料無料</h2>
             <img class="item-image center-horizontally" src="{{ item_free_shipping.item_image_set.all.0.image.url }}">
           <p class="text-center">800円/1日</p>
         </a>
       </div>
       <div class="cell small-4">
-        <a href="">
+        <a href="{% url 'main:item_detail' item_all_new.uuid %}">
           <h2 class="text-center"><img src="{% static 'main/img/new.png' %}">全品新品</h2>
             <img class="item-image center-horizontally" src="{{ item_all_new.item_image_set.all.0.image.url }}">
           <p class="text-center">800円/1日</p>
@@ -99,7 +99,7 @@
     {% for item in items_popular %}
     <div class="cell small-4">
       <div class="item-grid">
-        <a href="">
+        <a href="{% url 'main:item_detail' item.uuid %}">
           <div class="triangle">
           </div>
           <p class="triangle-text">一番人気</p>
@@ -113,13 +113,13 @@
     </div>
     {% endfor %}
   </div>
-  <p class="more text-right"><a href="">総合人気をもっと見る</a></p>
+  <p class="more text-right"><a href="{% url 'main:item_list' %}?order=popular">総合人気をもっと見る</a></p>
   <h2><img id="icon-dollar" src="{% static 'main/img/dollar.png' %}">低価格</h2>
   <div class="grid-x">
     {% for item in items_reasonable %}
     <div class="cell small-4">
       <div class="item-grid">
-        <a href="">
+        <a href="{% url 'main:item_detail' item.uuid %}">
           <div class="triangle">
           </div>
           <p class="triangle-text">一番人気</p>
@@ -133,7 +133,7 @@
     </div>
     {% endfor %}
   </div>
-  <p class="more text-right"><a href="">低価格をもっと見る</a></p>
+  <p class="more text-right"><a href="{% url 'main:item_list' %}?order=reasonable">低価格をもっと見る</a></p>
 </section>
 
 <section id="feature-search">
@@ -143,7 +143,7 @@
     {% for size in sizes %}
     <div class="cell small-6">
       <div class="size-grid">
-        <a href="">
+        <a href="{% url 'main:item_list' %}?size={{ size.uuid }}">
           <div class="grid-x">
             <div class="size-img" style="background-image:url({% static 'main/img/bag.png' %});">
               <p class="text-center">{{ size.name }}</p>
@@ -174,7 +174,7 @@
     {% for airline in airlines %}
     <div class="cell small-6">
       <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
-        <a href="">
+        <a href="{% url 'main:item_list' %}?size={{ airline.uuid }}">
           <div class="grid-x">
             <div class="airline-name">
               <p>{{ airline.name }}</p>
