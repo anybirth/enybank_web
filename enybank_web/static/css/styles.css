@@ -39,7 +39,7 @@
 /* header */
 #header {
   width: 100%;
-  height: 40px;
+  height: 50px;
   z-index: 400;
   box-shadow: 0 0px 4px gray;
   background-color: #FFF;
@@ -51,14 +51,14 @@
 #hamburger {
     display: block;
     width: 50px;
-    height: 40px;
+    height: 50px;
     text-align: center;
 }
 #hamburger span {
     display: block;
     position: absolute;
     width: 22px;
-    border-bottom: solid 2px #F25757;
+    border-bottom: solid 3px #F25757;
     border-radius: 1px;
     -webkit-transition: .35s ease-in-out;
     -moz-transition: .35s ease-in-out;
@@ -66,16 +66,16 @@
     left: 14px;
 }
 #hamburger span:nth-child(1) {
-    top: 14px;
+    top: 18px;
 }
 #hamburger span:nth-child(2) {
-    top: 20px;
+    top: 25px;
 }
 #hamburger span:nth-child(3) {
-    top: 26px;
+    top: 32px;
 }
 #hamburger.active span:nth-child(1) {
-    top: 20px;
+    top: 25px;
     left: 14px;
     -webkit-transform: rotate(-45deg);
     -moz-transform: rotate(-45deg);
@@ -83,7 +83,7 @@
 }
 #hamburger.active span:nth-child(2),
 #hamburger.active span:nth-child(3) {
-    top: 20px;
+    top: 25px;
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -93,8 +93,8 @@
 }
 #site-title h1 {
   font-family: MyanmarSangamMN;
-  font-size: 24px;
-  margin: 4px 13px 4px 13px;
+  font-size: 26px;
+  margin: 8px 13px;
   color: #000000;
 }
 #icon-area {
@@ -108,17 +108,17 @@
 #icon-login {
   width: 15px;
   height: auto;
-  margin: 5px 14px 1px 12px;
+  margin: 15px 14px 1px 12px;
 }
 #icon-accounts {
   width: 15px;
   height: auto;
-  margin: 5px 12px 1px 12px;
+  margin: 15px 12px 1px 12px;
 }
 #icon-cart {
   width: 15px;
   height: auto;
-  margin: 5px 14px 1px 12px;
+  margin: 15px 14px 1px 12px;
 }
 .icon-text {
   font-family: HiraginoSans-W3;
