@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% load static %}
+{% block content %}
+
+<script>
+$(function() {
+  if (getParam('order')) {
+    $('[name=order]').val(getParam('order'));
+  }
+  if (getParam('size')) {
+    $('[name=size]').val(getParam('size'));
+  }
+  var order =  $('[name=order]').val();
+  var size =  $('[name=size]').val();
+  console.log('.items_' + order + '_' + size);
+  $('.item-wrapper').addClass('display-none');
+  $('.not-found').addClass('display-none');
+  $('.items_' + order + '_' + size).removeClass('display-none');
+
+  $('[name=order], [name=size]').change(function() {
+    order =  $('[name=order]').val();
+    size =  $('[name=size]').val();
+    console.log('.items_' + order + '_' + size);
+    $('.item-wrapper').addClass('display-none');
+    $('.not-found').addClass('display-none');
+    $('.items_' + order + '_' + size).removeClass('display-none');
+    return false;
+  });
+
+  function getParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+});
+</script>
+
+<div class="grid-container">
+  <div class="grid-x pt20">
+    <div class="large-3 small-6 cell">
+      <div class="container form-group">
+        <!-- <label class="control-label">SELECT</label> -->
+          <div class="select-wrap">
+           <select name="order" id="order">
+            <option value="popular">総合人気</option>
+            <option value="reasonable">低価格</option>
+            <option value="expensive">高価格</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="large-3 small-6 cell">
+      <div class="container form-group">
+        <!-- <label class="control-label">SELECT</label> -->
+          <div class="select-wrap">
+           <select name="size" id="size">
+             <option value="all">全てのサイズ</option>
+             {% for size in sizes %}
+             <option value="{{ size.uuid }}">{{ size.name }}サイズ</option>
+             {% endfor %}
+             {% for airline in airlines %}
+             <option value="{{ airline.uuid }}">{{ airline.name }}</option>
+             {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden_box grid-x">
+    <div class="hidden_box_inner cell small-12">
+      <input type="checkbox" id="input1" />
+      <label class="label1" for="input1">さらに詳しく探す</label>
+      <div class="hidden_show">
+        <!--非表示ここから-->
+        <section id="easy-search">
+          <h1><i class="fas fa-search fa-sm"></i>&nbsp;スーツケースをすぐに探す</h1>
+          <div class="grid-x">
+            <div id="start_date" class="cell small-6">
+              <label>お届け日</label>
+              <input readonly class='date_picker' type="text" name="start_date">
+            </div>
+            <div id="return_date" class="cell small-6">
+              <label>返却日</label>
+              <input readonly class='date_picker' type="text" name="return_date">
+            </div>
+          </div>
+          <h2>カラー</h2>
+          <div id="color_categories" class="scroll-wrapper scroll-wrapper-circle">
+            <div class="scroll-inner scroll-inner-circle">
+              {% for color in color_categories %}
+              <div id="{{ color.uuid }}" class="box box-circle color_category" title="{{ color.name }}" style="background-color:{{ color.code }};">
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <h2>鍵のタイプ</h2>
+          <div id="types" class="grid-x">
+            {% for type in types %}
+              <div class="cell small-6">
+                <div id="{{ type.uuid }}" class="type" title="{{ type.name }}" style="background-image:url({{ type.image.url }});">
+                  <p>{{ type.name }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div id="easy-submit">
+            <p class="text-center"><a id="search" href="{% url 'main:search' %}" class="button">スーツケースを探す</a></p>
+          </div>
+        </section>
+        <!--ここまで-->
+      </div>
+    </div>
+  </div>
+  <div class="item-list grid-x">
+  {% for key, items in items_dict.items %}
+  {% if items|length == 0 %}
+  <p class="not-found text-center {{ key }}" style="margin:50px 0;">条件に一致するスーツケースが見つかりません</p>
+  {% else %}
+  {% for item in items %}
+  <div class="item-wrapper cell small-6 {{ key }}">
+    <div class="item">
+      <div class="imgcari-wrapper">
+        <div class="imgcari" style="background:url({{ item.item_image_set.all.0.image.url }});background-size:cover;background-position: center;">
+          <!-- <img src="img/.png" alt="検索" title="検索" class="img11"> -->
+        </div>
+      </div>
+      <div class="amount2">
+        <p>容量&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：&nbsp;{{ item.capacity|truncatechars:10 }}L<br>
+        三片合計：&nbsp;{{ item.length|add:item.width|add:item.depth }}cm</p>
+      </div>
+      <div class="conts">
+        <h2>{{ item.name }} 4輪 {{ item.weight }}kg</h2>
+        <p>{{ item.description }}</p>
+        <h3 class="text-right">{{ item.fee_intercept }}円/1日〜</h3>
+      </div>
+      <div class="grid-x grid-padding-x fluid botton21">
+        <div class="cell botton22">
+          <a href="{% url 'main:item_detail' item.uuid %}" style="display:block;width:100%;">
+            <p>詳細を見る</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endfor %}
+</div>
+<!-- <nav class="cp_navi">
+  <div class="cp_pagination">
+    <a class="cp_pagenum prev" href="#">prev</a>
+    <span aria-current="page" class="cp_pagenum current">1</span>
+    <a class="cp_pagenum" href="#">2</a>
+    <a class="cp_pagenum" href="#">3</a>
+    <a class="cp_pagenum" href="#">4</a>
+    <a class="cp_pagenum" href="#">5</a>
+    <a class="cp_pagenum" href="#">6</a>
+    <a class="cp_pagenum" href="#">7</a>
+    <a class="cp_pagenum" href="#">8</a>
+    <a class="cp_pagenum" href="#">9</a>
+    <a class="cp_pagenum" href="#">10</a>
+    <a class="cp_pagenum next" href="#">next</a>
+  </div>
+</nav> -->
+<div class="grid-x grid-padding-x fluid red">
+  <div class="large-12 cell">
+    <div class="waku">
+      <div class="cell title">
+        <p>レンタルの流れ</p>
+      </div>
+
+      <div class="grid-x grid-padding-x">
+        <div class="cell small-4">
+          <ul class="ul1">
+            <li class="li1">
+            <img src="{% static 'main/img/preview4.png' %}" alt="検索" title="検索" class="imgs">
+            </li>
+            <li class="li1">
+            <img src="{% static 'main/img/preview.png' %}" alt="発送" title="発送" class="imgs">
+            </li>
+            <li class="li1">
+            <img src="{% static 'main/img/preview2.png' %}" alt="ご利用" title="ご利用" class="imgs">
+            </li>
+            <li class="li1">
+            <img src="{% static 'main/img/preview3.png' %}" alt="返却" title="返却" class="imgs">
+            </li>
+          </ul>
+        </div>
+        <div class="cell small-8">
+          <ul class="ul2">
+            <li class="li2">
+              <h3>このサイトで注文</h3>
+              <p>細かい作業などなく、3分で注文完了<br>17時までの注文で当日出荷も可能！</p>
+            </li>
+            <li class="li2">
+              <h3>お受取り</h3>
+              <p>最短翌日、指定の日ずけに届きます。<br>もちろん、送料は無料！</p>
+            </li>
+            <li class="li2">
+              <h3>スーツケースを使う</h3>
+              <p>その旅に最適なスーツケースをお使い頂けます！　安全保障パックで破損対策も</p>
+            </li>
+            <li class="li2">
+              <h3>集荷を呼んで返送</h3>
+              <p>ご指定の日時に集荷スタッフを呼んで返却。返却時も送料はかかりません</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <ul class="ul3">
+        <li class="li3">
+          <div class="tate"></div>
+        </li>
+        <li class="li3">
+          <div class="tate"></div>
+        </li>
+        <li class="li3">
+          <div class="tate"></div>
+        </li>
+        <li class="li3">
+          <div class="tate"></div>
+        </li>
+      </ul> -->
+    </div>
+  </div>
+</div>
+
+<a href="javascript:void(0);" onclick="window.history.back();" class="back">←前のページに戻る</a>
+
+{% endblock %}

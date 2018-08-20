@@ -31,6 +31,42 @@ class IndexView(generic.TemplateView):
         return context
 
 
+class ItemListView(generic.TemplateView):
+    template_name = 'main/item_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        items = models.Item.objects.all()
+        context['sizes'] = models.Size.objects.all()
+        context['airlines'] = models.Airline.objects.all()
+        context['types'] = models.Type.objects.all()
+        context['color_categories'] = models.ColorCategory.objects.all()
+        context['items_dict'] = {}
+
+        context['items_dict']['items_popular_all'] = items.annotate(Count('reservation')).order_by('-reservation__count')
+        context['items_dict']['items_reasonable_all'] = items.order_by('fee_intercept')
+        context['items_dict']['items_expensive_all'] = items.order_by('-fee_intercept')
+
+        for size in context['sizes']:
+            context['items_dict']['items_popular_' + str(size.uuid)] = items.filter(size=size).annotate(Count('reservation')).order_by('-reservation__count')
+            context['items_dict']['items_reasonable_' + str(size.uuid)] = items.filter(size=size).order_by('fee_intercept')
+            context['items_dict']['items_expensive_' + str(size.uuid)] = items.filter(size=size).order_by('-fee_intercept')
+
+        items_dict_all = {
+            'items_popular_': context['items_dict']['items_popular_all'],
+            'items_reasonable_': context['items_dict']['items_reasonable_all'],
+            'items_expensive_': context['items_dict']['items_expensive_all']
+        }
+        for airline in context['airlines']:
+            for key, value in items_dict_all.items():
+                context['items_dict'][key + str(airline.uuid)] = []
+                for item in value:
+                    total_dimensions = item.length + item.width + item.depth
+                    if total_dimensions <= airline.max_total_dimensions_carry_on:
+                        context['items_dict'][key + airline.name].push(item)
+        return context
+
+
 class ItemDetailView(generic.DetailView):
     model = models.Item
     template_name = 'main/item_detail.html'
