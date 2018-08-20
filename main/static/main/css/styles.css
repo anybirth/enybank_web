@@ -89,6 +89,9 @@
   margin-bottom: 8px;
   border-radius: 6px;
 }
+#ui-datepicker-div {
+  z-index: 500 !important;
+}
 .ui-datepicker-trigger {
   position: absolute;
   cursor: pointer;
