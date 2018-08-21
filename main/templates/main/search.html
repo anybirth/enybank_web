@@ -42,6 +42,13 @@
               {{ items.0.description }}
             </div>
           </div>
+          <div class="cell small-8 small-offset-2 detail">
+            <form>
+              <button name="submit" type="submit" value="submit-true" id="detailbt">
+                <p>商品の詳細情報を見る</p><img src="img/preview10.png" alt="検索" title="検索" class="img10">
+              </button>
+            </form>
+          </div>
           <div class="cell price">
             <div class="dayfor price2">{{ days.0 }}日間で</div>
             <div class="money price2">¥{{ fee.0 }}</div>
@@ -54,7 +61,7 @@
               {% csrf_token %}
               <button name="item" type="submit" value="{{ items.0.uuid }}">
                 <p>カートに入れて詳細を見る</p>
-              </botton>
+              </button>
             </form>
           </div>
         </div>
@@ -131,7 +138,7 @@
             <form>
               <button name="submit" type="submit" value="submit-true">
                 <p>詳細を見る</p>
-              </botton>
+              </button>
             </form>
           </div>
         </div>
