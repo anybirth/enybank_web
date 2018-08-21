@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.views import generic
 from django.db.models import Q, Count
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from accounts.models import User
@@ -320,7 +320,7 @@ class RentalReadyView(generic.View):
             if str(attachment.uuid) not in request.GET.getlist('attachment'):
                 reservation.attachments.remove(attachment)
 
-        return redirect('main:rental')
+        return redirect('main:rental', permanent=True)
 
 
 class RentalView(generic.UpdateView):
@@ -330,19 +330,16 @@ class RentalView(generic.UpdateView):
     success_url = reverse_lazy('main:rental_confirm')
 
     def get_object(self, queryset=None):
-        obj = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
+        obj = get_object_or_404(models.Reservation, uuid=self.request.session.get('reservation'), status=1)
         return obj
 
 
 class RentalConfirmView(generic.TemplateView):
     template_name = 'main/rental_confirm.html'
 
-    def get_object(self, queryset=None):
-        return obj
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        reservation = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
+        reservation = get_object_or_404(models.Reservation, uuid=self.request.session.get('reservation'), status=1)
         context['reservation'] = reservation
         context['days'] = (reservation.return_date - reservation.start_date).days + 1
         context['tax'] = int(round(reservation.total_fee * 0.08, -1))
@@ -355,7 +352,7 @@ class RentalConfirmView(generic.TemplateView):
 class RentalCheckoutView(generic.View):
 
     def post(self, request):
-        reservation = models.Reservation.objects.get(uuid=request.session.get('reservation'))
+        reservation = get_object_or_404(models.Reservation, uuid=self.request.session.get('reservation'), status=1)
 
         stripe.api_key = settings.STRIPE_API_KEY
         token = request.POST.get('stripeToken')
@@ -378,8 +375,7 @@ class RentalCheckoutView(generic.View):
             request.user.gender = reservation.gender
             request.user.age_range = reservation.age_range
             request.user.save()
-            # del request.session['reservation']
-        return redirect(reverse_lazy('main:rental_complete'), permanent=True)
+        return redirect('main:rental_complete', permanent=True)
 
 
 class RentalCompleteView(generic.CreateView):
@@ -390,21 +386,22 @@ class RentalCompleteView(generic.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['reservation'] = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
+        context['reservation'] = get_object_or_404(models.Reservation, uuid=self.request.session.get('reservation'), status=0)
+        if self.request.user.is_authenticated:
+            del self.request.session['reservation']
         return context
 
     def form_valid(self, form):
         form.instance.password = make_password(self.request.POST.get('password'))
         _uuid = str(uuid.uuid4())
-        new_user = form.save(commit=False)
-        new_user.uuid = _uuid
-        new_user.save()
-        user = User.objects.get(uuid=_uuid)
+        user = form.save(commit=False)
+        user.uuid = _uuid
         if 'reservation' in self.request.session:
             try:
                 reservation = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
-                reservation.user = user
-                reservation.save()
+            except models.Reservation.DoesNotExist:
+                user.save()
+            else:
                 user.zip_code = reservation.zip_code
                 user.prefecture = reservation.prefecture
                 user.city = reservation.city
@@ -414,16 +411,19 @@ class RentalCompleteView(generic.CreateView):
                 user.gender = reservation.gender
                 user.age_range = reservation.age_range
                 user.save()
-            except models.Reservation.DoesNotExist:
-                pass
+                user_saved = User.objects.get(uuid=_uuid)
+                reservation.user = user_saved
+                reservation.save()
             del self.request.session['reservation']
+
         if 'cart' in self.request.session:
             try:
                 cart = models.Cart.objects.get(uuid=self.request.session.get('cart'))
-                cart.user = user
-                cart.save()
             except models.Cart.DoesNotExist:
                 pass
+            else:
+                cart.user = user
+                cart.save()
 
         protocol = 'https://' if self.request.is_secure() else 'http://'
         host_name = settings.HOST_NAME
@@ -446,13 +446,17 @@ class RentalCompleteSocialView(generic.View):
         if 'reservation' in self.request.session:
             try:
                 reservation = models.Reservation.objects.get(uuid=request.session.get('reservation'))
-                reservation.user = user
+            except models.Reservation.DoesNotExist:
+                pass
+            else:
                 try:
                     cart = models.Cart.objects.get(user=request.user)
-                    reservation.cart = cart
-                    request.session['cart'] = str(cart.uuid)
                 except models.Cart.DoesNotExist:
                     pass
+                else:
+                    reservation.cart = cart
+                    request.session['cart'] = str(cart.uuid)
+                reservation.user = user
                 reservation.save()
                 request.user.zip_code = reservation.zip_code
                 request.user.prefecture = reservation.prefecture
@@ -463,17 +467,17 @@ class RentalCompleteSocialView(generic.View):
                 request.user.gender = reservation.gender
                 request.user.age_range = reservation.age_range
                 request.user.save()
-            except models.Reservation.DoesNotExist:
-                pass
             del request.session['reservation']
+
         if 'cart' in request.session:
             try:
                 _ = models.Cart.objects.get(user=request.user)
             except models.Cart.DoesNotExist:
                 try:
                     cart = models.Cart.objects.get(uuid=request.session.get('cart'))
-                    cart.user = request.user
-                    cart.save()
                 except models.Cart.DoesNotExist:
                     pass
+                else:
+                    cart.user = request.user
+                    cart.save()
         return redirect('accounts:signup_social', permanent=True)

@@ -38,6 +38,7 @@
   </div>
 </div>
 
+{% if not request.user.is_authenticated %}
 <div class="line">
   <h2>会員登録</h2>
 </div>
@@ -152,6 +153,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 <div class="grid-x grid-padding-x fluid red">
   <div class="large-12 cell">
