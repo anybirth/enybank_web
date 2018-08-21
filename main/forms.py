@@ -12,3 +12,6 @@ class RentalForm(forms.ModelForm):
 
         for fieldname in ['address_name', 'address_name_kana', 'zip_code', 'prefecture', 'city', 'address', 'email']:
             self.fields[fieldname].required = True
+        for fieldname in ['address_name', 'address_name_kana', 'zip_code', 'city', 'address', 'email']:
+            self.fields[fieldname].widget.attrs['class'] = 'in1'
+        self.fields['email'].widget.attrs['placeholder'] = ' '

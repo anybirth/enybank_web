@@ -959,3 +959,34 @@
   background-color: #ffffff;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
 }
+
+/* rental form */
+#rental-title {
+  font-family: HiraginoSans-W4, HiraginoSans-W3;
+  font-size: 20px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+#rental-text {
+  font-family: HiraginoSans-W4, HiraginoSans-W3;
+  font-size: 11px;
+  line-height: 1.33;
+  color: #000000;
+  margin: 20px;
+}
+#rental-form select {
+  margin: 0;
+}
+#rental-form .group-select {
+  margin-top: 20px !important;
+}
+#rental-form .button {
+  font-family: HiraginoSans-W6;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 6px;
+  background-color: #ff7777;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+  margin: 16px 0;
+}

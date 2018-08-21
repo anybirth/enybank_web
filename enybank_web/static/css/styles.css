@@ -231,3 +231,177 @@
 .box-medium p {
   margin: .5rem;
 }
+
+/* materialized form */
+/* basic stylings ------------------------------------------ */
+.container {
+  font-family:'Roboto';
+  /*width:600px;*/
+  margin:16px auto 0;
+  display:block;
+  /*background:#FFF;*/
+  /*padding:10px 50px 50px;*/
+}
+
+/* form starting stylings ------------------------------- */
+.group {
+  position:relative;
+  margin-top:40px;
+  margin-bottom:20px;
+}
+input.in1[type="text"], input.in1[type="email"], input.in1[type="password"] {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  /* width: 63vw; */
+  border:none;
+  border-bottom:1px solid #757575;
+  background-color:  none;
+  -webkit-appearance: none;
+  box-shadow: none;
+}
+input.in1[type="text"]:focus, input.in1[type="email"]:focus, input.in1[type="password"]:focus {
+  outline:none;
+}
+
+/* LABEL ======================================= */
+label.label4 {
+  color: #999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+
+label.label5 {
+  color: #999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+input.in1[type="password"] ~ label.label4, input.in1[type="password"] ~ label.label5 {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+label.label-alt {
+  color: #ff7777;
+  font-size:14px;
+  font-weight:normal;
+  left:5px;
+  top:-20px;
+}
+
+/* active state */
+input.in1[type="text"]:focus ~ label.label5, input.in1[type="text"]:valid ~ label.label4 {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+input.in1[type="email"]:focus ~ label.label5, input.in1[type="email"]:valid ~ label.label4 {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+input.in1[type="password"]:focus ~ label.label5, input.in1[type="password"]:valid ~ label.label4 {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+input.in1[type="email"]:focus ~ label.label5, input.in1[type="email"]:focus ~ label.label4, input.in1[type="email"]:invalid ~ label.label5, input.in1[type="email"]:invalid ~ label.label4   {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+input.in1[type="email"]:placeholder-shown ~ label.label5, input.in1[type="email"]:placeholder-shown ~ label.label4               {
+  font-size:18px !important;
+  top:10px !important;
+  color: #999 !important;
+}
+input.in1[type="password"]:focus ~ label.label5, input.in1[type="password"]:focus ~ label.label4, input.in1[type="password"]:invalid ~ label.label5, input.in1[type="password"]:invalid ~ label.label4   {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+input.in1[type="password"]:placeholder-shown ~ label.label5, input.in1[type="password"]:placeholder-shown ~ label.label4 {
+  font-size:18px !important;
+  top:10px !important;
+  color: #999 !important;
+}
+
+
+/* BOTTOM BARS ================================= */
+.bar    { position:relative; display:block; width:100%; }
+.bar:before, .bar:after {
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  margin-bottom: 15px;
+  position:absolute;
+  background:#ff7777;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:0%;
+}
+.bar:after {
+  right:0%;
+}
+
+/* active state */
+input.in1[type="text"]:focus ~ .bar:before, input.in1[type="text"]:focus ~ .bar:after {
+  width:50%;
+}
+input.in1[type="email"]:focus ~ .bar:before, input.in1[type="email"]:focus ~ .bar:after {
+  width:50%;
+}
+input.in1[type="password"]:focus ~ .bar:before, input.in1[type="password"]:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%;
+  width:100px;
+  top:25%;
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+  border: none;
+}
+
+/* active state */
+input.in1[type="text"]:focus ~ .highlight, input.in1[type="email"]:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from { background:#ff7777; }
+  to    { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#ff7777; }
+  to    { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { backgrou nd:#ff7777; }
+  to    { width:0; background:transparent; }
+}
