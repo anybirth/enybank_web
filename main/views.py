@@ -78,6 +78,24 @@ class ItemDetailView(generic.DetailView):
         return context
 
     def post(self, request, pk):
+        params = ['start_date', 'return_date']
+        for param in params:
+            if not request.POST.get(param):
+                messages.error(request, 'お届け日と返却日を入力してください')
+                return redirect('main:item_detail', pk=pk)
+
+        start_date = datetime.strptime(request.POST.get('start_date'), '%Y-%m-%d')
+        return_date = datetime.strptime(request.POST.get('return_date'), '%Y-%m-%d')
+        if start_date > return_date - timedelta(days=2) or start_date < return_date - timedelta(days=30):
+            messages.error(request, 'レンタル期間は3～30日です')
+            return redirect(request.META.get('main:item_detail', pk=pk))
+
+        item = models.Item.objects.get(uuid=request.POST.get('item'))
+        for reservation in item.reservation_set.all():
+            if not (return_date.date() + timedelta(days=1) < reservation.start_date or reservation.return_date < start_date.date() - timedelta(days=1)):
+                messages.error(request, '同じ日程で商品が予約されています\n日程を変更するか、別の商品をお探しください')
+                return redirect('main:item_detail', pk=pk)
+
         if request.user.is_authenticated:
             cart, _ = models.Cart.objects.get_or_create(user=request.user)
         elif 'cart' in request.session and not request.user.is_authenticated:
@@ -88,15 +106,6 @@ class ItemDetailView(generic.DetailView):
             new_cart.save()
             cart = models.Cart.objects.get(uuid=_uuid)
         request.session['cart'] = str(cart.uuid)
-
-        item = models.Item.objects.get(uuid=request.POST.get('item'))
-        start_date = datetime.strptime(request.POST.get('start_date'), '%Y-%m-%d')
-        return_date = datetime.strptime(request.POST.get('return_date'), '%Y-%m-%d')
-
-        for reservation in item.reservation_set.all():
-            if not (return_date.date() + timedelta(days=1) < reservation.start_date or reservation.return_date < start_date.date() - timedelta(days=1)):
-                messages.error(request, '同じ日程にこのアイテムの予約があります')
-                return redirect('main:item_detail', pk=pk)
 
         reservation = models.Reservation(
             cart=cart,
@@ -149,12 +158,25 @@ class SearchView(generic.TemplateView):
 
         return round(fee, -1)
 
+    def get(self, request):
+        params = ['start_date', 'return_date']
+        for param in params:
+            if not request.GET.get(param):
+                messages.error(request, 'お届け日と返却日を入力してください')
+                return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        start_date = datetime.strptime(request.GET.get('start_date'), '%Y-%m-%d')
+        return_date = datetime.strptime(request.GET.get('return_date'), '%Y-%m-%d')
+        if start_date > return_date + timedelta(days=2) or start_date < return_date - timedelta(days=29):
+            messages.error(request, 'レンタル期間は3～30日です')
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        return super().get(request)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        items = models.Item.objects.filter(
-            color_category=self.request.GET.get('color_category'),
-            type=self.request.GET.get('type')
-        )
+        items = models.Item.objects.annotate(Count('reservation')).order_by('-reservation__count')
+
         start_date = datetime.strptime(self.request.GET.get('start_date'), '%Y-%m-%d')
         return_date = datetime.strptime(self.request.GET.get('return_date'), '%Y-%m-%d')
         days = (return_date - start_date).days + 1
@@ -176,26 +198,31 @@ class SearchView(generic.TemplateView):
         else:
             context['items'] = items
 
-        items_color = models.Item.objects.filter(
-            color_category=self.request.GET.get('color_category')
-        )
-        items_type = models.Item.objects.filter(
-            type=self.request.GET.get('type')
-        )
-        items_all = models.Item.objects.all()
-
-        for item_list in [items_color, items_type, items_all]:
-            if not context['items'].count():
-                context['items'] = item_list
-
         for item in context['items']:
             for reservation in item.reservation_set.all():
                 if not (return_date.date() + timedelta(days=1) < reservation.start_date or reservation.return_date < start_date.date() - timedelta(days=1)):
                     context['items'] = items.exclude(uuid=item.uuid)
-                    for item_list in [items_color, items_type, items_all]:
-                        item_list = item_list.exclude(uuid=item.uuid)
-                        if not context['items'].count():
-                            context['items'] = item_list
+
+        if self.request.GET.get('color_category') and self.request.GET.get('type'):
+            context['items'] = context['items'].filter(
+                color_category=self.request.GET.get('color_category'),
+                type=self.request.GET.get('type')
+            ).annotate(Count('reservation')).order_by('-reservation__count')
+            if not context['items'].count():
+                context['items'] = models.Item.objects.filter(
+                    color_category=self.request.GET.get('color_category'),
+                    type=self.request.GET.get('type')
+                ).annotate(Count('reservation')).order_by('-reservation__count')
+            else:
+                context['items'] = models.Item.objects.filter(color_category=self.request.GET.get('color_category')).annotate(Count('reservation')).order_by('-reservation__count')
+        elif self.request.GET.get('color_category') and not self.request.GET.get('type'):
+            context['items'] = context['items'].filter(color_category=self.request.GET.get('color_category')).annotate(Count('reservation')).order_by('-reservation__count')
+            if not context['items'].count():
+                context['items'] = models.Item.objects.filter(color_category=self.request.GET.get('color_category')).annotate(Count('reservation')).order_by('-reservation__count')
+        elif self.request.GET.get('type') and not self.request.GET.get('color_category'):
+            context['items'] = context['items'].filter(type=self.request.GET.get('type')).annotate(Count('reservation')).order_by('-reservation__count')
+            if not context['items'].count():
+                context['items'] = models.Item.objects.filter(type=self.request.GET.get('type')).annotate(Count('reservation')).order_by('-reservation__count')
 
         context['days'], context['fee'] = [], []
         for item in context['items']:
@@ -296,11 +323,17 @@ class RentalReadyView(generic.View):
         return round(fee, -1)
 
     def get(self, request):
+        start_date = datetime.strptime(request.GET.get('start_date'), '%Y-%m-%d')
+        return_date = datetime.strptime(request.GET.get('return_date'), '%Y-%m-%d')
+        if start_date > return_date - timedelta(days=2) or start_date < return_date - timedelta(days=30):
+            messages.error(request, 'レンタル期間は3～30日です')
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
         request.session['reservation'] = request.GET.get('reservation')
         reservation = models.Reservation.objects.get(uuid=request.GET.get('reservation'))
 
-        reservation.start_date = request.GET.get('start_date')
-        reservation.return_date = request.GET.get('return_date')
+        reservation.start_date = start_date
+        reservation.return_date = return_date
         reservation.total_fee = int(request.GET.get('total_fee'))
         reservation.item_fee = self.fee_calculator()
 

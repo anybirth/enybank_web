@@ -3,14 +3,6 @@
 {% load static %}
 {% block content %}
 
-{% if messages %}
-<div class="callout alert">
-  {% for message in messages %}
-  <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-  {% endfor %}
-</div>
-{% endif %}
-
 <section id ="item">
   <div class="grid-x grid-padding-x">
     <div class="cell pic1" style="background:url({{ item.item_image_set.all.0.image.url }});background-size:cover;background-position: center;">
@@ -337,16 +329,6 @@ $(function() {
       $('#days').text(days + '日間で');
       $('#total-fee').text('￥' + totalFee);
       $('button[name=item]').prop('disabled', false);
-      return false;
-    }
-  });
-
-  $('button[name=item]').prop('disabled', true);
-
-  $('#reserve .botton12').on('click', function() {
-    console.log('clicked');
-    if (!(startDateStr && returnDateStr)) {
-      alert('全ての項目を選択してください');
       return false;
     }
   });

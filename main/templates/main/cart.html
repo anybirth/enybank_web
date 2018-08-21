@@ -69,7 +69,7 @@
     </div>
   </div>
   {% empty %}
-  <p>カート内に商品はありません</p>
+  <p class="text-center">カート内に商品はありません</p>
   {% endfor %}
 </section>
 
@@ -523,6 +523,7 @@ $(function() {
   <p class="text-center"><a href="javascript:void(0);" onclick="window.history.back();" class="button">←前のページに戻る</a></p>
 </section>
 
+{% if reservations|length %}
 <script>
 $(function() {
 
@@ -546,5 +547,6 @@ $(function() {
   });
 });
 </script>
+{% endif %}
 
 {% endblock %}

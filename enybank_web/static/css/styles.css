@@ -35,6 +35,20 @@
   padding: 12px 8px;
   margin: 0;
 }
+.must {
+  padding-bottom: 2px;
+}
+.must div {
+  border-radius: 3px;
+  background-color: #ff5858;
+  font-family: HiraginoSans-W4;
+  font-size: 3.125vw;
+  color: #ffffff;
+  margin-bottom: 10px;
+  padding: 1.3vw 2.5vw 1vw 2.5vw;
+  text-align: center;
+  display: inline;
+}
 
 /* header */
 #header {

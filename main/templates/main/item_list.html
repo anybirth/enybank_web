@@ -81,11 +81,11 @@ $(function() {
           <h1><i class="fas fa-search fa-sm"></i>&nbsp;スーツケースをすぐに探す</h1>
           <div class="grid-x">
             <div id="start_date" class="cell small-6">
-              <label>お届け日</label>
+              <div class="must"><label><div>必須</div>&nbsp;お届け日</label></div>
               <input readonly class='date_picker' type="text" name="start_date">
             </div>
             <div id="return_date" class="cell small-6">
-              <label>返却日</label>
+              <div class="must"><label><div>必須</div>&nbsp;返却日</label></div>
               <input readonly class='date_picker' type="text" name="return_date">
             </div>
           </div>
@@ -119,7 +119,7 @@ $(function() {
   <div class="item-list grid-x">
   {% for key, items in items_dict.items %}
   {% if items|length == 0 %}
-  <p class="not-found text-center {{ key }}" style="margin:50px 0;">条件に一致するスーツケースが見つかりません</p>
+  <p class="not-found text-center {{ key }}" style="margin:50px 0;">一致するスーツケースが見つかりませんでした</p>
   {% else %}
   {% for item in items %}
   <div class="item-wrapper cell small-6 {{ key }}">
