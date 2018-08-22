@@ -5,7 +5,7 @@ from . import models
 class RentalForm(forms.ModelForm):
     class Meta:
         model = models.Reservation
-        fields = ['address_name', 'address_name_kana', 'zip_code', 'prefecture', 'city', 'address', 'email', 'gender', 'age_range']
+        fields = ['last_name', 'first_name', 'last_name_kana', 'last_name_kana', 'zip_code1', 'zip_code2', 'prefecture', 'city', 'address', 'email', 'gender', 'age_range']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
