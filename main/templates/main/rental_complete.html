@@ -14,7 +14,7 @@
           <div class="cell small-8 small-offset-2 title">
             <h1>注文が完了しました</h1>
           </div>
-          <div class="exp1 small-9 small-offset-1 ">
+          <div class="exp1 small-10 small-offset-1 ">
             <p>今回のご注文に関する詳細は、ご登録いただいたメールアドレス宛に送信させていただきました。ご確認ください。<p>
           </div>
         </div>
@@ -86,7 +86,7 @@
               {{ form.password2 }}
               <span class="highlight"></span>
               <span class="bar"></span>
-              <label class="label5">password</label>
+              <label class="label5">passwordの確認</label>
             </div>
         </div>
 
@@ -228,10 +228,17 @@
 <div class="line2">
   <div class="grid-x grid-padding-x">
     <div class="cell back2">
-      <input type="checkbox" name="#" value="appple" id="" />
-      <label for="appple" class="back">最初のページに行く</label>
+      <input type="checkbox" name="" value="appple" id="backpage" class="chk"/>
+       <label for="backpage" class="back">最初のページに行く</label>
     </div>
   </div>
 </div>
 
+<script>
+ $(function() {
+     $('.chk').change(function() {
+         location.href = "http://enyfar.net";
+     });
+ });
+ </script>
 {% endblock %}
