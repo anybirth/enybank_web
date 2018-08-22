@@ -78,7 +78,7 @@ class AttachmentInline(admin.TabularInline):
     show_change_link = True
     fields = ['name', 'fee', 'image']
 
-class ReservationAttachmentInline(admin.TabularInline):
+class ReservedAttachmentInline(admin.TabularInline):
     model = models.Reservation.attachments.through
     extra = 0
     can_delete = True
@@ -230,7 +230,7 @@ class ReservationAdmin(admin.ModelAdmin):
     list_filter = ['start_date', 'return_date', 'item__bland', 'status']
     search_fields = ['name', 'zip_code' 'address', 'size', 'type', 'user__first_name', 'user__last_name', 'user__address_name', 'item__name', 'item__bland__name', 'item__series_name', 'item__color__name']
     exclude = ['attachments']
-    inlines = [ReservationAttachmentInline, AnswerInline]
+    inlines = [ReservedAttachmentInline, AnswerInline]
 
 class CouponAdmin(admin.ModelAdmin):
     list_display = ('coupon_code', 'user', 'coupon_code', 'discount', 'status')

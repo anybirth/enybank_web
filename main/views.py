@@ -348,10 +348,11 @@ class RentalReadyView(generic.View):
         reservation.save()
         for uuid in request.GET.getlist('attachment'):
             attachment = models.Attachment.objects.get(uuid=uuid)
-            reservation.attachments.add(attachment)
+            models.ReservedAttachment.objects.get_or_create(reservation=reservation, attachment=attachment)
         for attachment in reservation.attachments.all():
             if str(attachment.uuid) not in request.GET.getlist('attachment'):
-                reservation.attachments.remove(attachment)
+                reserved_attachment = models.ReservedAttachment.objects.get(reservation=reservation, attachment=attachment)
+                reserved_attachment.delete()
 
         return redirect('main:rental', permanent=True)
 

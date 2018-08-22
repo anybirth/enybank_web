@@ -447,7 +447,14 @@ class Reservation(UUIDModel):
     type = models.ForeignKey('Type', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('タイプ'))
     region = models.ForeignKey('Region', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('地域'))
     prefecture = models.ForeignKey('Prefecture', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('都道府県'))
-    attachments = models.ManyToManyField('Attachment', db_table='reservations_attachments', blank=True, verbose_name=_('付属品'))
+    attachments = models.ManyToManyField(
+        'Attachment',
+        through='ReservedAttachment',
+        through_fields=('reservation', 'attachment'),
+        blank=True,
+        related_name="reservations",
+        verbose_name=_('付属品')
+    )
     start_date = models.DateField(_('開始日'), blank=True, null=True)
     return_date = models.DateField(_('返却日'), blank=True, null=True)
     zip_code = models.CharField(_('郵便番号'), max_length=50, blank=True)
@@ -476,6 +483,22 @@ class Reservation(UUIDModel):
 
     def __str__(self):
         return '%s' % self.item
+
+
+class ReservedAttachment(UUIDModel):
+    reservation = models.ForeignKey('Reservation', on_delete=models.CASCADE, verbose_name=_('予約'))
+    attachment = models.ForeignKey('Attachment', on_delete=models.PROTECT, verbose_name=_('付属品'))
+    created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+
+    class Meta:
+        db_table = 'reserved_attachments'
+        ordering = ['reservation', 'attachment']
+        verbose_name = _('予約された付属品')
+        verbose_name_plural = _('予約された付属品')
+
+    def __str__(self):
+        return '%s' % self.attachment
 
 
 class Coupon(UUIDModel):
