@@ -187,6 +187,7 @@
 #item .sub2 .botton11 {
   height: 12.8vw;
   text-align: center;
+  margin: 0 5vw;
   background-color: #ff7e7e;
   border-radius: 8px;
 }
