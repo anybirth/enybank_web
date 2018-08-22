@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django import forms
+from django.shortcuts import redirect
+from django.contrib import messages
 from . import models
 
 # Register your models here.
@@ -154,6 +156,58 @@ class ItemAdmin(admin.ModelAdmin):
     list_filter = ['size', 'type', 'color_category', 'bland', 'series']
     search_fields = ['name', 'description', 'bland__name', 'series__name', 'size__name', 'type__name', 'color_category__name', 'color']
     inlines = [ItemFeeCoefInline, ItemImageInline, ReservationInline]
+    actions = ['copy_models_1', 'copy_models_2', 'copy_models_3', 'copy_models_4', 'copy_models_5', 'copy_models_6', 'copy_models_7', 'copy_models_8', 'copy_models_9', 'copy_models_10']
+
+    def _copy_models(self, request, queryset, n):
+        for obj in queryset:
+            for i in range(0, n):
+                obj.pk = None
+                obj.uuid = None
+                obj.save()
+        self.message_user(request, "選択されたアイテムを{}個ずつ複製しました".format(n), level=messages.SUCCESS)
+        if queryset.count() == 1:
+            return redirect('/admin/main/item/?series__uuid__exact={}'.format(queryset[0].series.uuid))
+
+    def copy_models_1(self, request, queryset):
+        return self._copy_models(request, queryset, 1)
+
+    def copy_models_2(self, request, queryset):
+        return self._copy_models(request, queryset, 2)
+
+    def copy_models_3(self, request, queryset):
+        return self._copy_models(request, queryset, 3)
+
+    def copy_models_4(self, request, queryset):
+        return self._copy_models(request, queryset, 4)
+
+    def copy_models_5(self, request, queryset):
+        return self._copy_models(request, queryset, 5)
+
+    def copy_models_6(self, request, queryset):
+        return self._copy_models(request, queryset, 6)
+
+    def copy_models_7(self, request, queryset):
+        return self._copy_models(request, queryset, 7)
+
+    def copy_models_8(self, request, queryset):
+        return self._copy_models(request, queryset, 8)
+
+    def copy_models_9(self, request, queryset):
+        return self._copy_models(request, queryset, 9)
+
+    def copy_models_10(self, request, queryset):
+        return self._copy_models(request, queryset, 10)
+
+    copy_models_1.short_description = "選択された アイテム の複製 (1個)"
+    copy_models_2.short_description = "選択された アイテム の複製 (2個)"
+    copy_models_3.short_description = "選択された アイテム の複製 (3個)"
+    copy_models_4.short_description = "選択された アイテム の複製 (4個)"
+    copy_models_5.short_description = "選択された アイテム の複製 (5個)"
+    copy_models_6.short_description = "選択された アイテム の複製 (6個)"
+    copy_models_7.short_description = "選択された アイテム の複製 (7個)"
+    copy_models_8.short_description = "選択された アイテム の複製 (8個)"
+    copy_models_9.short_description = "選択された アイテム の複製 (9個)"
+    copy_models_10.short_description = "選択された アイテム の複製 (10個)"
 
 class AttachmentCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'order')
