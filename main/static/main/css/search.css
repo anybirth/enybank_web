@@ -41,17 +41,6 @@
   border-width: 5.33vw 4vw 5.33vw 0;
 }
 
-.callout {
-    position: relative;
-    margin: 0 0 0 0;
-    padding: 0.5rem 0.5rem 0 0.5rem;
-    mix-blend-mode: multiply;
-    border-radius: 18px;
-    background-color: rgba(242, 242, 242, 0.53);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-    border: none;
-}
-
 .grid-x .pic1 {
   width: 43.4375vw;
   height: 60.3125vw;
@@ -93,10 +82,6 @@
   /*border: solid 0.7px #979797;
   border-top: none;
   border-bottom: none;*/
-  /*width: 100% ;*/
-  margin-left: -8px;
-  margin-right: -8px;
-  /*margin: 0 -2rem 0 -2rem;*/
 }
 
 .sub .cell h2 {
@@ -143,7 +128,6 @@
   font-family: HiraginoSans-W3;
   font-size: 13px;
   margin-top: 8px;
-  margin-bottom: 4px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -171,11 +155,10 @@
   display: inline;
 }
 
-.sub .detail #detailbt .img11 {
+.sub .detail #detailbt .img10 {
   width: 3.8vw;
   height: 3.8vw;
   padding-left: -1vw;
-  margin-top: -0.4vw;
 }
 
 
@@ -183,10 +166,10 @@
   width: 54vw;
   height: 2em;
   /*margin-left: 35%;*/
-  margin-top: 2vw;
+  margin-top: 5vw;
   margin-bottom: 4px;
   background-blend-mode: darken;
-  margin-left: 42.25vw;
+  margin-left: 31.25vw;
 }
 .sub .price .dayfor {
   color: #ff7777;
@@ -211,8 +194,6 @@
   height: 12.8vw;
   text-align: center;
   background-color: #ff7e7e;
-  margin-left: -8px;
-  margin-right: -8px;
   border-radius: 0 0 18px 18px / 0 0 18px 18px;
   -webkit-border-radius: 0 0 18px 18px / 0 0 18px 18px;
   -moz-border-radius: 0 0 18px 18px / 0 0 18px 18px;
