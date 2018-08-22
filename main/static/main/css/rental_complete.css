@@ -2,7 +2,7 @@
 .barimg {
   width: 75vw;
   margin-right: auto;
-  margin-left: 3.75vw;
+  margin-left: 8vw;
   margin-top:14px;
 }
 
@@ -17,7 +17,6 @@
   font-family: HiraginoSans-W4;
   font-size: 3.4375vw;
   margin-top: 5vw;
-  margin-left: -2vw;
   width: 80vw;
 }
 
@@ -29,8 +28,8 @@
 
 .line h2 {
   font-family: HiraginoSans-W5;
-  font-size: 16px;
-  line-height: 35px;
+  font-size: 3.5vw;
+  line-height: 10.9vw;
   margin-left: 8px;
 }
 
@@ -39,7 +38,7 @@
 .main1 {
   margin: 5vw 0 5vw 8vw;
   font-family: HiraginoSans-W4;
-  font-size: 12px;
+  font-size: 3.6vw;
   text-align: center;
   display:inline;
 }
@@ -55,7 +54,7 @@
 }
 
 .fb1 {
- width: 56.56vw;
+ width: 213px;
  font-family: HiraginoSans-W6;
  font-size: 13px;
  text-decoration:none;
@@ -291,7 +290,7 @@ label.subs2 {
 }
 .hatena a {
   font-family: HiraginoSans-W4;
-  font-size: 13px;
+  font-size: 3.5vw;
   text-align: center;
   color: #ff7674;
   text-decoration: underline;
