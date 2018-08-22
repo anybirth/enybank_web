@@ -238,6 +238,7 @@ class Item(UUIDModel):
     model_number = models.CharField(_('型番'), max_length=255, blank=True)
     description = models.TextField(_('商品概要'), blank=True)
     text = models.TextField(_('商品詳細'), blank=True)
+    url = models.TextField(_('商品URL'), blank=True)
     capacity = models.IntegerField(_('容量'))
     length = models.FloatField(_('縦'))
     width = models.FloatField(_('横'))
