@@ -120,24 +120,30 @@
   height: 100%;
 }
 #icon-login {
-  width: 15px;
+  width: 22px;
   height: auto;
-  margin: 15px 14px 1px 12px;
+  margin: 12px 14px 2px 12px;
 }
 #icon-accounts {
-  width: 15px;
+  width: 22px;
   height: auto;
-  margin: 15px 12px 1px 12px;
+  margin: 12px 12px 2px 12px;
 }
 #icon-cart {
-  width: 15px;
+  width: 22px;
   height: auto;
-  margin: 15px 14px 1px 12px;
+  margin: 12px 22px 2px 12px;
 }
 .icon-text {
   font-family: HiraginoSans-W3;
   font-size: 6px;
   margin-bottom: 0;
+}
+#icon-login + .icon-text {
+  margin-left: 4px;
+}
+#icon-cart + .icon-text {
+  margin-right: 4px;
 }
 
 /* drawer */
