@@ -252,6 +252,7 @@
 /* form starting stylings ------------------------------- */
 .group {
   position:relative;
+  /* width: 100%; */
   margin-top:40px;
   margin-bottom:20px;
 }
@@ -278,7 +279,7 @@ label.label4 {
   position:absolute;
   pointer-events:none;
   left:5px;
-  top:10px;
+  top:3px;
   transition:0.2s ease all;
   -moz-transition:0.2s ease all;
   -webkit-transition:0.2s ease all;
@@ -291,7 +292,7 @@ label.label5 {
   position:absolute;
   pointer-events:none;
   left:5px;
-  top:10px;
+  top:3px;
   transition:0.2s ease all;
   -moz-transition:0.2s ease all;
   -webkit-transition:0.2s ease all;
@@ -332,7 +333,7 @@ input.in1[type="email"]:focus ~ label.label5, input.in1[type="email"]:focus ~ la
 }
 input.in1[type="email"]:placeholder-shown ~ label.label5, input.in1[type="email"]:placeholder-shown ~ label.label4               {
   font-size:18px !important;
-  top:10px !important;
+  top:3px !important;
   color: #999 !important;
 }
 input.in1[type="password"]:focus ~ label.label5, input.in1[type="password"]:focus ~ label.label4, input.in1[type="password"]:invalid ~ label.label5, input.in1[type="password"]:invalid ~ label.label4   {
@@ -342,7 +343,7 @@ input.in1[type="password"]:focus ~ label.label5, input.in1[type="password"]:focu
 }
 input.in1[type="password"]:placeholder-shown ~ label.label5, input.in1[type="password"]:placeholder-shown ~ label.label4 {
   font-size:18px !important;
-  top:10px !important;
+  top:3px !important;
   color: #999 !important;
 }
 

@@ -41,7 +41,7 @@ class GroupAdmin(BaseGroupAdmin):
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'line_id', 'facebook_id', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'zip_code', 'prefecture', 'city', 'address', 'address_name', 'address_name_kana', 'age_range', 'gender', 'is_line_only', 'is_verified', 'hopes_newsletters')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'first_name_kana', 'last_name_kana', 'zip_code1', 'zip_code2', 'prefecture', 'city', 'address', 'age_range', 'gender', 'is_line_only', 'is_verified', 'hopes_newsletters')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
@@ -56,7 +56,7 @@ class UserAdmin(BaseUserAdmin):
     add_form = EmailUserCreationForm
     list_display = ('email', 'line_id', 'first_name', 'last_name', 'is_staff')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'prefecture', 'age_range', 'gender', 'created_at', 'updated_at')
-    search_fields = ('email', 'line_id', 'facebook_id', 'first_name', 'last_name', 'zip_code', 'address', 'address_name')
+    search_fields = ('email', 'line_id', 'facebook_id', 'first_name', 'last_name', 'first_name_kana', 'last_name_kana', 'zip_code1', 'zip_code2', 'prefecture', 'city', 'address')
     ordering = ('-created_at', )
     filter_horizontal = ('groups', 'user_permissions',)
     inlines = [ReservationInline]

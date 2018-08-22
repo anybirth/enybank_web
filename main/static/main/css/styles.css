@@ -1075,22 +1075,44 @@
 /* rental form */
 #rental-title {
   font-family: HiraginoSans-W4, HiraginoSans-W3;
-  font-size: 20px;
+  font-size: 6.25vw;
   color: #000000;
   margin-bottom: 20px;
 }
 #rental-text {
   font-family: HiraginoSans-W4, HiraginoSans-W3;
-  font-size: 11px;
+  font-size: 3.75vw;
   line-height: 1.33;
   color: #000000;
   margin: 20px;
+}
+#rental-form .ttl-bar h1 span {
+  color: #ff7777;
+}
+#rental-form .grid-x {
+  margin: 0 24px;
+}
+#rental-form .group {
+  margin: 24px 12px;
+}
+#rental-form .group-zip input {
+  text-align: center;
+}
+#rental-form .zip-text {
+  font-size: 20px;
+  margin-top: 28px;
 }
 #rental-form select {
   margin: 0;
 }
 #rental-form .group-select {
   margin-top: 20px !important;
+}
+#rental-form .radio {
+  margin: 0 0 0 7px !important;
+}
+#rental-form .group-radio {
+  margin: 10px 10px 0 !important;
 }
 #rental-form .button {
   font-family: HiraginoSans-W6;
@@ -1101,4 +1123,18 @@
   background-color: #ff7777;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
   margin: 16px 0;
+}
+#rental-form form > p {
+  padding: 0 10vw;
+}
+#rental-form .button {
+  width: 100%;
+  font-family: HiraginoSans-W6;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 6px;
+  background-color: #ff7777;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+  margin-bottom: 16px;
 }

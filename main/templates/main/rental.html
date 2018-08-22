@@ -18,68 +18,164 @@
 </section>
 
 <section id="rental-form">
-  <h1 id="rental-title" class="text-center">ご注文情報の入力</h1>
+  <h1 id="rental-title" class="text-center">お客様情報の入力</h1>
   <p id="rental-text" class="text-center">下記の内容を入力後、確認画面へお進みください。</p>
 
-  <div class="grid-container">
+  <div class="">
     <form action="" method="post">
       {% csrf_token %}
 
-      <div class="group">
-        {{ form.address_name }}
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label class="label4">{{ form.address_name.label }}</label>
+      <div class="ttl-bar">
+        <h1>お名前<span>※</span></h1>
+      </div>
+      <div class="grid-x">
+        <div class="cell small-6">
+          <div class="group">
+            {{ form.last_name }}
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="label4">{{ form.last_name.label }}</label>
+          </div>
+        </div>
+        <div class="cell small-6">
+          <div class="group">
+            {{ form.first_name }}
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="label4">{{ form.first_name.label }}</label>
+          </div>
+        </div>
       </div>
 
-      <div class="group">
-        {{ form.address_name_kana }}
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label class="label4">{{ form.address_name_kana.label }}</label>
+      <div class="ttl-bar">
+        <h1>フリガナ<span>※</span></h1>
+      </div>
+      <div class="grid-x">
+        <div class="cell small-6">
+          <div class="group">
+            {{ form.last_name_kana }}
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="label4">{{ form.last_name_kana.label }}</label>
+          </div>
+        </div>
+        <div class="cell small-6">
+          <div class="group">
+            {{ form.first_name_kana }}
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="label4">{{ form.first_name_kana.label }}</label>
+          </div>
+        </div>
       </div>
 
-      <div class="group">
-        {{ form.zip_code }}
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label class="label4">{{ form.zip_code.label }}</label>
+      <div class="ttl-bar">
+        <h1>郵便番号<span>※</span></h1>
+      </div>
+      <div class="grid-x">
+        <div class="cell small-1">
+          <div class="group">
+            <p class="zip-text text-right">〒</p>
+          </div>
+        </div>
+        <div class="cell small-3">
+          <div class="group group-zip">
+            {{ form.zip_code1 }}
+            <span class="highlight"></span>
+            <span class="bar"></span>
+          </div>
+        </div>
+        <div class="cell small-1">
+          <p class="zip-text text-center">ー</p>
+        </div>
+        <div class="cell small-3">
+          <div class="group group-zip">
+            {{ form.zip_code2 }}
+            <span class="highlight"></span>
+            <span class="bar"></span>
+          </div>
+        </div>
       </div>
 
-      <div class="group group-select">
-        <label class="label-alt">{{ form.prefecture.label }}</label>
-        {{ form.prefecture }}
+      <div class="ttl-bar">
+        <h1>お届け先住所<span>※</span></h1>
+      </div>
+      <div class="grid-x">
+        <div class="cell small-12">
+          <div class="group group-select">
+            {{ form.prefecture }}
+          </div>
+        </div>
+      </div>
+      <div class="grid-x">
+        <div class="cell small-12">
+          <div class="group">
+            {{ form.city }}
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="label4">{{ form.city.label }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="grid-x">
+        <div class="cell small-12">
+          <div class="group">
+            {{ form.address }}
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="label4">{{ form.address.label }}</label>
+          </div>
+        </div>
       </div>
 
-      <div class="group">
-        {{ form.city }}
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label class="label4">{{ form.city.label }}</label>
+      <div class="ttl-bar">
+        <h1>{{ form.email.label }}<span>※</span></h1>
+      </div>
+      <div class="grid-x">
+        <div class="cell small-12">
+          <div class="group">
+            {{ form.email }}
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="label4">〇〇〇@example.com</label>
+          </div>
+        </div>
       </div>
 
-      <div class="group">
-        {{ form.address }}
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label class="label4">{{ form.address.label }}</label>
+      <div class="ttl-bar">
+        <h1>{{ form.gender.label }}</h1>
+      </div>
+      <div class="grid-x">
+        {% for radio in form.gender %}
+        {% if forloop.counter0 %}
+        <div class="cell small-4">
+          <div class="group group-radio">
+            <label for="{{ radio.id_for_label }}">
+              <span class="radio">{{ radio.tag }}</span>
+              {{ radio.choice_label }}
+            </label>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
       </div>
 
-      <div class="group">
-        {{ form.email }}
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label class="label4">{{ form.email.label }}</label>
+      <div class="ttl-bar">
+        <h1>{{ form.age_range.label }}</h1>
       </div>
-
-      <div class="group group-select">
-        <label class="label-alt">{{ form.gender.label }}</label>
-        {{ form.gender }}
-      </div>
-
-      <div class="group group-select">
-        <label class="label-alt">{{ form.age_range.label }}</label>
-        {{ form.age_range }}
+      <div class="grid-x">
+        {% for radio in form.age_range %}
+        {% if forloop.counter0 %}
+        <div class="cell small-4">
+          <div class="group group-radio">
+            <label for="{{ radio.id_for_label }}">
+              <span class="radio">{{ radio.tag }}</span>
+              {{ radio.choice_label }}
+            </label>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
       </div>
 
       <p class="text-center"><input type="submit" value="ご注文手続きに進む→" class="button"></p>
