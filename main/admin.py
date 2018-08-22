@@ -225,20 +225,20 @@ class AttachmentAdmin(admin.ModelAdmin):
 class CartAdmin(admin.ModelAdmin):
     list_display = ('uuid', 'user', 'created_at', 'updated_at')
     list_filter = ['created_at', 'updated_at']
-    search_fields = ['user__first_name', 'user__last_name', 'user__address_name']
+    search_fields = ['user__first_name', 'user__last_name', 'user__first_name_kana', 'user__last_name_kana', 'user__address']
     inlines = [ReservationInline]
 
 class ReservationAdmin(admin.ModelAdmin):
     list_display = ('item', 'total_fee', 'start_date', 'return_date', 'status')
     list_filter = ['start_date', 'return_date', 'item__bland', 'status']
-    search_fields = ['name', 'zip_code' 'address', 'size', 'type', 'user__first_name', 'user__last_name', 'user__address_name', 'item__name', 'item__bland__name', 'item__series_name', 'item__color__name']
+    search_fields = ['first_name', 'last_name', 'first_name_kana', 'last_name_kana' 'zip_code1', 'zip_code2', 'address', 'size', 'type', 'user__first_name', 'user__last_name', 'user__first_name_kana', 'user__last_name_kana', 'user__address', 'item__name', 'item__bland__name', 'item__series__name', 'item__color__name']
     exclude = ['attachments']
     inlines = [ReservedAttachmentInline, AnswerInline]
 
 class CouponAdmin(admin.ModelAdmin):
     list_display = ('coupon_code', 'user', 'coupon_code', 'discount', 'status')
     list_filter = ['status']
-    search_fields = ['coupon_code', 'user__first_name', 'user__last_name', 'user__address_name', 'discount', 'description']
+    search_fields = ['coupon_code', 'user__first_name', 'user__last_name', 'user__first_name_kana', 'user__last_name_kana', 'user__address', 'discount', 'description']
 
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('order', 'text', 'is_public')
