@@ -5,14 +5,15 @@
 
 .imgs {
   width: 75vw;
-  margin-left: 6vw;
-  marign-right: auto;
-  margin-top:14px;
+  height: 8.44vw;
+ margin-left: 9vw;
+ margin-right: auto;
+ margin-top: 14px;
 }
 
 .title h1 {
   font-family: HiraginoSans-W4;
-  font-size: 6vw;
+  font-size: 5vw;
   text-align: center;
   margin-top: 5vw;
 }
@@ -32,7 +33,7 @@
 
 .line h2 {
   font-family: HiraginoSans-W5;
-  font-size: 4.26vw;
+  font-size: 3.5vw;
   line-height: 9.3vw;
   margin-left: 8px;
 }
