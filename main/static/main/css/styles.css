@@ -25,9 +25,9 @@
   position: relative;
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 5vw;
   font-weight: 700;
-  padding: 13px 0 22px 16px;
+  padding: 22px 0 22px 16px;
   color: #514545;
 }
 #easy-search h1:after {
@@ -150,7 +150,7 @@
 #easy-submit p {
   height: 41px;
   margin: 12px 20px 16px;
-  font-size: 18px;
+  font-size: 6vw;
   font-weight: 700;
 }
 #easy-submit .button {
@@ -224,15 +224,15 @@
 }
 #ranking h1 {
   font-family: HiraKakuPro-W6, HiraginoSans-W3;
-  font-size: 17px;
+  font-size: 5.6vw;
   font-weight: 700;
   padding-top: 16px;
   color: #514545;
 }
 #ranking h1 img {
   width: auto;
-  height: 20px;
-  margin: -4px 8px 0 0;
+  height: 6vw;
+  margin: -6px 10px 0 0;
 }
 #ranking h2 {
   display: flex;
@@ -270,23 +270,35 @@
   position: relative;
   margin: 0 4px;
   border-radius: 6px;
-  box-shadow: 0 2px 8px gray;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.26);
   background-color: #fff;
 }
 #ranking .item-grid .triangle {
+  position: relative;
   width: 0;
   height: 0;
   border-radius: 6px 0 0 0;
-  border: 22px solid transparent;
-  border-top: 22px solid #ff8c8c;
-  border-left: 22px solid #ff8c8c;
+  border: 6vw solid transparent;
+  border-top: 6vw solid #ff8c8c;
+  border-left: 6vw solid #ff8c8c;
+}
+#ranking .item-grid .triangle-small {
+  position: absolute;
+  left: -6vw;
+  top: -6vw;
+  width: 0;
+  height: 0;
+  border-radius: 6px 0 0 0;
+  border: 2.8vw solid transparent;
+  border-top: 2.8vw solid #ffffff;
+  border-left: 2.8vw solid #ffffff;
 }
 #ranking .item-grid .triangle-text {
   position: absolute;
-  top: 14px;
-  left: 4px;
+  top: 2.7vw;
+  left: -0.4vw;
   font-family: HiraginoSans-W6, HiraginoSans-W3;
-  font-size: 7px;
+  font-size: 2.8vw;
   font-weight: 700;
   color: #FFF;
   -webkit-transform: rotate(-45deg);
@@ -299,7 +311,7 @@
   margin-top: -14px;
 }
 #ranking .item-grid-title {
-  padding: 9px 5px 4px;
+  padding: 12px 5px 12px;
 }
 #ranking .item-grid h3 {
   font-family: HiraMaruProN-W4, HiraginoSans-W3;
@@ -339,6 +351,98 @@
   color: #ff5066;
 }
 
+/* flow */
+.red {
+  background-color: #ff8c8c;
+  height: 123.4375vw;
+  width: 100vw;
+}
+
+.waku {
+  position: relative;
+  margin: 11.25vw 0 0 1.6vw;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  border-radius: 18px;
+  border: 1.5px solid #fff;
+  height: 107.2vw;
+  width: 90.93vw;
+  /*border-color: #fff;
+  border-width: 1.5px;*/
+  /*background-color: none;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);*/
+  }
+
+.waku .title p{
+  text-align: center;
+  color: #fff;
+  font-family: HiraginoSans-W7;
+  font-size: 6.25vw;
+  margin-top: -28px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ff8c8c;
+  width: 11rem;
+}
+
+.imgs {
+  width: 14.5vw;
+  height: 14.5vw;
+}
+
+.waku .grid-x {
+  margin-top: 12.5vw;
+}
+
+.waku .ul1 {
+  list-style: none;
+  margin-left: 5px;
+}
+
+.waku .li1 {
+  margin: 0 0 7.5vw 7vw;
+}
+
+.waku .ul2 {
+  list-style: none;
+  margin-top: -1vw;
+  margin-left: -15px;
+  width: 53.857vw;
+}
+
+.waku .li2 {
+  /*margin: 0 0 7.5vw 7vw;*/
+  margin-bottom: 23px;
+}
+
+.waku .li2 h3 {
+  margin-bottom: 5px;
+  color: #fff;
+  font-size: 4vw;
+  font-family: HiraginoSans-W6;
+}
+
+.waku .li2 p {
+  color: #fff;
+  font-size: 2.812vw;
+  font-family: HiraginoSans-w5;
+}
+
+ /*.li3 .tate {
+  height: 7.5vw;
+  width: 2px;
+  border-right: solid 1.5px #0000;
+  margin: -100px 0 0 72px;
+}
+
+.ul3 {
+  height: 7.5vw;
+  width: 2px;
+  list-style: none;
+}
+.tate .li3 {
+
+}*/
+
 /* feature search */
 #feature-search a {
   display: block;
@@ -347,13 +451,13 @@
 }
 #feature-search h1 {
   font-family: HiraKakuPro-W6, HiraginoSans-W3;
-  font-size: 17px;
+  font-size: 5.6vw;
   font-weight: 700;
   padding-top: 16px;
   color: #514545;
 }
 #feature-search h1 img {
-  width: 16px;
+  width: 5vw;
   height: auto;
   margin: -4px 8px 0 0;
 }
@@ -393,35 +497,35 @@
 }
 #size-grid-wrapper .size-img {
   display: inline-block;
-  width: 36px;
-  height: 36px;
-  margin: 12px 2px 10px 12px;
+  width: 11.25vw;
+  height: 11.25vw;
+  margin: 13px 2px 10px 12px;
   background-size: cover;
 }
 #size-grid-wrapper .size-img p {
-  margin-top: 9px;
+  margin: 2.8vw 0;
   font-family: LucidaGrande, HiraginoSans-W3;
-  font-size: 18px;
+  font-size: 5.6vw;
   color: #ff8c8c;
   height: auto;
 }
 #size-grid-wrapper .size-title {
-  margin: 15px auto 11px auto;
+  margin: 12px auto 8px auto;
 }
 #size-grid-wrapper h3 {
   font-family: HiraginoSans-W3;
-  font-size: 10px;
+  font-size: 3.2vw;
   font-weight: 700;
   color: #4a4a4a;
 }
 #size-grid-wrapper h3 span {
-  font-size: 20px;
+  font-size: 6.25vw;
   font-weight: 700;
   color: #ff8c8c;
 }
 #size-grid-wrapper .size-text {
   font-family: HiraKakuPro-W3, HiraginoSans-W3;
-  font-size: 9px;
+  font-size: 2.8vw;
   line-height: 1.33;
   height: 24px;
   margin: 0 9px 8px;
@@ -433,7 +537,7 @@
 }
 #size-grid-wrapper .size-info {
   font-family: HiraKakuPro-W3, HiraginoSans-W3;
-  font-size: 9px;
+  font-size: 2.8vw;
   line-height: 1.33;
   margin: 0 9px 8px;
   color: rgba(0, 0, 0, 0.52);
@@ -441,12 +545,12 @@
 #size-grid-wrapper .size-button {
   width: 100%;
   background-color: #ff8c8c;
-  border-radius: 0 0 9px 9px;
+  border-radius: 0 0 8px 8px;
 }
 #size-grid-wrapper .size-button p {
   margin: 8px 0;
   font-family: HiraMaruProN-W4, HiraginoSans-W3;
-  font-size: 12px;
+  font-size: 3.4vw;
   color: #ffffff;
 }
 #airline-grid-wrapper {
@@ -496,7 +600,7 @@
 }
 #cart-text {
   font-family: HiraginoSans-W4, HiraginoSans-W3;
-  font-size: 11px;
+  font-size: 3.4vw;
   line-height: 1.33;
   color: #000000;
   margin: 20px;
