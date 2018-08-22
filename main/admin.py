@@ -166,7 +166,10 @@ class ItemAdmin(admin.ModelAdmin):
                 obj.save()
         self.message_user(request, "選択されたアイテムを{}個ずつ複製しました".format(n), level=messages.SUCCESS)
         if queryset.count() == 1:
-            return redirect('/admin/main/item/?series__uuid__exact={}'.format(queryset[0].series.uuid))
+            if queryset.first().series:
+                return redirect('/admin/main/item/?series__uuid__exact={}'.format(queryset.first().series.uuid))
+            elif queryset.first().bland and not queryset.first().series:
+                return redirect('/admin/main/item/?bland__uuid__exact={}'.format(queryset.first().bland.uuid))
 
     def copy_models_1(self, request, queryset):
         return self._copy_models(request, queryset, 1)
