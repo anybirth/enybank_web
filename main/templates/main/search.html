@@ -26,36 +26,37 @@
         <div class="amount">
           <p>容量&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;{{ items.0.capacity }}L <br>三辺合計&nbsp;:&nbsp;&nbsp;{{ items.0.length|add:items.0.width|add:items.0.depth }}cm</p>
         </div>
-
-        <div class="grid-x grid-padding-x fluid sub">
-          <div class="small-12 cell">
-            <h2>{{ items.0.name }}</h2>
-          </div>
-          <div class="cell box1">
-            即日発送
-          </div>
-          <div class="cell box2">
-            送料無料
-          </div>
-          <div class="cell box3">
-            全品新品
-          </div>
-          <div class="grid-x grid-padding-x">
-            <div class="cell small-12  explain">
-              {{ items.0.description }}
+        <div class="sub">
+          <div class="grid-x grid-padding-x fluid">
+            <div class="small-12 cell">
+              <h2>{{ items.0.name }}</h2>
             </div>
-          </div>
-          <div class="cell small-8 small-offset-2 detail">
-            <button name="button" type="submit" value="submit-true" id="detailbt" style="width:100%;">
-              <a href="{% url 'main:item_detail' items.0.uuid %}" style="display:block;width:100%;">
-                <p>商品の詳細情報を見る</p><img src="{% static 'main/img/preview10.png' %}" alt="検索" title="検索" class="img10">
-              </a>
-            </button>
-          </div>
-          <div class="cell price">
-            <div class="dayfor price2">{{ days.0 }}日間で</div>
-            <div class="money price2">¥{{ fee.0 }}</div>
-            <div class="dayfor price2">円</div>
+            <div class="cell box1">
+              即日発送
+            </div>
+            <div class="cell box2">
+              送料無料
+            </div>
+            <div class="cell box3">
+              全品新品
+            </div>
+
+              <div class="cell small-10 small-offset-1  explain">
+                {{ items.0.description }}
+              </div>
+
+            <div class="cell small-8 small-offset-2 detail">
+              <button name="button" type="submit" value="submit-true" id="detailbt" style="width:100%;">
+                <a href="{% url 'main:item_detail' items.0.uuid %}" style="display:block;width:100%;">
+                  <p>商品の詳細情報を見る</p><img src="{% static 'main/img/preview11.png' %}" alt="検索" title="検索" class="img11">
+                </a>
+              </button>
+            </div>
+            <div class="cell price">
+              <div class="dayfor price2">{{ days.0 }}日間で</div>
+              <div class="money price2">¥{{ fee.0 }}</div>
+              <div class="dayfor price2">円</div>
+            </div>
           </div>
         </div>
         <div class="grid-x grid-padding-x fluid botton11">
