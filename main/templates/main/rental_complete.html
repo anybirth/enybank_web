@@ -57,17 +57,15 @@
       <div class="grid-x grid-padding-x">
         <!-- <input type="text" value="ooo@example.com" placeholder="" > -->
         <div class=" cell small-10 small-offset-1 container">
+          {% if form.errors.items %}
           <div class="callout alert small" data-closable>
-            {% if form.errors.items %}
-            <div class="callout alert small" data-closable>
-              {% for field, errors in form.errors.items %}
-              {% for error in errors %}
-              <p class="text-center">{{ error }}</p>
-              {% endfor %}
-              {% endfor %}
-            </div>
-            {% endif %}
+            {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+            <p class="text-center">{{ error }}</p>
+            {% endfor %}
+            {% endfor %}
           </div>
+          {% endif %}
           <form id="complete-login" action="" method="post">
             {% csrf_token %}
             <div class="group">
