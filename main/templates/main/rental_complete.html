@@ -38,6 +38,7 @@
   </div>
 </div>
 
+{% if not request.user.is_authenticated %}
 <div class="line">
   <h2>会員登録</h2>
 </div>
@@ -52,48 +53,41 @@
   </div>
 
   <div class="large-5 small-10 small-offset-1 cell">
-    <div class="callout">
+    <div class="form-callout">
       <div class="grid-x grid-padding-x">
         <!-- <input type="text" value="ooo@example.com" placeholder="" > -->
         <div class=" cell small-10 small-offset-1 container">
+          <div class="callout alert small" data-closable>
+            {% if form.errors.items %}
+            <div class="callout alert small" data-closable>
+              {% for field, errors in form.errors.items %}
+              {% for error in errors %}
+              <p class="text-center">{{ error }}</p>
+              {% endfor %}
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
           <form id="complete-login" action="" method="post">
             {% csrf_token %}
             <div class="group">
-              <input type="email" name="email" maxlength="254" required id="id_email" value="{{ reservation.email }}" class="in1">
+              {{ form.email }}
               <span class="highlight"></span>
               <span class="bar"></span>
-              <label class="label4">mail</label>
+              <label class="label4">email</label>
             </div>
             <div class="group">
-              <input type="password" name="password1" required id="is_password1" class="in1">
+              {{ form.password1 }}
               <span class="highlight"></span>
               <span class="bar"></span>
               <label class="label5">password</label>
             </div>
             <div class="group">
-              <input type="password" name="password2" required id="is_password2" class="in1">
+              {{ form.password2 }}
               <span class="highlight"></span>
               <span class="bar"></span>
               <label class="label5">password</label>
             </div>
-          <style>
-          input.in1[type="email"], input.in1[type="password"] {
-            font-size: 18px;
-            padding: 10px 10px 10px 5px;
-            display: block;
-            width: 63vw;
-            border: none;
-            border-bottom: 1px solid #757575;
-            background-color: none;
-            -webkit-appearance: none;
-            box-shadow: none;
-          }
-          input.in1[type="email"]:focus ~ label.label5, input.in1[type="email"]:valid ~ label.label4, input.in1[type="password"]:focus ~ label.label5, input.in1[type="password"]:valid ~ label.label4 {
-            top: -20px;
-            font-size: 14px;
-            color: #ff7777;
-          }
-          </style>
         </div>
 
         <div class="cell small-10 small-offset-1 kiyaku">
@@ -152,6 +146,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 <div class="grid-x grid-padding-x fluid red">
   <div class="large-12 cell">

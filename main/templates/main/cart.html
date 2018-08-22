@@ -4,7 +4,7 @@
 {% block content %}
 
 <section class="progress-bar">
-  <img class="center-horizontally" src="{% static 'main/img/progress-1.png' %}">
+  <img class="center-horizontally" src="{% static 'main/img/preview5.png' %}">
 </section>
 
 <section id="cart">
@@ -45,8 +45,8 @@
              </div>
            </div>
         </div>
-        <p class="cart-item-text">{{ reservation.item.description|truncatechars:75 }}</p>
-        <div class="select-num grid-x">
+        <p class="cart-item-text">{{ reservation.item.description|truncatechars:100 }}</p>
+        <!-- <div class="select-num grid-x">
           <div class="cell small-3 small-offset-6">
             <label class="text-right">個数</label>
           </div>
@@ -64,12 +64,12 @@
               <option>10</option>
             </select>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
   {% empty %}
-  <p>カート内に商品はありません</p>
+  <p class="text-center">カート内に商品はありません</p>
   {% endfor %}
 </section>
 
@@ -231,7 +231,7 @@
             </label>
             <img src="{{ attachment.image.url }}">
           </div>
-          <p class="attachment-name">{{ attachment.name|truncatechars:16 }}</p>
+          <p class="attachment-name">{{ attachment.name }}</p>
           <p id="{{ attachment.fee }}" class="attachment-price text-center">{{ attachment.fee }}円</p>
         </div>
         {% endfor %}
@@ -523,6 +523,7 @@ $(function() {
   <p class="text-center"><a href="javascript:void(0);" onclick="window.history.back();" class="button">←前のページに戻る</a></p>
 </section>
 
+{% if reservations|length %}
 <script>
 $(function() {
 
@@ -546,5 +547,6 @@ $(function() {
   });
 });
 </script>
+{% endif %}
 
 {% endblock %}

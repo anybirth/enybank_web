@@ -6,7 +6,8 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.views import generic
 from django.db.models import Q, Count
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from accounts.models import User
 from accounts.forms import UserForm
@@ -63,7 +64,7 @@ class ItemListView(generic.TemplateView):
                 for item in value:
                     total_dimensions = item.length + item.width + item.depth
                     if total_dimensions <= airline.max_total_dimensions_carry_on:
-                        context['items_dict'][key + airline.name].push(item)
+                        context['items_dict'][key + str(airline.uuid)].append(item)
         return context
 
 
@@ -77,6 +78,24 @@ class ItemDetailView(generic.DetailView):
         return context
 
     def post(self, request, pk):
+        params = ['start_date', 'return_date']
+        for param in params:
+            if not request.POST.get(param):
+                messages.error(request, 'お届け日と返却日を入力してください')
+                return redirect('main:item_detail', pk=pk)
+
+        start_date = datetime.strptime(request.POST.get('start_date'), '%Y-%m-%d')
+        return_date = datetime.strptime(request.POST.get('return_date'), '%Y-%m-%d')
+        if start_date > return_date - timedelta(days=2) or start_date < return_date - timedelta(days=30):
+            messages.error(request, 'レンタル期間は3～30日です')
+            return redirect(request.META.get('main:item_detail', pk=pk))
+
+        item = models.Item.objects.get(uuid=request.POST.get('item'))
+        for reservation in item.reservation_set.all():
+            if not (return_date.date() + timedelta(days=1) < reservation.start_date or reservation.return_date < start_date.date() - timedelta(days=1)):
+                messages.error(request, '同じ日程で商品が予約されています\n日程を変更するか、別の商品をお探しください')
+                return redirect('main:item_detail', pk=pk)
+
         if request.user.is_authenticated:
             cart, _ = models.Cart.objects.get_or_create(user=request.user)
         elif 'cart' in request.session and not request.user.is_authenticated:
@@ -87,11 +106,12 @@ class ItemDetailView(generic.DetailView):
             new_cart.save()
             cart = models.Cart.objects.get(uuid=_uuid)
         request.session['cart'] = str(cart.uuid)
+
         reservation = models.Reservation(
             cart=cart,
-            item=models.Item.objects.get(uuid=request.POST.get('item')),
-            start_date=request.POST.get('start_date'),
-            return_date=request.POST.get('return_date'),
+            item=item,
+            start_date=start_date,
+            return_date=return_date,
         )
         if request.user.is_authenticated:
             reservation.user = request.user
@@ -111,11 +131,7 @@ class ItemDetailView(generic.DetailView):
 class SearchView(generic.TemplateView):
     template_name = 'main/search.html'
 
-    def fee_calculator(self):
-        item = models.Item.objects.get(
-            color_category=self.request.GET.get('color_category'),
-            type=self.request.GET.get('type')
-        )
+    def fee_calculator(self, item):
 
         intercept = item.fee_intercept
         coefs = item.item_fee_coef_set.order_by('starting_point')
@@ -142,18 +158,76 @@ class SearchView(generic.TemplateView):
 
         return round(fee, -1)
 
+    def get(self, request):
+        params = ['start_date', 'return_date']
+        for param in params:
+            if not request.GET.get(param):
+                messages.error(request, 'お届け日と返却日を入力してください')
+                return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        start_date = datetime.strptime(request.GET.get('start_date'), '%Y-%m-%d')
+        return_date = datetime.strptime(request.GET.get('return_date'), '%Y-%m-%d')
+        if start_date > return_date + timedelta(days=2) or start_date < return_date - timedelta(days=29):
+            messages.error(request, 'レンタル期間は3～30日です')
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        return super().get(request)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['items'] = models.Item.objects.filter(
-            color_category=self.request.GET.get('color_category'),
-            type=self.request.GET.get('type')
-        )
+        items = models.Item.objects.annotate(Count('reservation')).order_by('-reservation__count')
+
+        start_date = datetime.strptime(self.request.GET.get('start_date'), '%Y-%m-%d')
+        return_date = datetime.strptime(self.request.GET.get('return_date'), '%Y-%m-%d')
+        days = (return_date - start_date).days + 1
+
+        sizes = models.Size.objects.all()
+        for size in sizes:
+            min = size.min_days
+            max = size.max_days
+            if max:
+                if min <= days < max:
+                    size_recommended = size
+            elif not max:
+                if min <= days:
+                    size_recommended = size
+
+        items_size = items.filter(size=size_recommended)
+        if items_size:
+            context['items'] = items_size
+        else:
+            context['items'] = items
+
+        for item in context['items']:
+            for reservation in item.reservation_set.all():
+                if not (return_date.date() + timedelta(days=1) < reservation.start_date or reservation.return_date < start_date.date() - timedelta(days=1)):
+                    context['items'] = items.exclude(uuid=item.uuid)
+
+        if self.request.GET.get('color_category') and self.request.GET.get('type'):
+            context['items'] = context['items'].filter(
+                color_category=self.request.GET.get('color_category'),
+                type=self.request.GET.get('type')
+            ).annotate(Count('reservation')).order_by('-reservation__count')
+            if not context['items'].count():
+                context['items'] = models.Item.objects.filter(
+                    color_category=self.request.GET.get('color_category'),
+                    type=self.request.GET.get('type')
+                ).annotate(Count('reservation')).order_by('-reservation__count')
+            else:
+                context['items'] = models.Item.objects.filter(color_category=self.request.GET.get('color_category')).annotate(Count('reservation')).order_by('-reservation__count')
+        elif self.request.GET.get('color_category') and not self.request.GET.get('type'):
+            context['items'] = context['items'].filter(color_category=self.request.GET.get('color_category')).annotate(Count('reservation')).order_by('-reservation__count')
+            if not context['items'].count():
+                context['items'] = models.Item.objects.filter(color_category=self.request.GET.get('color_category')).annotate(Count('reservation')).order_by('-reservation__count')
+        elif self.request.GET.get('type') and not self.request.GET.get('color_category'):
+            context['items'] = context['items'].filter(type=self.request.GET.get('type')).annotate(Count('reservation')).order_by('-reservation__count')
+            if not context['items'].count():
+                context['items'] = models.Item.objects.filter(type=self.request.GET.get('type')).annotate(Count('reservation')).order_by('-reservation__count')
+
         context['days'], context['fee'] = [], []
-        for item in context['items'], :
-            start_date = datetime.strptime(self.request.GET.get('start_date'), '%Y-%m-%d')
-            return_date = datetime.strptime(self.request.GET.get('return_date'), '%Y-%m-%d')
+        for item in context['items']:
             context['days'].append((return_date - start_date).days + 1)
-            context['fee'].append(self.fee_calculator())
+            context['fee'].append(self.fee_calculator(item))
         return context
 
     def post(self, request):
@@ -167,13 +241,14 @@ class SearchView(generic.TemplateView):
             new_cart.save()
             cart = models.Cart.objects.get(uuid=_uuid)
         request.session['cart'] = str(cart.uuid)
+        item = models.Item.objects.get(uuid=request.POST.get('item'))
         reservation = models.Reservation(
             cart=cart,
-            item=models.Item.objects.get(uuid=request.POST.get('item')),
+            item=item,
             start_date=request.GET.get('start_date'),
             return_date=request.GET.get('return_date'),
-            item_fee=self.fee_calculator(),
-            total_fee=self.fee_calculator(),
+            item_fee=self.fee_calculator(item),
+            total_fee=self.fee_calculator(item),
             postage=0,
         )
         if request.user.is_authenticated:
@@ -248,11 +323,17 @@ class RentalReadyView(generic.View):
         return round(fee, -1)
 
     def get(self, request):
+        start_date = datetime.strptime(request.GET.get('start_date'), '%Y-%m-%d')
+        return_date = datetime.strptime(request.GET.get('return_date'), '%Y-%m-%d')
+        if start_date > return_date - timedelta(days=2) or start_date < return_date - timedelta(days=30):
+            messages.error(request, 'レンタル期間は3～30日です')
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
         request.session['reservation'] = request.GET.get('reservation')
         reservation = models.Reservation.objects.get(uuid=request.GET.get('reservation'))
 
-        reservation.start_date = request.GET.get('start_date')
-        reservation.return_date = request.GET.get('return_date')
+        reservation.start_date = start_date
+        reservation.return_date = return_date
         reservation.total_fee = int(request.GET.get('total_fee'))
         reservation.item_fee = self.fee_calculator()
 
@@ -267,12 +348,13 @@ class RentalReadyView(generic.View):
         reservation.save()
         for uuid in request.GET.getlist('attachment'):
             attachment = models.Attachment.objects.get(uuid=uuid)
-            reservation.attachments.add(attachment)
+            models.ReservedAttachment.objects.get_or_create(reservation=reservation, attachment=attachment)
         for attachment in reservation.attachments.all():
             if str(attachment.uuid) not in request.GET.getlist('attachment'):
-                reservation.attachments.remove(attachment)
+                reserved_attachment = models.ReservedAttachment.objects.get(reservation=reservation, attachment=attachment)
+                reserved_attachment.delete()
 
-        return redirect('main:rental')
+        return redirect('main:rental', permanent=True)
 
 
 class RentalView(generic.UpdateView):
@@ -282,19 +364,16 @@ class RentalView(generic.UpdateView):
     success_url = reverse_lazy('main:rental_confirm')
 
     def get_object(self, queryset=None):
-        obj = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
+        obj = get_object_or_404(models.Reservation, uuid=self.request.session.get('reservation'), status=1)
         return obj
 
 
 class RentalConfirmView(generic.TemplateView):
     template_name = 'main/rental_confirm.html'
 
-    def get_object(self, queryset=None):
-        return obj
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        reservation = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
+        reservation = get_object_or_404(models.Reservation, uuid=self.request.session.get('reservation'), status=1)
         context['reservation'] = reservation
         context['days'] = (reservation.return_date - reservation.start_date).days + 1
         context['tax'] = int(round(reservation.total_fee * 0.08, -1))
@@ -307,7 +386,7 @@ class RentalConfirmView(generic.TemplateView):
 class RentalCheckoutView(generic.View):
 
     def post(self, request):
-        reservation = models.Reservation.objects.get(uuid=request.session.get('reservation'))
+        reservation = get_object_or_404(models.Reservation, uuid=self.request.session.get('reservation'), status=1)
 
         stripe.api_key = settings.STRIPE_API_KEY
         token = request.POST.get('stripeToken')
@@ -330,8 +409,7 @@ class RentalCheckoutView(generic.View):
             request.user.gender = reservation.gender
             request.user.age_range = reservation.age_range
             request.user.save()
-            # del request.session['reservation']
-        return redirect(reverse_lazy('main:rental_complete'), permanent=True)
+        return redirect('main:rental_complete', permanent=True)
 
 
 class RentalCompleteView(generic.CreateView):
@@ -342,21 +420,22 @@ class RentalCompleteView(generic.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['reservation'] = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
+        context['reservation'] = get_object_or_404(models.Reservation, uuid=self.request.session.get('reservation'), status=0)
+        if self.request.user.is_authenticated:
+            del self.request.session['reservation']
         return context
 
     def form_valid(self, form):
         form.instance.password = make_password(self.request.POST.get('password'))
         _uuid = str(uuid.uuid4())
-        new_user = form.save(commit=False)
-        new_user.uuid = _uuid
-        new_user.save()
-        user = User.objects.get(uuid=_uuid)
+        user = form.save(commit=False)
+        user.uuid = _uuid
         if 'reservation' in self.request.session:
             try:
                 reservation = models.Reservation.objects.get(uuid=self.request.session.get('reservation'))
-                reservation.user = user
-                reservation.save()
+            except models.Reservation.DoesNotExist:
+                user.save()
+            else:
                 user.zip_code = reservation.zip_code
                 user.prefecture = reservation.prefecture
                 user.city = reservation.city
@@ -366,16 +445,19 @@ class RentalCompleteView(generic.CreateView):
                 user.gender = reservation.gender
                 user.age_range = reservation.age_range
                 user.save()
-            except models.Reservation.DoesNotExist:
-                pass
+                user_saved = User.objects.get(uuid=_uuid)
+                reservation.user = user_saved
+                reservation.save()
             del self.request.session['reservation']
+
         if 'cart' in self.request.session:
             try:
                 cart = models.Cart.objects.get(uuid=self.request.session.get('cart'))
-                cart.user = user
-                cart.save()
             except models.Cart.DoesNotExist:
                 pass
+            else:
+                cart.user = user
+                cart.save()
 
         protocol = 'https://' if self.request.is_secure() else 'http://'
         host_name = settings.HOST_NAME
@@ -398,13 +480,17 @@ class RentalCompleteSocialView(generic.View):
         if 'reservation' in self.request.session:
             try:
                 reservation = models.Reservation.objects.get(uuid=request.session.get('reservation'))
-                reservation.user = user
+            except models.Reservation.DoesNotExist:
+                pass
+            else:
                 try:
                     cart = models.Cart.objects.get(user=request.user)
-                    reservation.cart = cart
-                    request.session['cart'] = str(cart.uuid)
                 except models.Cart.DoesNotExist:
                     pass
+                else:
+                    reservation.cart = cart
+                    request.session['cart'] = str(cart.uuid)
+                reservation.user = user
                 reservation.save()
                 request.user.zip_code = reservation.zip_code
                 request.user.prefecture = reservation.prefecture
@@ -415,17 +501,17 @@ class RentalCompleteSocialView(generic.View):
                 request.user.gender = reservation.gender
                 request.user.age_range = reservation.age_range
                 request.user.save()
-            except models.Reservation.DoesNotExist:
-                pass
             del request.session['reservation']
+
         if 'cart' in request.session:
             try:
                 _ = models.Cart.objects.get(user=request.user)
             except models.Cart.DoesNotExist:
                 try:
                     cart = models.Cart.objects.get(uuid=request.session.get('cart'))
-                    cart.user = request.user
-                    cart.save()
                 except models.Cart.DoesNotExist:
                     pass
+                else:
+                    cart.user = request.user
+                    cart.save()
         return redirect('accounts:signup_social', permanent=True)

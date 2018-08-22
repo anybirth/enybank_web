@@ -3,14 +3,93 @@
 {% load static %}
 {% block content %}
 
-<p>rental</p>
+{% if form.errors.items %}
+<div class="callout alert small" data-closable>
+  {% for field, errors in form.errors.items %}
+  {% for error in errors %}
+  <p class="text-center">{{ error }}</p>
+  {% endfor %}
+  {% endfor %}
+  </div>
+{% endif %}
 
-<form action="" method="post">
-  {{ form }}
-  {% csrf_token %}
-  <p class="text-center"><input type="submit" value="confirm" class="button"></p>
-</form>
+<section class="progress-bar">
+  <img class="center-horizontally" src="{% static 'main/img/preview5.png' %}">
+</section>
 
-<p class="text-center"><a href="{% url 'main:cart' %}">back to cart</a></p>
+<section id="rental-form">
+  <h1 id="rental-title" class="text-center">ご注文情報の入力</h1>
+  <p id="rental-text" class="text-center">下記の内容を入力後、確認画面へお進みください。</p>
+
+  <div class="grid-container">
+    <form action="" method="post">
+      {% csrf_token %}
+
+      <div class="group">
+        {{ form.address_name }}
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label class="label4">{{ form.address_name.label }}</label>
+      </div>
+
+      <div class="group">
+        {{ form.address_name_kana }}
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label class="label4">{{ form.address_name_kana.label }}</label>
+      </div>
+
+      <div class="group">
+        {{ form.zip_code }}
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label class="label4">{{ form.zip_code.label }}</label>
+      </div>
+
+      <div class="group group-select">
+        <label class="label-alt">{{ form.prefecture.label }}</label>
+        {{ form.prefecture }}
+      </div>
+
+      <div class="group">
+        {{ form.city }}
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label class="label4">{{ form.city.label }}</label>
+      </div>
+
+      <div class="group">
+        {{ form.address }}
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label class="label4">{{ form.address.label }}</label>
+      </div>
+
+      <div class="group">
+        {{ form.email }}
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label class="label4">{{ form.email.label }}</label>
+      </div>
+
+      <div class="group group-select">
+        <label class="label-alt">{{ form.gender.label }}</label>
+        {{ form.gender }}
+      </div>
+
+      <div class="group group-select">
+        <label class="label-alt">{{ form.age_range.label }}</label>
+        {{ form.age_range }}
+      </div>
+
+      <p class="text-center"><input type="submit" value="ご注文手続きに進む→" class="button"></p>
+
+    </form>
+  </div>
+</section>
+
+  <section class="back">
+    <p class="text-center"><a href="javascript:void(0);" onclick="window.history.back();" class="button">←前のページに戻る</a></p>
+  </section>
 
 {% endblock %}

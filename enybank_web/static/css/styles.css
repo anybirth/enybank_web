@@ -25,11 +25,35 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+.ttl-bar {
+  background-color: #e9e9e9;
+}
+.ttl-bar h1 {
+  font-family: HiraginoSans-W5, HiraginoSans-W6;
+  font-size: 11px;
+  color: #000000;
+  padding: 12px 8px;
+  margin: 0;
+}
+.must {
+  padding-bottom: 2px;
+}
+.must div {
+  border-radius: 3px;
+  background-color: #ff5858;
+  font-family: HiraginoSans-W4;
+  font-size: 3.125vw;
+  color: #ffffff;
+  margin-bottom: 10px;
+  padding: 1.3vw 2.5vw 1vw 2.5vw;
+  text-align: center;
+  display: inline;
+}
 
 /* header */
 #header {
   width: 100%;
-  height: 40px;
+  height: 50px;
   z-index: 400;
   box-shadow: 0 0px 4px gray;
   background-color: #FFF;
@@ -41,14 +65,14 @@
 #hamburger {
     display: block;
     width: 50px;
-    height: 40px;
+    height: 50px;
     text-align: center;
 }
 #hamburger span {
     display: block;
     position: absolute;
     width: 22px;
-    border-bottom: solid 2px #F25757;
+    border-bottom: solid 3px #F25757;
     border-radius: 1px;
     -webkit-transition: .35s ease-in-out;
     -moz-transition: .35s ease-in-out;
@@ -56,16 +80,16 @@
     left: 14px;
 }
 #hamburger span:nth-child(1) {
-    top: 14px;
+    top: 18px;
 }
 #hamburger span:nth-child(2) {
-    top: 20px;
+    top: 25px;
 }
 #hamburger span:nth-child(3) {
-    top: 26px;
+    top: 32px;
 }
 #hamburger.active span:nth-child(1) {
-    top: 20px;
+    top: 25px;
     left: 14px;
     -webkit-transform: rotate(-45deg);
     -moz-transform: rotate(-45deg);
@@ -73,7 +97,7 @@
 }
 #hamburger.active span:nth-child(2),
 #hamburger.active span:nth-child(3) {
-    top: 20px;
+    top: 25px;
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -83,8 +107,8 @@
 }
 #site-title h1 {
   font-family: MyanmarSangamMN;
-  font-size: 24px;
-  margin: 4px 13px 4px 13px;
+  font-size: 26px;
+  margin: 8px 13px;
   color: #000000;
 }
 #icon-area {
@@ -98,17 +122,17 @@
 #icon-login {
   width: 15px;
   height: auto;
-  margin: 5px 14px 1px 12px;
+  margin: 15px 14px 1px 12px;
 }
 #icon-accounts {
   width: 15px;
   height: auto;
-  margin: 5px 12px 1px 12px;
+  margin: 15px 12px 1px 12px;
 }
 #icon-cart {
   width: 15px;
   height: auto;
-  margin: 5px 14px 1px 12px;
+  margin: 15px 14px 1px 12px;
 }
 .icon-text {
   font-family: HiraginoSans-W3;
@@ -181,4 +205,203 @@
   border: 1px solid #eee;
   box-shadow: 0px 0px 2px gray;
   border-radius: 50%;
+}
+
+/* horizontal scroll (medium) */
+.scroll-wrapper-medium {
+  height: 205px;
+}
+.scroll-inner-medium {
+  height: 210px;
+}
+.box-medium {
+  width: 150px;
+  height: 200px;
+  margin: calc(5px - 1px);
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #e0e0e0;
+}
+.scroll-img-medium {
+  width: 150px;
+  height: 150px;
+  border-bottom: 1px solid #eee;
+  border-radius: 6px 6px 0 0;
+}
+.box-medium p {
+  margin: .5rem;
+}
+
+/* materialized form */
+/* basic stylings ------------------------------------------ */
+.container {
+  font-family:'Roboto';
+  /*width:600px;*/
+  margin:16px auto 0;
+  display:block;
+  /*background:#FFF;*/
+  /*padding:10px 50px 50px;*/
+}
+
+/* form starting stylings ------------------------------- */
+.group {
+  position:relative;
+  margin-top:40px;
+  margin-bottom:20px;
+}
+input.in1[type="text"], input.in1[type="email"], input.in1[type="password"] {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  /* width: 63vw; */
+  border:none;
+  border-bottom:1px solid #757575;
+  background-color:  none;
+  -webkit-appearance: none;
+  box-shadow: none;
+}
+input.in1[type="text"]:focus, input.in1[type="email"]:focus, input.in1[type="password"]:focus {
+  outline:none;
+}
+
+/* LABEL ======================================= */
+label.label4 {
+  color: #999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+
+label.label5 {
+  color: #999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+input.in1[type="password"] ~ label.label4, input.in1[type="password"] ~ label.label5 {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+label.label-alt {
+  color: #ff7777;
+  font-size:14px;
+  font-weight:normal;
+  left:5px;
+  top:-20px;
+}
+
+/* active state */
+input.in1[type="text"]:focus ~ label.label5, input.in1[type="text"]:valid ~ label.label4 {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+input.in1[type="email"]:focus ~ label.label5, input.in1[type="email"]:valid ~ label.label4 {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+input.in1[type="password"]:focus ~ label.label5, input.in1[type="password"]:valid ~ label.label4 {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+input.in1[type="email"]:focus ~ label.label5, input.in1[type="email"]:focus ~ label.label4, input.in1[type="email"]:invalid ~ label.label5, input.in1[type="email"]:invalid ~ label.label4   {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+input.in1[type="email"]:placeholder-shown ~ label.label5, input.in1[type="email"]:placeholder-shown ~ label.label4               {
+  font-size:18px !important;
+  top:10px !important;
+  color: #999 !important;
+}
+input.in1[type="password"]:focus ~ label.label5, input.in1[type="password"]:focus ~ label.label4, input.in1[type="password"]:invalid ~ label.label5, input.in1[type="password"]:invalid ~ label.label4   {
+  top:-20px;
+  font-size:14px;
+  color:#ff7777;
+}
+input.in1[type="password"]:placeholder-shown ~ label.label5, input.in1[type="password"]:placeholder-shown ~ label.label4 {
+  font-size:18px !important;
+  top:10px !important;
+  color: #999 !important;
+}
+
+
+/* BOTTOM BARS ================================= */
+.bar    { position:relative; display:block; width:100%; }
+.bar:before, .bar:after {
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  margin-bottom: 15px;
+  position:absolute;
+  background:#ff7777;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:0%;
+}
+.bar:after {
+  right:0%;
+}
+
+/* active state */
+input.in1[type="text"]:focus ~ .bar:before, input.in1[type="text"]:focus ~ .bar:after {
+  width:50%;
+}
+input.in1[type="email"]:focus ~ .bar:before, input.in1[type="email"]:focus ~ .bar:after {
+  width:50%;
+}
+input.in1[type="password"]:focus ~ .bar:before, input.in1[type="password"]:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%;
+  width:100px;
+  top:25%;
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+  border: none;
+}
+
+/* active state */
+input.in1[type="text"]:focus ~ .highlight, input.in1[type="email"]:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from { background:#ff7777; }
+  to    { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#ff7777; }
+  to    { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { backgrou nd:#ff7777; }
+  to    { width:0; background:transparent; }
 }

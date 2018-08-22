@@ -31,11 +31,11 @@
   <h1><i class="fas fa-search fa-sm"></i>&nbsp;スーツケースをすぐに探す</h1>
   <div class="grid-x">
     <div id="start_date" class="cell small-6">
-      <label>お届け日</label>
+      <div class="must"><label><div>必須</div>&nbsp;お届け日</label></div>
       <input readonly class='date_picker' type="text" name="start_date">
     </div>
     <div id="return_date" class="cell small-6">
-      <label>返却日</label>
+      <div class="must"><label><div>必須</div>&nbsp;返却日</label></div>
       <input readonly class='date_picker' type="text" name="return_date">
     </div>
   </div>
@@ -104,7 +104,9 @@
           </div>
           <p class="triangle-text">一番人気</p>
           <img class="center-horizontally" src="{{ item.item_image_set.all.0.image.url }}">
-          <h3>{{ item.name|truncatechars:22 }}</h3>
+          <div class="item-grid-title">
+            <h3>{{ item.name }}</h3>
+          </div>
           <div class="price">
             <p class="text-center"><span>{{ item.item_fee_coef_set.all.0.fee_coef }}円</span>/1日</p>
           </div>
@@ -124,7 +126,9 @@
           </div>
           <p class="triangle-text">一番人気</p>
           <img class="center-horizontally" src="{{ item.item_image_set.all.0.image.url }}">
-          <h3>{{ item.name|truncatechars:25 }}</h3>
+          <div class="item-grid-title">
+            <h3>{{ item.name }}</h3>
+          </div>
           <div class="price">
             <p class="text-center"><span>{{ item.item_fee_coef_set.all.0.fee_coef }}円</span>/1日</p>
           </div>
