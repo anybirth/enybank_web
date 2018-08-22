@@ -674,12 +674,12 @@
   font-size: 18px;
   line-height: 1.5;
   color: #000000;
-  height: 54px;
-  margin: 10px 5px 10px 0;
+  height: 27px;
+  margin: 20px 5px 10px 0;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
 }
 #cart .cart-item-down {
   position: relative;
@@ -890,13 +890,13 @@
   margin: 20px 0;
 }
 .return-text {
-  font-size: 11px;
+  font-size: 3.4vw;
   color: #000000;
   margin: 14px 6px;
 }
 .return-help a {
   font-family: HiraginoSans-W6;
-  font-size: 10px;
+  font-size: 3.4vw;
   color: #ff7674;
 }
 
@@ -1043,7 +1043,11 @@
 #total h2 span {
   font-size: 25px;
 }
+#total p {
+  padding: 0 10vw;
+}
 #total .button {
+  width: 100%;
   font-family: HiraginoSans-W6;
   font-size: 14px;
   font-weight: 700;
@@ -1055,7 +1059,11 @@
 }
 
 /* back */
+.back p {
+  padding: 0 10vw;
+}
 .back .button {
+  width: 100%;
   font-family: HiraginoSans-W4, HiraginoSans-W3;
   font-size: 14px;
   color: #000000;
