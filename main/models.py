@@ -20,6 +20,14 @@ class UUIDModel(models.Model):
         abstract = True
 
 
+class ImageQuerySet(models.QuerySet):
+
+    def delete(self, *args, **kwargs):
+        for obj in self:
+            obj.image.delete()
+        super().delete(*args, **kwargs)
+
+
 class Region(UUIDModel):
     order = models.SmallIntegerField(_('表示順'))
     name = models.CharField(_('地域名'), max_length=50)
@@ -119,6 +127,7 @@ class Type(UUIDModel):
     order= models.SmallIntegerField(_('表示順'))
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
     updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+    objects = ImageQuerySet.as_manager()
 
     class Meta:
         db_table = 'types'
@@ -132,11 +141,15 @@ class Type(UUIDModel):
     def save(self, *args, **kwargs):
         try:
             type = Type.objects.get(pk=self.pk)
-            if type.image:
-                if type.image.url != self.image.url:
-                    type.image.delete(save=False)
         except self.DoesNotExist:
             pass
+        else:
+            if type.image:
+                try:
+                    if type.image.url != self.image.url:
+                        type.image.delete(save=False)
+                except ValueError:
+                    pass
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -298,6 +311,7 @@ class ItemImage(UUIDModel):
     description = models.TextField(_('備考'), blank=True)
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
     updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+    objects = ImageQuerySet.as_manager()
 
     class Meta:
         db_table = 'item_images'
@@ -311,11 +325,15 @@ class ItemImage(UUIDModel):
     def save(self, *args, **kwargs):
         try:
             item_image = ItemImage.objects.get(pk=self.pk)
-            if item_image.image:
-                if item_image.image.url != self.image.url:
-                    item_image.image.delete(save=False)
         except self.DoesNotExist:
             pass
+        else:
+            if item_image.image:
+                try:
+                    if item_image.image.url != item_image.image.url:
+                        item_image.image.delete(save=False)
+                except ValueError:
+                    pass
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -354,6 +372,7 @@ class Attachment(UUIDModel):
     fee = models.IntegerField(_('料金'))
     created_at = models.DateTimeField(_('作成日時'), auto_now_add=True)
     updated_at = models.DateTimeField(_('更新日時'), auto_now=True)
+    objects = ImageQuerySet.as_manager()
 
     class Meta:
         db_table = 'attachments'
@@ -367,11 +386,15 @@ class Attachment(UUIDModel):
     def save(self, *args, **kwargs):
         try:
             attachment = Attachment.objects.get(pk=self.pk)
-            if attachment.image:
-                if attachment.image.url != self.image.url:
-                    attachment.image.delete(save=False)
         except self.DoesNotExist:
             pass
+        else:
+            if attachment.image:
+                try:
+                    if attachment.image.url != self.image.url:
+                        attachment.image.delete(save=False)
+                except ValueError:
+                    pass
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
