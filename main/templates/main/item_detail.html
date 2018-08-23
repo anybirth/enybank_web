@@ -204,9 +204,9 @@
       <div class="grid-x grid-padding-x fluid amount">
         <h2 class="subtitle">機内持ち込み</h2>
         <div class="grid-x grid-padding-x fluid" id="kinai">
-          {% if item.length|add:item.width|add:item.depth < 115 %}
+          {% if item.length|add:item.width|add:item.depth <= 115 %}
           {% for airline in airlines %}
-          {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions_carry_on %}
+          {% if item.length|add:item.width|add:item.depth <= airline.max_total_dimensions_carry_on %}
           <div class="cell small-6">
             <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
               <a href="{% url 'main:item_list' %}?size={{ airline.uuid }}">
@@ -242,7 +242,7 @@
         <h2 class="subtitle">国内線預け</h2>
         <div class="grid-x grid-padding-x fluid" id="kokunai">
           {% for airline in airlines %}
-          {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions_domestic %}
+          {% if item.length|add:item.width|add:item.depth <= airline.max_total_dimensions_domestic %}
           <div class="cell small-6">
             <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
               <a href="{% url 'main:item_list' %}?size={{ airline.uuid }}">
@@ -268,7 +268,7 @@
         <h2 class="subtitle">国際線預け</h2>
         <div class="grid-x grid-padding-x fluid" id="kokusai">
           {% for airline in airlines %}
-          {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions_international %}
+          {% if item.length|add:item.width|add:item.depth <= airline.max_total_dimensions_international %}
           <div class="cell small-6">
             <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
               <a href="{% url 'main:item_list' %}?size={{ airline.uuid }}">
