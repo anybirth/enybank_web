@@ -329,8 +329,6 @@ $(function() {
   $('[name=start_date], [name=return_date]').change(function() {
     startDateStr = $('[name=start_date]').val();
     returnDateStr = $('[name=return_date]').val();
-    console.log(startDateStr);
-    console.log(returnDateStr);
     if (startDateStr && returnDateStr) {
       startDate = parseDate(startDateStr);
       returnDate = parseDate(returnDateStr);
