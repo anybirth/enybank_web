@@ -92,8 +92,8 @@
         </div>
         <div class="cell small-8 thirdul">
           <ul>
-            <li>：　{{ item.capacity }}L<button name="submit" type="submit" value="submit-true" class="sizebotton">{{ item.size.name }}サイズ({{ item.size.min_days }}〜{{ item.size.max_days }}泊)</button></li>
-            <li>：　縦{{ item.length|floatformat }}×横{{ item.width|floatformat }}×奥行き{{ item.depth|floatformat }}(cm)</li>
+            <li>：　{{ item.capacity }}L<button name="submit" type="submit" value="submit-true" class="sizebotton">{{ item.size.name }}サイズ({% if item.size.min_days %}{{ item.size.min_days }}{% endif %}{% if item.size.max_days  %}~{{ item.size.max_days }}{% endif %}泊{% if not item.size.max_days %}~{% endif %})</button></li>
+            <li>：　縦{{ item.length|floatformat }}×横{{ item.width|floatformat }}×奥行{{ item.depth|floatformat }}(cm)</li>
             <li>：　{{ item.length|add:item.width|add:item.depth }}cm</li>
             <li>：　4輪</li>
             <li>：　<button name="submit" type="submit" value="submit-true" class="sizebotton">{{ item.type }}</button></li>
