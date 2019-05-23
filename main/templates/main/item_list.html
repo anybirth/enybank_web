@@ -13,7 +13,6 @@ $(function() {
   }
   var order =  $('[name=order]').val();
   var size =  $('[name=size]').val();
-  console.log('.items_' + order + '_' + size);
   $('.item-wrapper').addClass('display-none');
   $('.not-found').addClass('display-none');
   $('.items_' + order + '_' + size).removeClass('display-none');
@@ -21,7 +20,6 @@ $(function() {
   $('[name=order], [name=size]').change(function() {
     order =  $('[name=order]').val();
     size =  $('[name=size]').val();
-    console.log('.items_' + order + '_' + size);
     $('.item-wrapper').addClass('display-none');
     $('.not-found').addClass('display-none');
     $('.items_' + order + '_' + size).removeClass('display-none');

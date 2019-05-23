@@ -60,9 +60,9 @@
   </div>
   <div class="cell small-8 midiun-6 sub2">
     <ul>
-      <li><p>{{ reservation.address_name }}</p></li>
-      <li><p>{{ reservation.address_name_kana }}</p></li>
-      <li><p>{{ reservation.zip_code }}</p></li>
+      <li><p>{{ reservation.last_name }} {{ reservation.first_name }}</p></li>
+      <li><p>{{ reservation.last_name_kana }} {{ reservation.first_name_kana }}</p></li>
+      <li><p>{{ reservation.zip_code1 }}-{{ reservation.zip_code2 }}</p></li>
       <li><p>{{ reservation.city }}{{ reservation.address }}</p></li>
       <li><p>{{ reservation.email }}</p></li>
     </ul>

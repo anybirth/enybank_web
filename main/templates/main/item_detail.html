@@ -77,34 +77,120 @@
         <div class="cell small-4 secondul">
           <ul>
             <li>容量</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　{{ item.capacity }}L<button name="submit" type="submit" value="submit-true" class="sizebotton">{{ item.size.name }}サイズ({% if item.size.min_days %}{{ item.size.min_days }}{% endif %}{% if item.size.max_days  %}~{{ item.size.max_days }}{% endif %}泊{% if not item.size.max_days %}~{% endif %})</button></li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li>サイズ</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　縦{{ item.length|floatformat }}×横{{ item.width|floatformat }}×奥行{{ item.depth|floatformat }}(cm)</li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li>三辺のサイズ</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　{{ item.length|add:item.width|add:item.depth }}cm</li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li>キャスター</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　4輪</li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li>鍵のタイプ</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　<button name="submit" type="submit" value="submit-true" class="sizebotton">{{ item.type }}</button></li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li>TSAロック</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　{% if not item.is_tsa %}非{% endif %}対応</li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li>材質</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　{{ item.material|default:'その他' }}</li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li>型番</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　{{ item.model_number|default:'なし' }}</li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li>カラー</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　<button name="submit" type="submit" value="submit-true" class="sizebotton">{{ item.color }}</button></li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li>ブランド</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　{{ item.bland.name }}</li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li>即日発送</li>
+          </ul>
+        </div>
+        <div class="cell small-8 thirdul">
+          <ul>
+            <li>：　可能</li>
+          </ul>
+        </div>
+        <div class="cell small-4 secondul">
+          <ul>
             <li id="nasi">送料</li>
           </ul>
         </div>
         <div class="cell small-8 thirdul">
           <ul>
-            <li>：　{{ item.capacity }}L<button name="submit" type="submit" value="submit-true" class="sizebotton">{{ item.size.name }}サイズ({{ item.size.min_days }}〜{{ item.size.max_days }}泊)</button></li>
-            <li>：　縦{{ item.length|floatformat }}×横{{ item.width|floatformat }}×奥行き{{ item.depth|floatformat }}(cm)</li>
-            <li>：　{{ item.length|add:item.width|add:item.depth }}cm</li>
-            <li>：　4輪</li>
-            <li>：　<button name="submit" type="submit" value="submit-true" class="sizebotton">{{ item.type }}</button></li>
-            <li>：　{% if not item.is_tsa %}非{% endif %}対応</li>
-            <li>：　{{ item.material|default:'その他' }}</li>
-            <li>：　{{ item.model_number|default:'なし' }}</li>
-            <li>：　<button name="submit" type="submit" value="submit-true" class="sizebotton">
-              {{ item.color }}
-            </button></li>
-            <li>：　{{ item.bland.name }}</li>
-            <li>：　可能</li>
             <li id="nasi">：　往復無料*</li>
           </ul>
         </div>
@@ -118,9 +204,9 @@
       <div class="grid-x grid-padding-x fluid amount">
         <h2 class="subtitle">機内持ち込み</h2>
         <div class="grid-x grid-padding-x fluid" id="kinai">
-          {% if item.length|add:item.width|add:item.depth < 115 %}
+          {% if item.length|add:item.width|add:item.depth <= 115 %}
           {% for airline in airlines %}
-          {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions_carry_on %}
+          {% if item.length|add:item.width|add:item.depth <= airline.max_total_dimensions_carry_on %}
           <div class="cell small-6">
             <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
               <a href="{% url 'main:item_list' %}?size={{ airline.uuid }}">
@@ -156,7 +242,7 @@
         <h2 class="subtitle">国内線預け</h2>
         <div class="grid-x grid-padding-x fluid" id="kokunai">
           {% for airline in airlines %}
-          {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions_domestic %}
+          {% if item.length|add:item.width|add:item.depth <= airline.max_total_dimensions_domestic %}
           <div class="cell small-6">
             <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
               <a href="{% url 'main:item_list' %}?size={{ airline.uuid }}">
@@ -182,7 +268,7 @@
         <h2 class="subtitle">国際線預け</h2>
         <div class="grid-x grid-padding-x fluid" id="kokusai">
           {% for airline in airlines %}
-          {% if item.length|add:item.width|add:item.depth < airline.max_total_dimensions_international %}
+          {% if item.length|add:item.width|add:item.depth <= airline.max_total_dimensions_international %}
           <div class="cell small-6">
             <div class="airline-grid" style="background-color:{% if airline.color and airline.color != '#' %}{{ airline.color }}{% else %}#d8d8d8{% endif %}">
               <a href="{% url 'main:item_list' %}?size={{ airline.uuid }}">
@@ -329,8 +415,6 @@ $(function() {
   $('[name=start_date], [name=return_date]').change(function() {
     startDateStr = $('[name=start_date]').val();
     returnDateStr = $('[name=return_date]').val();
-    console.log(startDateStr);
-    console.log(returnDateStr);
     if (startDateStr && returnDateStr) {
       startDate = parseDate(startDateStr);
       returnDate = parseDate(returnDateStr);

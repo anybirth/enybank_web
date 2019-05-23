@@ -115,12 +115,15 @@ class ItemDetailView(generic.DetailView):
         )
         if request.user.is_authenticated:
             reservation.user = request.user
-            reservation.zip_code = request.user.zip_code
+            reservation.last_name = request.user.last_name
+            reservation.first_name = request.user.first_name
+            reservation.last_name_kana = request.user.last_name_kana
+            reservation.first_name_kana = request.user.first_name_kana
+            reservation.zip_code1 = request.user.zip_code1
+            reservation.zip_code2 = request.user.zip_code2
             reservation.prefecture = request.user.prefecture
             reservation.city = request.user.city
             reservation.address = request.user.address
-            reservation.address_name = request.user.address_name
-            reservation.address_name_kana = request.user.address_name_kana
             reservation.email = request.user.email
             reservation.gender = request.user.gender
             reservation.age_range = request.user.age_range
@@ -253,12 +256,15 @@ class SearchView(generic.TemplateView):
         )
         if request.user.is_authenticated:
             reservation.user = request.user
-            reservation.zip_code = request.user.zip_code
+            reservation.last_name = request.user.last_name
+            reservation.first_name = request.user.first_name
+            reservation.last_name_kana = request.user.last_name_kana
+            reservation.first_name_kana = request.user.first_name_kana
+            reservation.zip_code1 = request.user.zip_code1
+            reservation.zip_code2 = request.user.zip_code2
             reservation.prefecture = request.user.prefecture
             reservation.city = request.user.city
             reservation.address = request.user.address
-            reservation.address_name = request.user.address_name
-            reservation.address_name_kana = request.user.address_name_kana
             reservation.email = request.user.email
             reservation.gender = request.user.gender
             reservation.age_range = request.user.age_range
@@ -400,12 +406,15 @@ class RentalCheckoutView(generic.View):
         reservation.status = 0
         reservation.save()
         if request.user.is_authenticated:
-            request.user.zip_code = reservation.zip_code
+            request.user.last_name = reservation.last_name
+            request.user.first_name = reservation.first_name
+            request.user.last_name_kana = reservation.last_name_kana
+            request.user.first_name_kana = reservation.first_name_kana
+            request.user.zip_code1 = reservation.zip_code1
+            request.user.zip_code2 = reservation.zip_code2
             request.user.prefecture = reservation.prefecture
             request.user.city = reservation.city
             request.user.address = reservation.address
-            request.user.address_name = reservation.address_name
-            request.user.address_name_kana = reservation.address_name_kana
             request.user.gender = reservation.gender
             request.user.age_range = reservation.age_range
             request.user.save()
@@ -436,12 +445,15 @@ class RentalCompleteView(generic.CreateView):
             except models.Reservation.DoesNotExist:
                 user.save()
             else:
-                user.zip_code = reservation.zip_code
+                user.last_name = reservation.last_name
+                user.first_name = reservation.first_name
+                user.last_name_kana = reservation.last_name_kana
+                user.first_name_kana = reservation.first_name_kana
+                user.zip_code1 = reservation.zip_code1
+                user.zip_code2 = reservation.zip_code2
                 user.prefecture = reservation.prefecture
                 user.city = reservation.city
                 user.address = reservation.address
-                user.address_name = reservation.address_name
-                user.address_name_kana = reservation.address_name_kana
                 user.gender = reservation.gender
                 user.age_range = reservation.age_range
                 user.save()
@@ -492,12 +504,15 @@ class RentalCompleteSocialView(generic.View):
                     request.session['cart'] = str(cart.uuid)
                 reservation.user = user
                 reservation.save()
-                request.user.zip_code = reservation.zip_code
+                request.user.last_name = reservation.last_name
+                request.user.first_name = reservation.first_name
+                request.user.last_name_kana = reservation.last_name_kana
+                request.user.first_name_kana = reservation.first_name_kana
+                request.user.zip_code1 = reservation.zip_code1
+                request.user.zip_code2 = reservation.zip_code2
                 request.user.prefecture = reservation.prefecture
                 request.user.city = reservation.city
                 request.user.address = reservation.address
-                request.user.address_name = reservation.address_name
-                request.user.address_name_kana = reservation.address_name_kana
                 request.user.gender = reservation.gender
                 request.user.age_range = reservation.age_range
                 request.user.save()
