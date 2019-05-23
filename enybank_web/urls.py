@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('social_django.urls')),
     path('', include('main.urls')),
     path('accounts/', include('accounts.urls')),
+    path('line/', include('line.urls')),
 ]
 
 if settings.DEBUG:
