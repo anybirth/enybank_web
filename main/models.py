@@ -441,7 +441,7 @@ class Reservation(UUIDModel):
         def choices(cls):
             return [(c.name, c.value) for c in cls]
 
-    cart = models.ForeignKey('Cart', on_delete=models.PROTECT, verbose_name=_('カート'))
+    cart = models.ForeignKey('Cart', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('カート'))
     user = models.ForeignKey('accounts.User', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('ユーザー'))
     item = models.ForeignKey('Item', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('アイテム'))
     size = models.ForeignKey('Size', on_delete=models.PROTECT, blank=True, null=True, verbose_name=_('サイズ'))
