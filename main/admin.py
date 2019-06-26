@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django import forms
+from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib import messages
 from . import models
@@ -167,9 +168,9 @@ class ItemAdmin(admin.ModelAdmin):
         self.message_user(request, "選択されたアイテムを{}個ずつ複製しました".format(n), level=messages.SUCCESS)
         if queryset.count() == 1:
             if queryset.first().series:
-                return redirect('/admin/main/item/?series__uuid__exact={}'.format(queryset.first().series.uuid))
+                return redirect(reverse('admin:main_item_changelist') + '?series__uuid__exact={}'.format(queryset.first().series.uuid))
             elif queryset.first().bland and not queryset.first().series:
-                return redirect('/admin/main/item/?bland__uuid__exact={}'.format(queryset.first().bland.uuid))
+                return redirect(reverse('admin:main_item_changelist') + '?bland__uuid__exact={}'.format(queryset.first().bland.uuid))
 
     def copy_models_1(self, request, queryset):
         return self._copy_models(request, queryset, 1)

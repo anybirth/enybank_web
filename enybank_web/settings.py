@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'social_django',
     'main',
     'accounts',
+    'line',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'

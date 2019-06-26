@@ -19,10 +19,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/bf64b87f-38ca-4b07-833d-4fda9994adfa/', admin.site.urls),
     path('', include('social_django.urls')),
     path('', include('main.urls')),
     path('accounts/', include('accounts.urls')),
+    path('line/c2ef8e48-5b50-4f01-93ad-8f1671cde746/', include('line.urls')),
 ]
 
 if settings.DEBUG:
