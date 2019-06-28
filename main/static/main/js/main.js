@@ -36,13 +36,5 @@ $(function() {
 
     var _href = $(this).attr("href");
     $(this).attr("href", _href + '?start_date=' + start_date + '&return_date=' + return_date + '&color_category=' + color_category + '&type=' + type);
-
-    // if (start_date && return_date && color_category && type) {
-    //   var _href = $(this).attr("href");
-    //   $(this).attr("href", _href + '?start_date=' + start_date + '&return_date=' + return_date + '&color_category=' + color_category + '&type=' + type);
-    // } else {
-    //   alert('全ての項目を選択してください');
-    //   return false;
-    // }
   });
 });
