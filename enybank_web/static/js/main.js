@@ -1,3 +1,19 @@
+// components
+function unescapeHTML(str) {
+  var div = document.createElement("div");
+  div.innerHTML = str.replace(/</g,"&lt;")
+                     .replace(/>/g,"&gt;")
+                     .replace(/ /g, "&nbsp;")
+                     .replace(/\r/g, "&#13;")
+                     .replace(/\n/g, "&#10;");
+  return div.textContent || div.innerText;
+}
+
+function parseDate(input) {
+  var parts = String(input).match(/(\d+)/g);
+  return new Date(parts[0], parts[1]-1, parts[2]);
+}
+
 $(function() {
 
   // drawer menu

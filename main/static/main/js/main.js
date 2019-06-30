@@ -1,3 +1,56 @@
+// startdatepicker
+$.fn.startdatepicker = function(buttonImage) {
+  return $(this).datepicker({
+    showOn: "both",
+    buttonImage: buttonImage,
+    buttonImageOnly: true,
+    buttonText: "日付を選択",
+    dateFormat: "yy-mm-dd",
+    minDate: '+1d',
+    maxDate: '+1y',
+    beforeShow: function(input, inst) {
+      var calendar = inst.dpDiv;
+      setTimeout(function() {
+        calendar.position({
+          my: 'right top',
+          at: 'right bottom',
+          of: input
+        });
+      }, 1);
+    },
+    onSelect: function(selectedDateStr) {
+      var selectedDate = parseDate(selectedDateStr); // parseDate() is defined in static/js/main.js
+      min = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() + 2);
+      max = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() + 30);
+      $('#return_date .date_picker').datepicker('option', 'minDate', min);
+      $('#return_date .date_picker').datepicker('option', 'maxDate', max);
+    }
+  });
+}
+
+// returndatepicker
+$.fn.returndatepicker = function(buttonImage) {
+  return $(this).datepicker({
+    showOn: "both",
+    buttonImage: buttonImage,
+    buttonImageOnly: true,
+    buttonText: "日付を選択",
+    dateFormat: "yy-mm-dd",
+    minDate: '+3d',
+    maxDate: '+1y +2d',
+    beforeShow: function(input, inst) {
+      var calendar = inst.dpDiv;
+      setTimeout(function() {
+        calendar.position({
+          my: 'right top',
+          at: 'right bottom',
+          of: input
+        });
+      }, 1);
+    }
+  });
+}
+
 $(function() {
 
   // slider
