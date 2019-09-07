@@ -279,7 +279,7 @@ def callback(request):
                 for type, _ in zip(types, range(0, 10)):
                     columns.append(
                         CarouselColumn(
-                            thumbnail_image_url='https://{}{}'.format(settings.DOMAIN_NAME, type.image.url),
+                            thumbnail_image_url=type.image.url,
                             title=type.name,
                             text=type.description,
                             actions=[
@@ -319,7 +319,7 @@ def callback(request):
                         image = item.item_image_set.order_by('order')[0].image.url
                         columns.append(
                             CarouselColumn(
-                                thumbnail_image_url='https://{}{}'.format(settings.DOMAIN_NAME, image),
+                                thumbnail_image_url=image,
                                 title=item.name,
                                 text=text2,
                                 actions=[
@@ -341,7 +341,7 @@ def callback(request):
                         image = item.item_image_set.order_by('order')[0].image.url
                         columns.append(
                             CarouselColumn(
-                                thumbnail_image_url='https://{}{}'.format(settings.DOMAIN_NAME, image),
+                                thumbnail_image_url=image,
                                 title=item.name,
                                 text=text2,
                                 actions=[
@@ -354,7 +354,7 @@ def callback(request):
                         )
                     columns.append(
                         CarouselColumn(
-                            thumbnail_image_url='https://{}{}'.format(settings.DOMAIN_NAME, static('line/img/plus.png')),
+                            thumbnail_image_url=static('line/img/plus.png'),
                             title='もっと見る',
                             text='更に商品を見たい場合、下の「もっと見る」をタップしてください',
                             actions=[
@@ -402,7 +402,7 @@ def callback(request):
                 for item_image, _ in zip(item_images, range(0, 10)):
                     columns.append(
                         ImageCarouselColumn(
-                            image_url='https://{}{}'.format(settings.DOMAIN_NAME, item_image.image.url),
+                            image_url=item_image.image.url,
                             action=PostbackTemplateAction(
                                  label='画像{}'.format(str(item_image.order)),
                                  data='_'
@@ -764,7 +764,7 @@ def callback(request):
 
                     columns.append(
                         CarouselColumn(
-                            thumbnail_image_url='https://{}{}'.format(settings.DOMAIN_NAME, image),
+                            thumbnail_image_url=image,
                             title=title,
                             text=text2,
                             actions=[
